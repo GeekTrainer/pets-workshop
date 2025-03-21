@@ -13,8 +13,8 @@ Let's create the repository you'll use for your workshop.
 
     ![Screenshot of Use this template dropdown](images/0-setup-template.png)
 
-3. Under **Owner**, select the name of your GitHub handle.
-4. Under **Repository**, set the name to **pets-workshop**.
+3. Under **Owner**, select the name of your GitHub handle, or the owner specified by your workshop leader.
+4. Under **Repository**, set the name to **pets-workshop**, or the name specified by your workshop leader.
 5. Ensure **Public** is selected for the visibility.
 6. Select **Create repository from template**.
 
