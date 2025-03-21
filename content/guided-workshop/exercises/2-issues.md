@@ -25,13 +25,11 @@ Our project needs two main updates. We want to make the updates to support devel
 1. Select **New issue**.
 1. Create new issues by adding the information indicated in the table below, selecting **Submit new issue** after creating each one (and using **New issue** to create a new one):
 
-    | Title                          | Description                                                                    |
-    | ------------------------------ | ------------------------------------------------------------------------------ |
-    | Define codespace               | Create the necessary definitions for the codespace to enable cloud development |
-    | Implement testing              | Create a workflow to automate testing for continuous integration               |
-    | Add component to display hours | Create a new component for the project to display the shelter's hours          |
-    | Create deployment environment  | Create a workflow to create deployment environment                             |
-    | Implement automated deployment | Create a workflow to automate deployment for continuous delivery               |
+    | Title                   | Description                                                                    |
+    | ----------------------- | ------------------------------------------------------------------------------ |
+    | Define codespace        | Create the necessary definitions for the codespace to enable cloud development |
+    | Implement testing       | Create a workflow to automate testing for continuous integration               |
+    | Add filters to dog list | Add the code to allow users to filter for dogs by breed and availability       |
 
     > **TIP:** You can also save an issue by pressing <kbd>Ctl</kbd> - <kbd>Enter</kbd> (or <kbd>Cmd</kbd> - <kbd>Return</kbd> on a Mac) in the title or description fields.
 
