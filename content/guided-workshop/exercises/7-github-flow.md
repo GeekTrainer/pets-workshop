@@ -15,7 +15,7 @@ The GitHub flow is designed to work as a cycle, where contributors continuously 
 
 ## Scenario
 
-With the code changes created in the [prior exercise](./5-coding.md), it's time to walk through the GitHub flow to create a pull request and incorporate the updates into the codebase. While the changes have already been made (meaning we are slightly out of order from the "traditional" flow), you can still perform the steps to explore.
+With the code changes created in the [prior exercise](./6-code.md), it's time to walk through the GitHub flow to create a pull request and incorporate the updates into the codebase. While the changes have already been made (meaning we are slightly out of order from the "traditional" flow), you can still perform the steps to explore.
 
 ## Creating a branch
 
