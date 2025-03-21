@@ -93,7 +93,7 @@ Adding the filters to the page will require updating a minimum of three files - 
 
 ## Summary and next steps
 
-Congratulations! You've worked with GitHub Copilot to add new features to the website - the ability to filter the list of dogs. Let's close out by [creating a pull request with our new functionality](./7-git-flow.md)!
+Congratulations! You've worked with GitHub Copilot to add new features to the website - the ability to filter the list of dogs. Let's close out by [creating a pull request with our new functionality](./7-github-flow.md)!
 
 ## Resources
 
