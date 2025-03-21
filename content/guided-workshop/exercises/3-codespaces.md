@@ -34,7 +34,7 @@ Let's create our own dev container! The [dev container is configured](https://do
     > [!NOTE]
     > You can type the name of the feature you want to filter the list.
 
-8.  Select **latest (default)** for the version of the GitHub CLI.
+8.  Select **Keep defaults** to use the default configuration.
 
 > [!IMPORTANT]
 > Your new container definition files will be created into the **.devcontainer** folder. **DO NOT** select **Rebuild Now**; we'll do that in just a moment.
@@ -83,7 +83,7 @@ Before rebuilding the container, let's add **GitHub.copilot** to the list of ext
 		4321,
 		5100,
 		5000
-	]
+	],
     ```
 
 6. Just below the list of ports, add the command to run the startup script to the container definition:
@@ -110,7 +110,7 @@ Custom containers for GitHub Codespaces become part of the source code for the r
 
 > **IMPORTANT:** For purposes of this exercise we are pushing code updates directly to `main`, our default branch. Normally you would follow the [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow), which we will do in a [later exercise](6-github-flow.md).
 
-1. Open the terminal window in the codespace by selecting <kbd>Ctl</kbd> + <kbd>`</kbd> or clicking ☰ → View → Terminal.
+1. Open a new terminal window in the codespace by selecting <kbd>Ctl</kbd> + <kbd>Shift</kbd> + <kbd>`</kbd> or clicking ☰ → View → Terminal.
 1. Find the issue number for defining the codespace by entering the following command:
 
     ```bash
