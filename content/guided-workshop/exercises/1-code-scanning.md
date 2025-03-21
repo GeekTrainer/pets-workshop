@@ -24,12 +24,12 @@ Public repositories on GitHub automatically have Dependabot alerts. This feature
 
 1. Navigate to the repository you created for this workshop.
 1. Select the **Settings** tab.
-1. On the left side, select **Code security and analysis**.
-1. Locate the **Dependabot** section towards the middle of the page:
+2. On the left side, select **Code security**.
+3. Locate the **Dependabot** section towards the middle of the page:
 
     ![Screenshot of the dependabot section](./images/1-dependabot.png)
 
-1. Select **Enable** next to **Dependabot security updates** to configure Dependabot to create PRs to resolve alerts.
+4. Select **Enable** next to **Dependabot security updates** to configure Dependabot to create PRs to resolve alerts.
 
 You have now enabled Dependabot alerts and security updates! Should an insecure library be detected, you will both receive an alert, and Dependabot will create a new pull request to update the version number to a secure version of the library.
 

@@ -23,7 +23,9 @@ Our project needs two main updates. We want to make the updates to support devel
 1. Return to the repository you created at the beginning of this workshop.
 1. Select the **Issues** tab.
 1. Select **New issue**.
-1. Create new issues by adding the information indicated in the table below, selecting **Submit new issue** after creating each one (and using **New issue** to create a new one):
+2. If prompted for type, select **Blank issue**.
+3. Select **Create more** at the bottom of the page to streamline the creation process.
+4. Create new issues by adding the information indicated in the table below, selecting **Submit new issue** after creating each one:
 
     | Title                   | Description                                                                    |
     | ----------------------- | ------------------------------------------------------------------------------ |

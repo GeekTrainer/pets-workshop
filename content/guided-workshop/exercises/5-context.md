@@ -24,8 +24,9 @@ GitHub Copilot Chat has a set of available chat participants and extensions avai
 
 1. Return to your codespace, or reopen it by navigating to your repository and selecting **Code** > **Codespaces** and the name of your codespace.
 2. Open GitHub Copilot Chat.
-3. Type `@workspace` in the chat prompt window and hit <kbd>tab</kbd> to select or activate it, then continue by asking Copilot about your project. You can ask what technologies are in use, what the project does, where functionality resides, etc.
-4. Spend a few minutes exploring to find the answers to the following questions:
+3. Select the `+` icon towards the top to begin a new chat.
+4. Type `@workspace` in the chat prompt window and hit <kbd>tab</kbd> to select or activate it, then continue by asking Copilot about your project. You can ask what technologies are in use, what the project does, where functionality resides, etc.
+5. Spend a few minutes exploring to find the answers to the following questions:
     - What frameworks are currently in use?
     - Where's the database the project uses?
     - How is the frontend built?

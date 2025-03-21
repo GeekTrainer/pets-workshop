@@ -21,20 +21,20 @@ One thing that's really great is the [default dev container](https://github.com/
 Let's create our own dev container! The [dev container is configured](https://docs.github.com/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers) by creating the Docker files Codespaces will use to create and configure the container, and providing any customizations in the `devcontainer.json` file. Customizations provided in `devcontainer.json` can include ports to open, commands to run, and extension to install in Visual Studio Code (either running locally on the desktop or in the browser). This configuration becomes part of the repository. All developers who wish to contribute can then create a new instance of the container based on the configuration you provided.
 
 1. Access the Command Palette (<kbd>F1</kbd> or clicking ☰ → View → Command Palette), then start typing **dev container**.
-1. Select **Codespaces: Add Development Container Configuration Files...** .
-2. Select **Add configuration to workspace**.
+2. Select **Codespaces: Add Development Container Configuration Files...** .
 3. Select **Create a new configuration...**.
-4. Select **From a predefined container configuration...**.
-5. Scroll down and select **Node.js & TypeScript**.
-6. Select **22-bookworm (default)**.
-7. Select the following features to add into your container:
+4. Scroll down and select **Node.js & TypeScript**.
+5. Select **22-bookworm (default)**.
+6. Select the following features to add into your container:
     - **GitHub CLI**
     - **Python**
 
     > [!NOTE]
     > You can type the name of the feature you want to filter the list.
 
-8.  Select **Keep defaults** to use the default configuration.
+7. Select **OK** to add the features.
+8. Select **Keep defaults** to use the default configuration.
+9. If you receive the prompt **File './.github/dependabot.yml' already exists, overwrite?**, select **Skip**.
 
 > [!IMPORTANT]
 > Your new container definition files will be created into the **.devcontainer** folder. **DO NOT** select **Rebuild Now**; we'll do that in just a moment.
@@ -98,11 +98,13 @@ You've now defined a custom container!
 
 Whenever someone uses the codespace you defined they'll have an environment with Node.js and Mongo DB, and the GitHub Copilot extension installed. Let's use this container!
 
-1. Open the command palette.
+1. Access the Command Palette (<kbd>F1</kbd> or clicking ☰ → View → Command Palette), then start typing **dev container**.
 1. Type **rebuild** and select **Codespaces: Rebuild container**.
 1. Select **Rebuild Container** on the dialog box. Your container now rebuilds.
 
 > **IMPORTANT:** Rebuilding the container can take several minutes. Obviously this isn't an ideal situation for providing fast access to your developers, even if it's faster than creating everything from scratch. Fortunately you can [prebuild your codespaces](https://docs.github.com/en/codespaces/prebuilding-your-codespaces) to ensure developers can spin one up within seconds.
+>
+> You may also be prompted to reload the window as extensions install. Reload the window as prompted.
 
 ## Interacting with the repository
 

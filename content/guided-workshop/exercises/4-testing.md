@@ -46,14 +46,15 @@ Now that we have an overview of the structure of a workflow, let's ask Copilot t
 
 1. Create a new folder under **.github** named **workflows**.
 2. Create a new file named **server-test.yml** and ensure the file is open.
-3. Open GitHub Copilot Chat.
-4. Add the test file **test_app.py** to the context by using the `#` in the Chat dialog box and beginning to type **test_app.py**, and pressing <kbd>enter</kbd> when it's highlighted.
-5. Prompt Copilot to create a GitHub Action workflow to run the tests. Use natural language to describe the workflow you're looking to create (to run the tests defined in test_app.py), and that you want it to run on merge (for when new code is pushed), when a PR is made, and on demand.
+3. If prompted to install the **GitHub Actions** extension, select **Install**.
+4. Open GitHub Copilot Chat.
+5. Add the test file **test_app.py** to the context by using the `#` in the Chat dialog box and beginning to type **test_app.py**, and pressing <kbd>enter</kbd> when it's highlighted.
+6. Prompt Copilot to create a GitHub Action workflow to run the tests. Use natural language to describe the workflow you're looking to create (to run the tests defined in test_app.py), and that you want it to run on merge (for when new code is pushed), when a PR is made, and on demand.
 
   > [!IMPORTANT]
   > A prescriptive prompt isn't provided as part of the exercise is to become comfortable interacting with GitHub Copilot.
 
-6. Add the generated code to the new file. It should resemble the following:
+6. Add the generated code to the new file by hovering over the suggested code and selecting the **Insert at cursor** button. The generated code should resemble the following:
 
 ```yml
 name: Server Tests
