@@ -45,6 +45,9 @@ Let's build our new route in our Flask backend with the help of code completion.
 5. Select <kbd>Tab</kbd> to accept the code suggestion.
 6. Navigate to [http://localhost:5100/api/breeds](http://localhost:5100/api/breeds) to validate the route.
 
+> [!NOTE]
+> As with the prior exercise, we don't provide specific prompts to use with Copilot, as part of the learning experience is to discover how to interact with Copilot. If you are unfamiliar with Flask or how to add routes, you can look at the routes defined above for inspiration, or ask Copilot chat for guidance!
+
 ## Generate the unit tests
 
 With the route created, we want to now add the tests to ensure the code is correct. We can use GitHub Copilot chat's slash command **/tests** to create the test for us!
@@ -58,7 +61,7 @@ With the route created, we want to now add the tests to ensure the code is corre
 7. Review and validate the code, making any necessary changes. Select **Keep** once you're satisfied.
     > [!IMPORTANT]
     > GitHub Copilot, like any generative AI solution, can make mistakes. Always review the generated code, making any necessary changes to ensure it's accurate and performs as expected.
-8. Open a terminal window in your codespace or VS Code by selecting <kbd>Ctl</kbd> <kbd>`</kbd>
+8. Open a terminal window in your codespace or VS Code by selecting <kbd>Ctl</kbd>+<kbd>Shift</kbd>+<kbd>`</kbd>
 9. Ensure the virtual server is activated by running the terminal command `source ./venv/bin/activate`
 10. Navigate to the **server** folder by running the terminal command `cd server`
 11. Run the tests by running the terminal command `python -m unittest`
@@ -68,7 +71,7 @@ With the route created, we want to now add the tests to ensure the code is corre
 
 Adding the filters to the page will require updating a minimum of three files - the Flask backend, the unit tests for our Flask backend, and the Svelte frontend. Fortunately, Copilot Edits can update multiple files! Let's get our page updated with the help of Copilot Edits.
 
-1. Open the following files to help Copilot Chat understand the context we need to use:
+1. Open the following files in your IDE (which we'll point Copilot chat to for context):
    - **server/app.py**
    - **server/test_app.py**
    - **client/src/components/DogList.svelte** 
@@ -82,7 +85,7 @@ Adding the filters to the page will require updating a minimum of three files - 
     - Tests should be updated for any changes to the endpoint.
 6. Review the code suggestions to ensure they behave the way you expect them to, making any necessary changes. Once you're satisfied, you can select **Keep** on the files individually or in Copilot Chat to accept all changes.
 7. Open the page at [http://localhost:4321](http://localhost:4321) to see the updates!
-8. Run the Python tests by using `python -m unittest` as you did previously.
+8. Run the Python tests by using `python -m unittest` in the terminal as you did previously.
 9. If any changes are needed, explain the required updates to GitHub Copilot and allow it to generate the new code.
 
 > [!IMPORTANT]
@@ -91,3 +94,9 @@ Adding the filters to the page will require updating a minimum of three files - 
 ## Summary and next steps
 
 Congratulations! You've worked with GitHub Copilot to add new features to the website - the ability to filter the list of dogs. Let's close out by [creating a pull request with our new functionality](./7-git-flow.md)!
+
+## Resources
+
+- [Asking GitHub Copilot questions in your IDE](https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/asking-github-copilot-questions-in-your-ide)
+- [Copilot Edits](https://code.visualstudio.com/docs/copilot/copilot-edits)
+- [Copilot Chat cookbook](https://docs.github.com/en/copilot/copilot-chat-cookbook)
