@@ -32,4 +32,4 @@ Ready to get started? Let's go! The workshop scenario imagines you as a develope
 5. [Implement testing](exercises/4-testing.md) to supplement continuous integration
 6. [Provide Copilot context](exercises/5-context.md) to generate quality code suggestions
 7. [Add features to your app](exercises/6-code.md) with GitHub Copilot
-8. [Use the GitHub flow](exercises/6-github-flow.md) to incorporate changes into your codebase
+8. [Use the GitHub flow](exercises/7-github-flow.md) to incorporate changes into your codebase
