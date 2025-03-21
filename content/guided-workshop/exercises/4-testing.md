@@ -8,97 +8,99 @@ CI/CD fosters a culture of rapid development, collaboration, and continuous impr
 
 ## Scenario
 
-A couple of front-end tests have already been defined for the project using [Cypress](https://www.cypress.io/), a popular framework for testing. One of the tests includes checking for the component you'll be adding in a later exercise. To implement CI, you want to run these tests whenever new code is suggested or merged into the **main** branch of the project.
-
-> **IMPORTANT:** Because the test will look for a component you have not yet created, it will fail when it runs for the first time. In an upcoming exercise you will add the code for the test to pass.
+A set of unit tests exist for the Python server for the project. You want to ensure those tests are run whenever someone makes a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) (PR). To meet this requirement, you'll need to define a workflow for the project, and ensure there is a [trigger](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows) for pull requests to main. Fortunately, [GitHub Copilot](https://gh.io/copilot) can aid you in creating the necessary YML file!
 
 ## Exploring the test
 
 Let's take a look at the tests defined for the project.
 
-> **NOTE:** There are only two tests defined for this project. Many projects will have hundreds or thousands of tests to ensure reliability.
+> [!NOTE]
+> There are only a few tests defined for this project. Many projects will have hundreds or thousands of tests to ensure reliability.
 
 1. Return to your codespace, or reopen it by navigating to your repository and selecting **Code** > **Codespaces** and the name of your codespace.
-1. In **Explorer**, navigate to **src** > **cypress** > **e2e**, and open **app.cy.ts**.
-1. Note the following test, which looks for an element with an id of `hours` and ensures the name of today is displayed:
+2. In **Explorer**, navigate to **server** and open **test_app.py**.
+3. Open GitHub Copilot Chat and ask for an explanation of the file.
 
-    ```typescript
-    it('should display todays day', () => {
-      // start from the index page
-      cy.visit('http://localhost:3000/')
+> [!NOTE]
+> Consider using the following GitHub Copilot tips to gain an understanding of the tests:
+>
+> - `/explain` is a [slash command](https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/github-copilot-chat-cheat-sheet) to quickly ask for an explanation
+> - Highlight specific sections of the file to focus on areas you may have questions about
 
-      // get today's long day name
-      const today = new Date().toLocaleDateString('en-US', { weekday: 'long' })
+## Understanding workflows
 
-      // confirm div with id of hours has today's day
-      cy.get('#hours').contains(today)
-    })
-    ```
+To ensure the tests run whenever a PR is made you'll define a workflow for the project. Workflows can perform numerous tasks, such as checking for security vulnerabilities, deploying projects, or (in our case) running unit tests. They're central to any CI/CD.
 
-## Creating the workflow
-
-To run the tests, we'll need to perform a couple of steps. We need to create an environment in which the tests can run, to checkout the code, then run the tests with the appropriate configuration.
-
-As you might expect, performing these types of actions is something numerous organizations need to do as part of their DevOps processes. To support these organizations, there is a [marketplace](https://github.com/marketplace?type=actions) hosted by GitHub containing actions for these and many other tasks. You can then create workflows which build upon these actions.
-
-Workflows are defined as [YAML (or YML)](https://en.wikipedia.org/wiki/YAML) files, and stored as part of the project in a special folder named **.github/workflows**. By being part of the repository, they are subject to the exact same source controls as all other code. It also makes it easier to manage as everything you need is right there in the repository.
-
-Let's create a workflow to implement testing.
-
-1. In the root of your project in the **Explorer** window, navigate to **.github**.
-1. Select the **New Folder** button in the **Explorer** window, and name it **workflows**.
-1. Create a new file in the **workflows** folder by selecting **New File** in the **Explorer** window and name it **e2e.yml**.
-1. In the new file, copy the following YML to create the workflow (we'll describe it in below this step):
-
-    ```yml
-    name: End-to-end tests
-    on:
-      push:
-        branches: ["main"]
-      pull_request:
-        branches: ["main"]
-    jobs:
-      cypress-run:
-        runs-on: ubuntu-20.04
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v3
-          - name: Cypress run
-            uses: cypress-io/github-action@v5
-            with:
-              build: npm run build
-              start: npm run start
-              project: ./src
-            env:
-              MONGODB_URI: test
-    ```
-
-    > **IMPORTANT:** YML is sensitive to tab/space levels. Ensure the tabbing is as displayed above.
-
-### Explaining the workflow
-
-To make this exercise easier, we provided the full YML for the workflow. Let's breakdown what's happening.
+Creating a YML file can be a little tricky. Fortunately, GitHub Copilot can help streamline the process! Before we work with Copilot to create the file, let's explore some core sections of a workflow:
 
 - `name`: Provides a name for the workflow, which will display in the logs.
-- `on`: Defines when the workflow will run. In our case, it will run whenever new code is pushed (or merged) into `main`, or a pull request is made to `main`.
-- `jobs`: Defines a series of jobs for this workflow. Each job is considered a unit of work.
+- `on`: Defines what will cause the workflow to run. Some common triggers include `pull_request` (when a PR is made), `merge` (when code is merged into a branch), and `workflow_dispatch` (manual run).
+- `jobs`: Defines a series of jobs for this workflow. Each job is considered a unit of work and has a name.
+    - **name**: Name and container for the job.
     - `runs-on`: Where the operations for the job will be performed.
     - `steps`: The operations to be performed.
 
-The `steps` section is broken down into two steps, each calling an action from the marketplace. The first is [checkout](https://github.com/marketplace/actions/checkout), which as the name implies, checks out your code. The trailing **@v3** pins the version of the action being used.
+## Create the workflow file
 
-Next is [Cypress](https://github.com/marketplace/actions/cypress-io), which will run the tests. Note there are a couple of configuration options which need to be set:
+Now that we have an overview of the structure of a workflow, let's ask Copilot to generate it for us!
 
-- `build`: The build command for the project.
-- `start`: The command to start the website.
-- `project`: The location of the source code so Cypress can find the tests.
-- `MONGODB_URI`: The location of the backend database to use for the project.
+1. Create a new folder under **.github** named **workflows**.
+2. Create a new file named **server-test.yml** and ensure the file is open.
+3. Open GitHub Copilot Chat.
+4. Add the test file **test_app.py** to the context by using the `#` in the Chat dialog box and beginning to type **test_app.py**, and pressing <kbd>enter</kbd> when it's highlighted.
+5. Prompt Copilot to create a GitHub Action workflow to run the tests. Use natural language to describe the workflow you're looking to create (to run the tests defined in test_app.py), and that you want it to run on merge (for when new code is pushed), when a PR is made, and on demand.
 
-> **NOTE:** The application is configured to use [MongoDB In-Memory Server](https://github.com/nodkz/mongodb-memory-server) when `MONGODB_URI` is set to **test**. For sensitive values, you can create [encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) for the repository.
+  > [!IMPORTANT]
+  > A prescriptive prompt isn't provided as part of the exercise is to become comfortable interacting with GitHub Copilot.
+
+6. Add the generated code to the new file. It should resemble the following:
+
+```yml
+name: Server Tests
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'server/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'server/**'
+
+jobs:
+  server-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f server/requirements.txt ]; then pip install -r server/requirements.txt; fi
+        pip install pytest
+        
+    - name: Run tests
+      working-directory: ./server
+      run: |
+        python -m pytest test_app.py -v
+```
+
+> [!IMPORTANT]
+> Note, the file generated may differ from the example above. Because GitHub Copilot uses generative AI, there results will be probabilistic rather than deterministic.
+
+> [!TIP]
+> If you want to learn more about the workflow you just created, ask GitHub Copilot!
 
 ## Push the workflow to the repository
 
-With the workflow created, let's push it to the repository. Typically you would create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) for any new code (which this is). To streamline the process, we're going to push straight to main as we'll be exploring pull requests and the [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow) in a later exercise. You'll start by obtaining the number of the [issue you created earlier](./2-issues.md), creating a commit for the new code, then pushing it to main.
+With the workflow created, let's push it to the repository. Typically you would create a PR for any new code (which this is). To streamline the process, we're going to push straight to main as we'll be exploring pull requests and the [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow) in a later exercise. You'll start by obtaining the number of the [issue you created earlier](./2-issues.md), creating a commit for the new code, then pushing it to main.
 
 > **NOTE:** All commands are entered using the terminal window in the codespace.
 
@@ -134,24 +136,17 @@ Congratulations! You've now implemented testing, a core component of continuous 
 
 Pushing the workflow definition to the repository counts as a push to `main`, meaning the workflow will be triggered. You can see the workflow in action by navigating to the **Actions** tab in your repository.
 
-> **IMPORTANT:** The workflow **WILL FAIL** on the first run. This is expected. In the next exercise you will add the code to ensure the test passes.
-
 1. Return to your repository.
-1. Select the **Actions** tab.
-1. Select **End-to-end tests** on the left side.
-1. Note the tests running on the right side with a message of **Resolves <ISSUE_NUMBER>**, matching the commit message you used (and eventually failing).
-
-    ![Screenshot of the workflow running](./images/4-workflow-run.png)
-
-1. When the test fails, select the name of the run (which should be similar to **Resolves <ISSUE_NUMBER>**). You will see the results of the test, which will be similar to the screenshot below:
-
-    ![Screenshot of results](./images/4-workflow-run.png)
+2. Select the **Actions** tab.
+3. Select **Server test** on the left side.
+4. Select the workflow run on the right side with a message of **Resolves #<ISSUE_NUMBER>**, matching the commit message you used.
+5. Explore the workflow run by selecting the job name 
 
 You've now seen a workflow, and explore the details of a run!
 
 ## Summary and next steps
 
-Congratulations! You've implemented automated testing, a standard part of continuous integration, which is critical to successful DevOps. Automating these processes ensures consistency and reduces the workload required for developers and administrators. You have created a workflow to run tests on any new code for your codebase. Let's turn our attention to [adding code to our project](./5-coding.md).
+Congratulations! You've implemented automated testing, a standard part of continuous integration, which is critical to successful DevOps. Automating these processes ensures consistency and reduces the workload required for developers and administrators. You have created a workflow to run tests on any new code for your codebase. Let's explore [context with GitHub Copilot chat](./5-context.md).
 
 ### Resources
 

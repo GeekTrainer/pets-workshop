@@ -22,17 +22,22 @@ Let's create our own dev container! The [dev container is configured](https://do
 
 1. Access the Command Palette (<kbd>F1</kbd> or clicking ☰ → View → Command Palette), then start typing **dev container**.
 1. Select **Codespaces: Add Development Container Configuration Files...** .
-1. Select **Create a new configuration...**.
-1. Select **From a predefined container configuration...**.
-1. Scroll down and select **Node.js & Mongo DB**.
-1. Select **20 (default)**.
-1. Select **Azure CLI devcontainers** and **GitHub CLI devcontainers** from **additional features** and select **OK**.
+2. Select **Add configuration to workspace**.
+3. Select **Create a new configuration...**.
+4. Select **From a predefined container configuration...**.
+5. Scroll down and select **Node.js & TypeScript**.
+6. Select **22-bookworm (default)**.
+7. Select the following features to add into your container:
+    - **GitHub CLI**
+    - **Python**
 
-    > **NOTE:** You can type the name of the feature you want to filter the list.
+    > [!NOTE]
+    > You can type the name of the feature you want to filter the list.
 
-1. Select **Keep defaults**.
+8.  Select **latest (default)** for the version of the GitHub CLI.
 
-    > Your new container definition files will be created into the **.devcontainer** folder. **DO NOT** select **Rebuild Now**; we'll do that in just a moment.
+> [!IMPORTANT]
+> Your new container definition files will be created into the **.devcontainer** folder. **DO NOT** select **Rebuild Now**; we'll do that in just a moment.
 
 You have now defined the container to be used by your codespace. This contains the necessary services and tools for your code.
 
@@ -43,12 +48,49 @@ Creating a development environment isn't solely focused on the services. Develop
 Before rebuilding the container, let's add **GitHub.copilot** to the list of extensions.
 
 1. Remaining in the codespace, open **devcontainer.json** inside the **.devcontainer** folder.
-1. Locate the line which reads `"mongodb.mongodb-vscode"` (which should be line 18).
-1. Add a comma (`,`) to the end of the line.
-1. Press <kbd>return</kbd> or <kbd>Enter</kbd> to create a new line immediately after the line you just edited.
-1. Insert the following into the new line to add the GitHub Copilot extension to the list: `"GitHub.copilot"`.
+2. Locate the following section:
 
-    > **NOTE:** An example of the entire **devcontainer.json** file is at the end of this exercise.
+    ```json
+    "features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers/features/python:1": {}
+	}
+    ```
+
+3. Add a comma (`,`) to the end of the last `}`, which should be line 10.
+4. Immediately below that line, paste the following code to provide the list of extensions you wish to have for your dev container:
+
+    ```json
+    "customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				"alexcvzz.vscode-sqlite",
+				"astro-build.astro-vscode",
+				"svelte.svelte-vscode",
+				"ms-python.python",
+				"ms-python.vscode-pylance"
+			]
+		}
+	},
+    ```
+
+5. Just below the customizations, paste the following code to provide the list of ports which should be made available for development by the codespace:
+
+    ```json
+    "forwardPorts": [
+		4321,
+		5100,
+		5000
+	]
+    ```
+
+6. Just below the list of ports, add the command to run the startup script to the container definition:
+
+    ```json
+    "postStartCommand": "chmod +x /workspaces/dog-shelter/scripts/start-app.sh && /workspaces/dog-shelter/scripts/start-app.sh",
+    ```
 
 You've now defined a custom container!
 
@@ -95,60 +137,10 @@ Custom containers for GitHub Codespaces become part of the source code for the r
 
 1. Note the issue for defining a codespace is no longer listed; you completed it and marked it as such with your pull request!
 
-## Configuring the codespace to run your website
-
-When building an application you will typically want to actually run the website as part of the development and testing process. Fortunately, GitHub Codespaces supports [port forwarding](https://docs.github.com/en/codespaces/developing-in-codespaces/forwarding-ports-in-your-codespace), meaning your application can run in the cloud-hosted container while you can access it from your local system. By default these ports are restricted to you via authentication, but you can also [share a port](https://docs.github.com/en/codespaces/developing-in-codespaces/forwarding-ports-in-your-codespace#sharing-a-port-1) publicly or (when using GitHub Enterprise) with your team.
-
-Because the application we're building uses a backend MongoDB database, we need to configure a connection string. If you open **src** > **lib** > **mongoUri.js**, you'll notice on line 3 this is read from an environment variable named `MONGODB_URI`. When using GitHub Codespaces you can set environment variables by adding [encrypted secrets](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces). When using a codespace, these secrets will be accessible via environment variables.
-
-Let's add an environment variable, refresh the codespace to update the environment settings, then run the website.
-
-1. Open your repository in a browser tab (or return to one which is already open).
-1. Select the **Settings** tab.
-1. On the left, under the **Security** section, expand **Secrets and variables** and select **Codespaces**.
-
-    ![Screenshot of the Secrets and variables section](./images/3-secrets-variables.png)
-
-1. Select **New repository secret**.
-1. Create a new secret by entering the following values and pressing **Add secret**.
-
-    - **Name**: `MONGODB_URI`
-    - **Secret**: `mongodb://localhost/pets`
-
-1. Return to your codespace. You will be prompted to **Reload to apply** your settings. Select **Reload to apply**.
-
-    ![Screenshot of reload to apply dialog](./images/3-reload.png)
-
-1. After the codespace reloads, run your website in the codespace by entering the following command in the terminal window (using <kbd>Ctl</kbd> - <kbd>`</kbd> to open one as necessary):
-
-    ```bash
-    npm run dev
-    ```
-
-1. After the application starts, you will be presented with a dialog explaining your application is running on port 3000, which is now being forwarded.
-1. Select **Open in Browser** in this dialog to open a new tab with your application.
-
-    ![Screenshot of open in browser dialog](./images/3-open-browser.png)
-
-1. You will now see a new tab with your website running! Notice the URL at the top, which resembles the name of your codespace. Your website is running in the container you defined in the cloud!
-
-    > **NOTE:** If you close this tab, you can reopen it by clicking the "Ports" tab next to the Terminal, mousing over the "Forwarded Address" starting with `https://`, then clicking the globe icon 
-
-1. If you wish, you can add a pet to the database by selecting **Add pet**. On the form you will notice various fields to describe the pet. If you need a URL for images, you can use any of the following:
-
-    - https://raw.githubusercontent.com/github/pets-workshop/main/src/pics/roscoe.jpg
-    - https://raw.githubusercontent.com/github/pets-workshop/main/src/pics/sammy.jpg
-    - https://raw.githubusercontent.com/github/pets-workshop/main/src/pics/sushi.jpg
-
-    > **NOTE:** Because the database is in the codespace's container, as long as you keep your codespace the database will maintain its state.
-
-1. Stop the website by returning back to your codespace, ensuring focus is on the terminal window, and selecting <kbd>Ctl</kbd> - <kbd>C</kbd>.
-
-    > **IMPORTANT:** You can ignore any **favicon** errors.
 
 ## Summary and next steps
 
-Congratulations! You have now defined a custom development environment including all services and extensions. This eliminates the initial setup hurdle normally required when contributing to a project. Let's use this codespace to explore the code and [implement testing](./4-testing.md) for the project.
+Congratulations! You have now defined a custom development environment including all services and extensions. This eliminates the initial setup hurdle normally required when contributing to a project. Let's use this codespace to explore the code and [implement testing and continuous integration](./4-testing.md) for the project.
 
 ## Resources
 

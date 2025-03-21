@@ -40,7 +40,8 @@ Workflows are defined in a special folder `.github/workflows`, and are defined a
 
 ### Workflow definitions
 
-> **NOTE** The syntax for GitHub workflows is flexible; there are often multiple ways to define the same triggers or other configuration options. This provides teams additional control over their workflows. The syntax used below is just one way you could define a workflow.
+> [!NOTE]
+> The syntax for GitHub workflows is flexible; there are often multiple ways to define the same triggers or other configuration options. This provides teams additional control over their workflows. The syntax used below is just one way you could define a workflow.
 
 As highlighted before, workflows are defined in YML files created in the `.github/workflows` folder. While workflow YML files have no name restrictions, it's best to use a name which defines tasks the workflow will perform.
 
@@ -77,7 +78,8 @@ on:
 
 Notice the YML syntax lists `branches` as a child of `push`. The workflow will now only run for a push on the listed branches. There are several [filters](https://docs.github.com/actions/using-workflows/triggering-a-workflow#using-filters) available to ensure workflows only run when desired.
 
-> **NOTE** There are [numerous triggers available](https://docs.github.com/actions/using-workflows/events-that-trigger-workflows) for defining when a workflow will run flexible. This allows your team to ensure workflows are run at the correct time.
+> [!NOTE]
+> There are [numerous triggers available](https://docs.github.com/actions/using-workflows/events-that-trigger-workflows) for defining when a workflow will run flexible. This allows your team to ensure workflows are run at the correct time.
 
 #### Jobs
 
@@ -183,7 +185,8 @@ Every repository has one [predefined secret called `GITHUB_TOKEN`](https://docs.
 
 Referencing variables is done by using `${{ secrets.NAME }}`, where `NAME` is the name of the secret you create.
 
-> **NOTE** Secrets can be used to store personal access tokens (PATs) for deploying to cloud providers or other hosts. However, managing PATs can introduce additional overhead, especially if a key is leaked. When configuring deployment you should consider using [OpenID Connect](https://docs.github.com/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect)
+> [!NOTE]
+> Secrets can be used to store personal access tokens (PATs) for deploying to cloud providers or other hosts. However, managing PATs can introduce additional overhead, especially if a key is leaked. When configuring deployment you should consider using [OpenID Connect](https://docs.github.com/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect)
 
 ### Matrix strategy
 

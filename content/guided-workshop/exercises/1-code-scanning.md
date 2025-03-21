@@ -57,7 +57,8 @@ You've now enabled secret scanning and push protection. This helps you both bloc
 
 There is a direct relationship between the amount of code an organization creates and potential attack vectors. We always want to check our source code for vulnerabilities. [Code scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) checks your source code for known vulnerabilities. When an issue is detected on a pull request, a new comment is added highlighting the line of source code providing contextual information for the developer. This allows for the issue to be quickly resolved.
 
-> **NOTE**: Code scanning is built atop [GitHub Actions](https://github.com/features/actions), the automation platform for GitHub. We'll explore the specifics of GitHub Actions later in this workshop and create our own workflows.
+> [!NOTE]
+> Code scanning is built atop [GitHub Actions](https://github.com/features/actions), the automation platform for GitHub. We'll explore the specifics of GitHub Actions later in this workshop and create our own workflows.
 
 ### Enabling code scanning
 
@@ -70,7 +71,10 @@ Let's enable Code scanning to detect vulnerabilities in our source code. We're g
 
 1. On the **CodeQL default configuration** dialog, select **Enable CodeQL**.
 
-    ![Screenshot of code scanning dialog](./images/1-code-scanning.png)
+    ![Screenshot of code scanning dialog](./images/1-code-scanning-dialog.png)
+
+> [!IMPORTANT]
+> Your list of languages may be different
 
 A background process starts, and will configure a workflow for analyzing your code using [CodeQL and code scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning).
 
