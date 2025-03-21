@@ -30,7 +30,7 @@
         // Otherwise fetch data using dogId
         if (dogId) {
             try {
-                const response = await fetch(`http://localhost:5100/api/dogs/${dogId}`);
+                const response = await fetch(`/api/dogs/${dogId}`);
                 if (response.ok) {
                     dogData = await response.json();
                 } else {

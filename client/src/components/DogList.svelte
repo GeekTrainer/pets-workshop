@@ -7,26 +7,14 @@
         breed: string;
     }
 
-    interface Breed {
-        id: number;
-        name: string;
-    }
-
     export let dogs: Dog[] = [];
     let loading = true;
     let error: string | null = null;
-    let breeds: Breed[] = [];
-    let selectedBreed = '';
-    let onlyAvailable = false;
 
     async function fetchDogs() {
         loading = true;
         try {
-            let url = 'http://localhost:5100/api/dogs?';
-            if (selectedBreed) url += `breed=${encodeURIComponent(selectedBreed)}&`;
-            if (onlyAvailable) url += 'status=available&';
-            
-            const response = await fetch(url);
+            const response = await fetch('/api/dogs');
             if(response.ok) {
                 dogs = await response.json();
             } else {
@@ -39,54 +27,13 @@
         }
     }
 
-    async function fetchBreeds() {
-        try {
-            const response = await fetch('http://localhost:5100/api/breeds');
-            if(response.ok) {
-                breeds = await response.json();
-            }
-        } catch (err) {
-            console.error('Failed to fetch breeds:', err);
-        }
-    }
-
-    $: {
-        if (selectedBreed !== undefined || onlyAvailable !== undefined) {
-            fetchDogs();
-        }
-    }
-
     onMount(() => {
-        fetchBreeds();
         fetchDogs();
     });
 </script>
 
 <div>
     <h2 class="text-2xl font-medium mb-6 text-slate-100">Available Dogs</h2>
-    
-    <!-- Filter controls -->
-    <div class="mb-6 flex gap-4 items-center bg-slate-800/60 backdrop-blur-sm rounded-xl p-4 border border-slate-700/50">
-        <div class="flex-1">
-            <select
-                bind:value={selectedBreed}
-                class="w-full bg-slate-700 text-slate-100 rounded-lg px-3 py-2 border border-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            >
-                <option value="">All Breeds</option>
-                {#each breeds as breed}
-                    <option value={breed.name}>{breed.name}</option>
-                {/each}
-            </select>
-        </div>
-        <label class="flex items-center gap-2 text-slate-100">
-            <input
-                type="checkbox"
-                bind:checked={onlyAvailable}
-                class="form-checkbox h-5 w-5 text-blue-500 rounded border-slate-600 bg-slate-700 focus:ring-blue-500"
-            >
-            Available Only
-        </label>
-    </div>
     
     {#if loading}
         <!-- loading animation -->

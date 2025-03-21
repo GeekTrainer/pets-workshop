@@ -1,8 +1,7 @@
 # filepath: server/app.py
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 from models import init_db, db, Dog, Breed
-from flask_cors import CORS
 
 # Get the server directory path
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -11,29 +10,16 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(base_dir, "dogshelter.db")}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Enable CORS for all routes with specific origin
-CORS(app, resources={r"/*": {"origins": "*"}})
-
 # Initialize the database with the app
 init_db(app)
 
 @app.route('/api/dogs', methods=['GET'])
 def get_dogs():
-    # Start with base query
     query = db.session.query(
         Dog.id, 
         Dog.name, 
         Breed.name.label('breed')
     ).join(Breed, Dog.breed_id == Breed.id)
-    
-    # Apply filters based on query parameters
-    breed = request.args.get('breed')
-    if breed:
-        query = query.filter(Breed.name == breed)
-        
-    status = request.args.get('status')
-    if status == 'available':
-        query = query.filter(Dog.status == 'AVAILABLE')
     
     dogs_query = query.all()
     
