@@ -7,21 +7,15 @@ import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
+  integrations: [
+    svelte(),
+  ],
   vite: {
-    plugins: [tailwindcss(), svelte()],
-    server: {
-      proxy: {
-        '/api': {
-          target: 'http://localhost:5100',
-          changeOrigin: true,
-        }
-      }
-    }
+    plugins: [tailwindcss(), svelte()]
   },
 
   adapter: node({
     mode: 'standalone'
   }),
-
-  integrations: [svelte()]
 });
