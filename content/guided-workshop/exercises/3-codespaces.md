@@ -26,6 +26,7 @@ Let's create our own dev container! The [dev container is configured](https://do
 4. Scroll down and select **Node.js & TypeScript**.
 5. Select **22-bookworm (default)**.
 6. Select the following features to add into your container:
+    - **Azure CLI**
     - **GitHub CLI**
     - **Python**
 
@@ -66,6 +67,7 @@ Before rebuilding the container, let's add **GitHub.copilot** to the list of ext
 			"extensions": [
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
+                "ms-azuretools.vscode-azure-github-copilot",
 				"alexcvzz.vscode-sqlite",
 				"astro-build.astro-vscode",
 				"svelte.svelte-vscode",

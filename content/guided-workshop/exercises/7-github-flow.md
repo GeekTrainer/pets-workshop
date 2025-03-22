@@ -83,19 +83,7 @@ Congratulations! You've now used the GitHub flow to suggest changes, perform a r
 
 ## Summary and next steps
 
-The GitHub flow is a workflow for managing changes and incorporating new features into a codebase. GitHub flow gives you the freedom to explore and experiment, while ensuring all code follows a validation process before being merged.
-
-## Wrap-up and challenge
-
-Congratulations! You've gone through an entire DevOps process. You began by creating an issue to document the required work, then ensured everything was in place to run automatically. You performed the updates to the application, pushed everything to your repository, and merged it in!
-
-If you wish to continue exploring from here, there are a couple of tasks you could pursue:
-
-- Add more functionality to the website! There's a lot you could do, like adding on an adoption form or the ability to store images.
-- Migrate the database to something more powerful such as Postgres or SQL Server.
-- Deploy the webapp to Azure, GCP or another provider.
-
-Work with the workshop leaders as needed to ask questions and get guidance as you continue to build on the skills you learned today!
+The GitHub flow is a workflow for managing changes and incorporating new features into a codebase. GitHub flow gives you the freedom to explore and experiment, while ensuring all code follows a validation process before being merged. Let's get our [application deployed](./8-deployment.md).
 
 ## Resources
 

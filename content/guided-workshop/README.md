@@ -33,3 +33,4 @@ Ready to get started? Let's go! The workshop scenario imagines you as a develope
 6. [Provide Copilot context](exercises/5-context.md) to generate quality code suggestions
 7. [Add features to your app](exercises/6-code.md) with GitHub Copilot
 8. [Use the GitHub flow](exercises/7-github-flow.md) to incorporate changes into your codebase
+9. [Deploy your application](exercises/8-deployment.md) to Azure to make your application available to users
