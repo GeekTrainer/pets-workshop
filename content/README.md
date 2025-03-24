@@ -1,23 +1,36 @@
-# Exploring modern DevOps
+# Modern DevOps with GitHub
 
-This repository is built as a resource to begin exploring GitHub and [DevOps](https://en.wikipedia.org/wiki/DevOps). Working through either a [guided workshop](./guided-workshop/) or a [challenge-based approach](./what-the-hack/Student/), you will learn the core concepts of DevOps and features available on GitHub to support you.
+[DevOps](https://en.wikipedia.org/wiki/DevOps) is a [portmanteau](https://www.merriam-webster.com/dictionary/portmanteau) of **development** and **operations**. At its core is a desire to bring development practices more inline with operations, and operations practices more inline with development. This fosters better communication and collaboration between teams, breaks down barriers, and gives everyone an investment in ensuring customers are delighted by the software we ship.
 
-The workshop is centered around an application (included in this repository) written using [Next.js](https://nextjs.org/) with a [MongoDB](https://www.mongodb.com/) backend, and the beginnings of end-to-end testing with [Cypress](https://www.cypress.io/). You can use this repository as a template for creating your own projects, or walk through the available workshop and resources.
+This workshop is built to help guide you through some of the most common DevOps tasks on GitHub. You'll explore:
 
-## Getting started with DevOps and GitHub
+- Managing projects with [GitHub Issues](https://github.com/features/issues)
+- Creating a development environment with [GitHub Codespaces](https://github.com/features/codespaces)
+- Using [GitHub Copilot](https://github.com/features/copilot) as your AI pair programmer
+- Securing the development pipeline with [GitHub Advanced Security](https://github.com/features/security)
+- Automating tasks and CI/CD with [GitHub Actions](https://github.com/features/actions)
 
-[GitHub is built on GitHub](./how-github-uses-github.md). We use [GitHub Actions](./automation.md) for [automation](./guided-workshop/resources/automation.md). We use [GitHub Advanced Security](https://github.com/features/security) to secure the development pipeline. We use [GitHub Codespaces](https://github.com/features/codespaces) to [write code](./guided-workshop/exercises/3-codespaces.md). And we use [GitHub Copilot](https://github.com/features/copilot) as an AI pair programmer. You can learn more about how we use [GitHub](./guided-workshop/resources/how-github-uses-github.md) to create GitHub and manage our DevOps processes, and begin exploring the features available. You can also gain hands-on experience by completing the workshops highlighted below.
+## Prerequisites
 
-## Workshop formats
+The application for the workshop uses is built primarily with Python (Flask and SQLAlchemy) and Astro (using Tailwind and Svelte). While experience with these frameworks and languages is helpful, you'll be using Copilot to help you understand the project and generate the code. As a result, as long as you are familiar with programming you'll be able to complete the exercises!
 
-### Step-by-step guided workshop
+## Required resources
 
-If you prefer a more guided experience, you can work through the [step-by-step workshop](./guided-workshop/). The workshop contains step-by-step instructions to complete the tasks and supporting information to learn more about the technology.
+To complete this workshop, you will need the following:
 
-> **[Begin the guided workshop!](./guided-workshop/README.md)**
+- A [GitHub account](https://github.com/join)
+- Access to [GitHub Copilot](https://github.com/features/copilot)
 
-### Challenge-based
+## Getting started
 
-Many learners find the best results if they explore technology by performing the tasks without step-by-step instructions. To support this style, we have built a workshop using a format modeled from Microsoft's What the Hack. A set of challenges is provided in the [Student folder](./what-the-hack/Student/), where you begin by first opening the project and progressing through a set of tasks typical of a developer using DevOps processes. Solution files and other tips are available in the [Coach folder](./what-the-hack/Coach/), including a couple of [resource files](./what-the-hack/Coach/resources).
+Ready to get started? Let's go! The workshop scenario imagines you as a developer volunteering your time for a pet adoption center. You will work through the process of creating a development environment, creating code, enabling security, and automating processes.
 
-> **[Begin the challenge-based workshop!](./what-the-hack/README.md)**
+1. [Setup your environment](exercises/0-setup.md) for the workshop
+2. [Enable Code Scanning](exercises/1-code-scanning.md) to ensure new code is secure
+3. [Create an issue](exercises/2-issues.md) to document a feature request
+4. [Create a codespace](exercises/3-codespaces.md) to start writing code
+5. [Implement testing](exercises/4-testing.md) to supplement continuous integration
+6. [Provide Copilot context](exercises/5-context.md) to generate quality code suggestions
+7. [Add features to your app](exercises/6-code.md) with GitHub Copilot
+8. [Use the GitHub flow](exercises/7-github-flow.md) to incorporate changes into your codebase
+9. [Deploy your application](exercises/8-deployment.md) to Azure to make your application available to users
