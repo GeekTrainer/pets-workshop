@@ -25,12 +25,12 @@ To complete this workshop, you will need the following:
 
 Ready to get started? Let's go! The workshop scenario imagines you as a developer volunteering your time for a pet adoption center. You will work through the process of creating a development environment, creating code, enabling security, and automating processes.
 
-1. [Setup your environment](exercises/0-setup.md) for the workshop
-2. [Enable Code Scanning](exercises/1-code-scanning.md) to ensure new code is secure
-3. [Create an issue](exercises/2-issues.md) to document a feature request
-4. [Create a codespace](exercises/3-codespaces.md) to start writing code
-5. [Implement testing](exercises/4-testing.md) to supplement continuous integration
-6. [Provide Copilot context](exercises/5-context.md) to generate quality code suggestions
-7. [Add features to your app](exercises/6-code.md) with GitHub Copilot
-8. [Use the GitHub flow](exercises/7-github-flow.md) to incorporate changes into your codebase
-9. [Deploy your application](exercises/8-deployment.md) to Azure to make your application available to users
+0. [Setup your environment](exercises/0-setup.md) for the workshop
+1. [Enable Code Scanning](exercises/1-code-scanning.md) to ensure new code is secure
+2. [Create an issue](exercises/2-issues.md) to document a feature request
+3. [Create a codespace](exercises/3-codespaces.md) to start writing code
+4. [Implement testing](exercises/4-testing.md) to supplement continuous integration
+5. [Provide Copilot context](exercises/5-context.md) to generate quality code suggestions
+6. [Add features to your app](exercises/6-code.md) with GitHub Copilot
+7. [Use the GitHub flow](exercises/7-github-flow.md) to incorporate changes into your codebase
+8. [Deploy your application](exercises/8-deployment.md) to Azure to make your application available to users
