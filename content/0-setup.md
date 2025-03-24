@@ -8,7 +8,7 @@ The repository for this workshop is configured as a template, so we can use it t
 
 Let's create the repository you'll use for your workshop.
 
-1. Navigate to [github.com/github/pets-workshop](https://github.com/github/pets-workshop)
+1. Navigate to [the repository root](/)
 2. Select **Use this template** > **Create a new repository**
 
     ![Screenshot of Use this template dropdown](images/0-setup-template.png)
