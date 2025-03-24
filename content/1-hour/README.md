@@ -1,14 +1,8 @@
-# Modern DevOps with GitHub
+# Getting started with GitHub Copilot
 
-[DevOps](https://en.wikipedia.org/wiki/DevOps) is a [portmanteau](https://www.merriam-webster.com/dictionary/portmanteau) of **development** and **operations**. At its core is a desire to bring development practices more inline with operations, and operations practices more inline with development. This fosters better communication and collaboration between teams, breaks down barriers, and gives everyone an investment in ensuring customers are delighted by the software we ship.
+Built to be your AI pair programmer, [GitHub Copilot](https://github.com/features/copilot) helps you generate code and focus on what's important. Through the use of code completion you can create code from comments, and functions from just a signature. With Copilot chat you can ask questions about your codebase, create new files and update existing ones, and even perform operations which update files across your entire codebase.
 
-This workshop is built to help guide you through some of the most common DevOps tasks on GitHub. You'll explore:
-
-- Managing projects with [GitHub Issues](https://github.com/features/issues)
-- Creating a development environment with [GitHub Codespaces](https://github.com/features/codespaces)
-- Using [GitHub Copilot](https://github.com/features/copilot) as your AI pair programmer
-- Securing the development pipeline with [GitHub Advanced Security](https://github.com/features/security)
-- Automating tasks and CI/CD with [GitHub Actions](https://github.com/features/actions)
+As with any tool, there are a set of skills which need to be acquired, which is the purpose of this (roughly) one hour workshop. You'll explore the most common workloads available to you by updating an existing application.
 
 ## Prerequisites
 
@@ -19,11 +13,19 @@ The application for the workshop uses is built primarily with Python (Flask and 
 To complete this workshop, you will need the following:
 
 - A [GitHub account](https://github.com/join).
-- Access to [GitHub Copilot](https://github.com/features/copilot).
+- Access to [GitHub Copilot](https://github.com/features/copilot) (which is available for free to individuals!)
+
+## Required local installation
 
 You will also need the following available and installed locally:
 
-- An integrated development environment, such as Visual Studio Code or JetBrains.
+### Code editor
+
+- [Visual Studio Code](https://code.visualstudio.com/).
+- [Copilot extension installed in your IDE](https://docs.github.com/en/copilot/managing-copilot/configure-personal-settings/installing-the-github-copilot-extension-in-your-environment).
+
+### Local services
+
 - A recent [Node.js runtime](https://nodejs.org/en).
 - A recent version of [Python](https://www.python.org/).
 - The [git CLI](https://git-scm.com/).
@@ -34,8 +36,10 @@ You will also need the following available and installed locally:
 
 ## Getting started
 
-Ready to get started? Let's go! The workshop scenario imagines you as a developer volunteering your time for a pet adoption center. You will work through the process of creating a development environment, creating code, enabling security, and automating processes.
+Ready to get started? Let's go! The workshop scenario imagines you as a developer volunteering your time for a pet adoption center. You've been asked to add a filter to the website to allow people to limit their search results by breed and adoption status.
 
-0. [Setup your environment](./0-setup.md) for the workshop
-1. [Provide Copilot context](./1-context.md) to generate quality code suggestions
-2. [Add features to your app](./2-code.md) with GitHub Copilot
+0. [Clone the repository and start the app](./0-setup.md) for the workshop
+1. [Add an endpoint to the server](./1-add-endpoint.md) to list all breeds.
+2. [Explore the project](./2-explore-project.md) to get a better understanding of what needs to be done.
+3. [Create custom instructions](./3-copilot-instructions.md) to ensure Copilot chat has additional context.
+4. [Add the new feature](./4-add-feature.md) to the website, and ensure it works!

@@ -42,6 +42,24 @@ With the repository created, it's now time to clone the repository locally. We'l
 
 5. Start the application by running the following command:
 
+    ```sh
+    ./scripts/start-app.sh
+    ```
+
+The startup script will start two applications:
+
+- The backend Flask app on [localhost:5100](http://localhost:5100). You can see a list of dogs by opening the [dogs API](http://localhost:5100/api/dogs).
+- The frontend Astro/Svelte app on [localhost:4321](http://localhost:4321). You can see the [website](http://localhost:4321) by opening that URL!
+
+## Open your editor
+
+With the code cloned locally, and the site running, let's open the codebase up in VS Code.
+
+1. Open VS Code.
+2. Select **File** > **Open Folder**.
+3. Navigate to the folder which contains the project you cloned earlier in this exercise.
+4. With the folder highlighted, select **Open folder**.
+
 ## Summary and next steps
 
-You've now created the repository you'll use for this workshop! Next let's [enable Code Scanning](1-code-scanning.md) to secure the code we write.
+You've now cloned the repository you'll use for this workshop and have your IDE setup! Next let's [add a new endpoint to the server](./1-add-endpoint.md)!
