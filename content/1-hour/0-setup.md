@@ -30,7 +30,7 @@ In a few moments a new repository will be created from the template for this wor
 With the repository created, it's now time to clone the repository locally. We'll do this from a shell capable of running BASH commands.
 
 1. Copy the URL for the repository you just created in the prior set.
-2. Open your shell.
+2. Open your terminal or command shell.
 3. Run the following command to clone the repository locally (changing directories to a parent directory as appropriate):
 
     ```sh
@@ -52,7 +52,7 @@ With the repository created, it's now time to clone the repository locally. We'l
 The startup script will start two applications:
 
 - The backend Flask app on [localhost:5100](http://localhost:5100). You can see a list of dogs by opening the [dogs API](http://localhost:5100/api/dogs).
-- The frontend Astro/Svelte app on [localhost:4321](http://localhost:4321). You can see the [website](http://localhost:4321) by opening that URL!
+- The frontend Astro/Svelte app on [localhost:4321](http://localhost:4321). You can see the [website](http://localhost:4321) by opening that URL.
 
 ## Open your editor
 
