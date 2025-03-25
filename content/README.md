@@ -2,10 +2,10 @@
 
 This repository contains two workshops:
 
-- a [full-day](./full-day/README.md) workshop which covers a full day-in-the-life of a developer using GitHub for their DevOps processes.
 - a [one hour](./1-hour/README.md) workshop focused on GitHub Copilot.
+- a [full-day](./full-day/README.md) workshop which covers a full day-in-the-life of a developer using GitHub for their DevOps processes.
 
-Both workshop are built around a fictional dog shelter, where you are a volunteer helping them build out their website.
+Both workshops are built around a fictional dog shelter, where you are a volunteer helping them build out their website.
 
 ## Get started
 
