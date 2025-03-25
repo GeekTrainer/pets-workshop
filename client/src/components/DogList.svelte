@@ -11,7 +11,7 @@
     let loading = true;
     let error: string | null = null;
 
-    async function fetchDogs() {
+    const fetchDogs = async () => {
         loading = true;
         try {
             const response = await fetch('/api/dogs');
@@ -25,7 +25,7 @@
         } finally {
             loading = false;
         }
-    }
+    };
 
     onMount(() => {
         fetchDogs();
