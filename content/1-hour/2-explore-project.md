@@ -8,28 +8,30 @@ Before adding new functionality to the website, you want to explore the existing
 
 ## Chat participants and extensions
 
-GitHub Copilot Chat has a set of available chat participants and extensions available to you to both provide instructions to GitHub Copilot and access external services. Chat participants are helpers which work inside your IDE and have access to your project, while extensions can call external services and provide information to you without having to open separate tools. We're going to focus on one core chat participant - `@workspace`.
+GitHub Copilot Chat has a set of available [chat participants](https://code.visualstudio.com/docs/copilot/copilot-chat#_chat-participants) and [extensions](https://docs.github.com/en/copilot/using-github-copilot/using-extensions-to-integrate-external-tools-with-copilot-chat) available to you to both provide instructions to GitHub Copilot and access external services. Chat participants are helpers which work inside your IDE and have access to your project, while extensions can call external services and provide information to you without having to open separate tools. We're going to focus on one core chat participant - `@workspace`.
 
 `@workspace` creates an index of your project and allows you to ask questions about what you're currently working on, to find resources inside the project, or add it to the context. It's best to use this when the entirety of your project should be considered or you're not entirely sure where you should start looking. In our current scenario, since we want to ask questions about our project, `@workspace` is the perfect tool for the job.
 
 > [!NOTE]
 > This exercise doesn't provide specific prompts to type, as part of the learning experience is to discover how to interact with Copilot. Feel free to talk in natural language, describing what you're looking for or need to accomplish.
 
-1. Open the repository in your IDE.
-2. Open GitHub Copilot Chat.
-3. Select the `+` icon towards the top to begin a new chat.
-4. Type `@workspace` in the chat prompt window and hit <kbd>tab</kbd> to select or activate it, then continue by asking Copilot about your project. You can ask what technologies are in use, what the project does, where functionality resides, etc.
-5. Spend a few minutes exploring to find the answers to the following questions:
+1. Return to your IDE with the project open.
+2. Close any tabs you may have open in your IDE to ensure the context for Copilot chat is empty.
+3. Open GitHub Copilot Chat.
+4. Select the `+` icon towards the top to begin a new chat.
+5. Type `@workspace` in the chat prompt window and hit <kbd>tab</kbd> to select or activate it, then continue by asking Copilot about your project. You can ask what technologies are in use, what the project does, where functionality resides, etc.
+6. Spend a few minutes exploring to find the answers to the following questions:
     - Where's the database the project uses?
     - What files are involved in listing dogs?
 
 ## Summary and next steps
 
-You've explored context in GitHub Copilot, which is key to generating quality suggestions. You saw how you can use chat participants to help guide GitHub Copilot. Let's see how we can provide even more context to Copilot chat through the use of [Copilot instructions](./3-copilot-instructions.md).
+You've explored context in GitHub Copilot, which is key to generating quality suggestions. You saw how you can use chat participants to help guide GitHub Copilot, and how with natural language you can explore the project. Let's see how we can provide even more context to Copilot chat through the use of [Copilot instructions](./3-copilot-instructions.md).
 
 ## Resources
 
 - [Copilot Chat cookbook](https://docs.github.com/en/copilot/copilot-chat-cookbook)
 - [Use Copilot Chat in VS Code](https://code.visualstudio.com/docs/copilot/copilot-chat)
+- [Copilot extensions marketplace](https://github.com/marketplace?type=apps&copilot_app=true)
 
 **NEXT:** [Add Copilot instructions for additional context](./3-copilot-instructions.md)

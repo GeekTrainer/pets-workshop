@@ -28,7 +28,7 @@ Let's build our new route in our Flask backend with the help of code completion.
 > [!IMPORTANT]
 > For this exercise, **DO NOT** copy and paste the code snippet provided, but rather type it manually. This will allow you to experience code completion as you would if you were coding back at your desk. You'll likely see you only have to type a few characters before GitHub Copilot begins suggesting the rest.
 
-1. Return to VS Code with the project open.
+1. Return to your IDE with the project open.
 2. Open **server/app.py**.
 3. Locate the comment which reads `## HERE`, which should be at line 68.
 4. Delete the comment to ensure there isn't any confusion for Copilot, and leave your cursor there.
