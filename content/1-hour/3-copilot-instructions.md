@@ -21,15 +21,22 @@ Here are some guidelines to consider when creating a Copilot instructions file:
     - languages, frameworks and libraries in use.
     - required assets to be generated (such as unit tests) and where they should be placed.
     - any language specific rules such as:
-        - Python code should always follow PEP8 rules.
-        - use arrow functions rather than the `function` keyword.
+        - utilize [type hints](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) in Python.
+        - use [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) rather than the `function` keyword in TypeScript.
 - If you notice GitHub Copilot consistently provides an unexpected suggestion (e.g. using class components for React), add those notes to the instructions file.
 
-Let's create a Copilot instructions file. Just as before, because we want you to explore and experiment, we won't provide exact directions on what to type, but will give enough context to create one on your own.
+Let's create a Copilot instructions file. We'll start by asking Copilot to generate a block of code, then add the instructions file, then ask the same question again to see the changes.
 
 1. Return to your IDE with your project open.
-2. Create a new file in the **.github** folder called **copilot-instructions.md**.
-3. Add the markdown to the file necessary which provides information about the project structure and requirements:
+2. Open Copilot Chat and send the following prompt:
+
+    ```
+    Create a Python function to validate dog age. Ensure age is between 0 and 20. Throw an error if it is outside this range.
+    ```
+
+3. Note the function signature is similar to `def validate_age(age)` without type hints.
+4. Create a new file in the **.github** folder called **copilot-instructions.md**.
+5. Add the markdown to the file necessary which provides information about the project structure and requirements:
 
     ```markdown
     # Dog shelter
@@ -39,27 +46,41 @@ Let's create a Copilot instructions file. Just as before, because we want you to
     ## Backend
 
     - Built using Flask and SQLAlchemy
-    - All routes require unit tests, which are created in *test_file.py* in the same folder as the file
-    - When creating tests, always mock database calls
+    - Use type hints
 
     ## Frontend
 
     - Built using Astro and Svelte
+    - TypeScript should use arrow functions rather than the function keyword
     - Pages should be in dark mode with a modern look and feel
     ```
 
-4. Save the file!
+6. **Save** the file.
 
 ## Watch the instructions file in action
 
-Whenever you make a call to Copilot chat, the references dialog indicates all files used to generate the response. Once you create a Copilot instructions file, you will see it's always included in the references section.
+Whenever you make a call to Copilot chat, the references dialog indicates all files used to generate the response. Once you create a Copilot instructions file, you will see it's always included in the references section. Since you included directions to use type hints, you'll notice the code suggestions will follow this guidance.
 
-1. Close all files currently open in VS Code or your Codespace.
+1. Close all files currently open in VS Code or your Codespace. (This will ensure we are working with an empty context.)
 2. Select the `+` icon in GitHub Copilot chat to start a new chat.
-3. Ask Copilot chat **What are the guidelines for the flask app?**
+3. Send Copilot chat the same prompt you used previously:
+
+    ```
+    Create a Python function to validate dog age. Ensure age is between 0 and 20. Throw an error if it is outside this range.
+    ```
+
 4. Note the references now includes the instructions file and provides information gathered from it.
 
-![Screenshot of the chat window with the references section expanded displaying Copilot instructions in the list](./images/copilot-chat-references.png)
+    ![Screenshot of the chat window with the references section expanded displaying Copilot instructions in the list](./images/copilot-chat-references.png)
+
+5. Note the resulting Python now utilizes type hints, and the function signature will resemble the following:
+
+    ```python
+    def validate_age(age: Union[int, float, str]) -> float:
+    ```
+
+    > [!NOTE]
+    > The exact code generated will vary, but the resulting Python suggestion should now utilize type hints.
 
 ## Summary and next steps
 
