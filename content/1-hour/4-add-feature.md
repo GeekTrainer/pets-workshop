@@ -61,3 +61,5 @@ Congratulations! You've worked with GitHub Copilot to add new features to the we
 - [Asking GitHub Copilot questions in your IDE](https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/asking-github-copilot-questions-in-your-ide)
 - [Copilot Edits](https://code.visualstudio.com/docs/copilot/copilot-edits)
 - [Copilot Chat cookbook](https://docs.github.com/en/copilot/copilot-chat-cookbook)
+
+**NEXT:** If you've made it here and want to keep exploring, we've got some [bonus suggestions](./5-bonus.md) for you!
