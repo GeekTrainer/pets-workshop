@@ -2,18 +2,21 @@
 
 Built to be your AI pair programmer, [GitHub Copilot](https://github.com/features/copilot) helps you generate code and focus on what's important. Through the use of code completion you can create code from comments, and functions from just a signature. With Copilot chat you can ask questions about your codebase, create new files and update existing ones, and even perform operations which update files across your entire codebase.
 
-As with any tool, there are a set of skills which need to be acquired, which is the purpose of this (roughly) one hour workshop. You'll explore the most common workloads available to you by updating an existing application.
+As with any tool, there are a set of skills which need to be acquired, which is the purpose of this (roughly) one hour workshop. You'll explore the most common workloads available to you by exploring and updating an existing application to add functionality.
 
 ## Prerequisites
 
 The application for the workshop uses is built primarily with Python (Flask and SQLAlchemy) and Astro (using Tailwind and Svelte). While experience with these frameworks and languages is helpful, you'll be using Copilot to help you understand the project and generate the code. As a result, as long as you are familiar with programming you'll be able to complete the exercises!
+
+> [!NOTE]
+> When in doubt, you can always highlight a block of code you're unfamiliar with and ask GitHub Copilot chat for an explanation!
 
 ## Required resources
 
 To complete this workshop, you will need the following:
 
 - A [GitHub account](https://github.com/join).
-- Access to [GitHub Copilot](https://github.com/features/copilot) (which is available for free to individuals!)
+- Access to [GitHub Copilot](https://github.com/features/copilot) (which is available for free for individuals!)
 
 ## Required local installation
 
@@ -38,7 +41,7 @@ You will also need the following available and installed locally:
 
 Ready to get started? Let's go! The workshop scenario imagines you as a developer volunteering your time for a pet adoption center. You've been asked to add a filter to the website to allow people to limit their search results by breed and adoption status. You'll work over the next 5 exercises to perform the tasks!
 
-0. [Clone the repository and start the app](./0-setup.md) for the workshop
+0. [Clone the repository and start the app](./0-setup.md) for the workshop.
 1. [Add an endpoint to the server](./1-add-endpoint.md) to list all breeds.
 2. [Explore the project](./2-explore-project.md) to get a better understanding of what needs to be done.
 3. [Create custom instructions](./3-copilot-instructions.md) to ensure Copilot chat has additional context.
