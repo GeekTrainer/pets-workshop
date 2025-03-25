@@ -4,14 +4,14 @@ There are always key pieces of information anyone generating code for your codeb
 
 ## Scenario
 
-Before we begin bigger updates to the site with the help of Copilot, we want to ensure it has a good understanding of how we're building our application. As a result, we're going to add a Copilot instructions file to the repository.
+Before we begin larger updates to the site with the help of Copilot, we want to ensure Copilot has a good understanding of how we're building our application. As a result, we're going to add a Copilot instructions file to the repository.
 
 ## Overview of Copilot instructions
 
 Copilot instructions is a markdown file is placed in your **.github** folder. It becomes part of your project, and in turn to all contributors to your codebase. You can use this file to indicate various coding standards you wish to follow, the technologies your project uses, or anything else important for Copilot Chat to understand when generating suggestions.
 
 > [!IMPORTANT]
-> The *copilot-instructions.md* file is included in **every** call to GitHub Copilot Chat, and will be part of the context sent to Copilot. Because there is always a limited set of tokens an LLM can operate on, a large set of Copilot instructions can obscure relevant information. As such, you should limit your Copilot instructions file to project-wide information, providing an overview of what you're building and how you're building it. If you need to provide more specific information for particular tasks, you can create [prompt files](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot?tool=vscode#about-prompt-files) as needed.
+> The *copilot-instructions.md* file is included in **every** call to GitHub Copilot Chat, and will be part of the context sent to Copilot. Because there is always a limited set of tokens an LLM can operate on, a large Copilot instructions file can obscure relevant information. As such, you should limit your Copilot instructions file to project-wide information, providing an overview of what you're building and how you're building it. If you need to provide more specific information for particular tasks, you can create [prompt files](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot?tool=vscode#about-prompt-files).
 
 Here are some guidelines to consider when creating a Copilot instructions file:
 
@@ -25,18 +25,26 @@ Here are some guidelines to consider when creating a Copilot instructions file:
         - use [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) rather than the `function` keyword in TypeScript.
 - If you notice GitHub Copilot consistently provides an unexpected suggestion (e.g. using class components for React), add those notes to the instructions file.
 
+## Create a Copilot instructions file
+
 Let's create a Copilot instructions file. We'll start by asking Copilot to generate a block of code, then add the instructions file, then ask the same question again to see the changes.
 
 1. Return to your IDE with your project open.
-2. Open Copilot Chat and send the following prompt:
+2. Close any tabs you may have open in your IDE to ensure Copilot chat has an empty context.
+3. Select the `+` icon towards the top of Copilot chat to begin a new chat.
+4. Open Copilot Chat and send the following prompt:
 
     ```
     Create a Python function to validate dog age. Ensure age is between 0 and 20. Throw an error if it is outside this range.
     ```
 
-3. Note the function signature is similar to `def validate_age(age)` without type hints.
-4. Create a new file in the **.github** folder called **copilot-instructions.md**.
-5. Add the markdown to the file necessary which provides information about the project structure and requirements:
+5. Note the function signature is similar to `def validate_dog_age(age)` without type hints.
+
+    > [!NOTE]
+    > Because LLMs are probabilistic rather than deterministic, the exact code will vary.
+
+6. Create a new file in the **.github** folder called **copilot-instructions.md**.
+7. Add the markdown to the file necessary which provides information about the project structure and requirements:
 
     ```markdown
     # Dog shelter
@@ -55,7 +63,7 @@ Let's create a Copilot instructions file. We'll start by asking Copilot to gener
     - Pages should be in dark mode with a modern look and feel
     ```
 
-6. **Save** the file.
+8. **Save** the file.
 
 ## Watch the instructions file in action
 
@@ -69,6 +77,9 @@ Whenever you make a call to Copilot chat, the references dialog indicates all fi
     Create a Python function to validate dog age. Ensure age is between 0 and 20. Throw an error if it is outside this range.
     ```
 
+    > [!TIP]
+    > You can use up arrow to resend previous prompts to Copilot chat.
+
 4. Note the references now includes the instructions file and provides information gathered from it.
 
     ![Screenshot of the chat window with the references section expanded displaying Copilot instructions in the list](./images/copilot-chat-references.png)
@@ -76,15 +87,15 @@ Whenever you make a call to Copilot chat, the references dialog indicates all fi
 5. Note the resulting Python now utilizes type hints, and the function signature will resemble the following:
 
     ```python
-    def validate_age(age: Union[int, float, str]) -> float:
+    def validate_dog_age(age: int):
     ```
 
     > [!NOTE]
-    > The exact code generated will vary, but the resulting Python suggestion should now utilize type hints.
+    > The exact code generated will vary, but the new Python suggestion should now utilize type hints.
 
 ## Summary and next steps
 
-Given the importance of context, Copilot instructions improves the quality of suggestions, and better aligns with the desired practices you have in place. With the groundwork in place, let's [add new functionality to our website](./4-add-feature.md)!
+Copilot instructions improves the quality of suggestions, and ensures better alignment with the desired practices you have in place. With the groundwork in place, let's [add new functionality to our website](./4-add-feature.md)!
 
 ## Resources
 
