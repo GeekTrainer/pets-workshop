@@ -18,7 +18,7 @@ GitHub Copilot Chat has a set of available [chat participants](https://code.visu
 1. Return to your IDE with the project open.
 2. Close any tabs you may have open in your IDE to ensure the context for Copilot chat is empty.
 3. Open GitHub Copilot Chat.
-4. Select the `+` icon towards the top to begin a new chat.
+4. Select the `+` icon towards the top of Copilot chat to begin a new chat.
 5. Type `@workspace` in the chat prompt window and hit <kbd>tab</kbd> to select or activate it, then continue by asking Copilot about your project. You can ask what technologies are in use, what the project does, where functionality resides, etc.
 6. Spend a few minutes exploring to find the answers to the following questions:
     - Where's the database the project uses?
