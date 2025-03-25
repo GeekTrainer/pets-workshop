@@ -6,6 +6,8 @@ There are two main interfaces to GitHub Copilot - Chat and code completion. Code
 
 It's standard to work in phases when adding functionality to an application. Given that we know we want to allow users to filter the list of dogs based on breed, we'll need to add an endpoint to provide a list of all breeds. Later we'll add the rest of the functionality, but let's focus on this part for now.
 
+The application uses a Flask app with SQLAlchemy as the backend API (in the [/server](/server/) folder), and an Astro app with Svelte as the frontend (in the [/client](/client/) folder). You will explore more of the project later; this exercise will focus solely on the Flask application.
+
 ## Flask routes
 
 While we won't be able to provide a full overview of [routing in Flask](https://flask.palletsprojects.com/en/stable/quickstart/#routing), they are defined by using the Python decorator `@app.route`. There are a couple of parameters you can provide to `@app.route`, including the path (or URL) one would use to access the route (such as **api/breeds**), and the [HTTP method(s)](https://www.w3schools.com/tags/ref_httpmethods.asp) which can be used.
@@ -22,6 +24,9 @@ Code completion is best for situations where you know what you want to do, and a
 ## Create the breeds endpoint
 
 Let's build our new route in our Flask backend with the help of code completion.
+
+> [!NOTE]
+> As you begin making changes to the application, there is always a chance a breaking change could be created. If the page stops working, check the terminal window you used previously to start the application for any error messages. You can stop the app by using <kbd>Ctl</kbd>+<kbd>C</kbd>, and restart it by running `./scripts/start-app.sh`.
 
 1. Return to your codespace, or reopen it by navigating to your repository and selecting **Code** > **Codespaces** and the name of your codespace.
 2. Open **server/app.py**.
