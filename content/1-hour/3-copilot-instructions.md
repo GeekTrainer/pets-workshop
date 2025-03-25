@@ -68,3 +68,5 @@ Given the importance of context, Copilot instructions improves the quality of su
 ## Resources
 
 - [Adding repository custom instructions for GitHub Copilot](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot)
+
+**NEXT:** [Add a new feature to your website](./4-add-feature.md)

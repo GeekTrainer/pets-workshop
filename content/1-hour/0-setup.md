@@ -4,6 +4,9 @@ To complete this workshop you will need to create a repository with a copy of th
 
 The repository for this workshop is configured as a template, so we can use it to create your repository.
 
+> [!IMPORTANT]
+> Ensure you have the [requisite software](./README.md#required-local-installation) and [requisite resources](./README.md#required-resources) setup.
+
 ## Create your repository
 
 Let's create the repository you'll use for your workshop.
@@ -63,3 +66,5 @@ With the code cloned locally, and the site running, let's open the codebase up i
 ## Summary and next steps
 
 You've now cloned the repository you'll use for this workshop and have your IDE setup! Next let's [add a new endpoint to the server](./1-add-endpoint.md)!
+
+**NEXT:** [Exercise 1: Add an endpoint](./1-add-endpoint.md)

@@ -31,3 +31,5 @@ You've explored context in GitHub Copilot, which is key to generating quality su
 
 - [Copilot Chat cookbook](https://docs.github.com/en/copilot/copilot-chat-cookbook)
 - [Use Copilot Chat in VS Code](https://code.visualstudio.com/docs/copilot/copilot-chat)
+
+**NEXT:** [Add Copilot instructions for additional context](./3-copilot-instructions.md)

@@ -70,3 +70,5 @@ You've added a new endpoint with the help of GitHub Copilot! Let's start down th
 - [Code suggestions in your IDE with GitHub Copilot](https://docs.github.com/en/copilot/using-github-copilot/getting-code-suggestions-in-your-ide-with-github-copilot)
 - [Code completions with GitHub Copilot in VS Code](https://code.visualstudio.com/docs/copilot/ai-powered-suggestions)
 - [Prompt crafting](https://code.visualstudio.com/docs/copilot/prompt-crafting)
+
+**NEXT:** [Exercise 2: Explore your project with Copilot](./2-explore-project.md)
