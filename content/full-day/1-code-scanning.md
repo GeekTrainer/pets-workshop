@@ -36,7 +36,8 @@ Public repositories on GitHub automatically have Dependabot alerts. This feature
 
 You have now enabled Dependabot alerts and security updates! Should an insecure library be detected, you will both receive an alert, and Dependabot will create a new pull request to update the version number to a secure version of the library.
 
-> **IMPORTANT:** After enabling Dependabot security updates you may notice new [pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) created for potentially outdated packages. For this workshop you can ignore these pull requests.
+> [!IMPORTANT]
+> After enabling Dependabot security updates you may notice new [pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) created for potentially outdated packages. For this workshop you can ignore these pull requests.
 
 ## Secret scanning
 
