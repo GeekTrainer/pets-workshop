@@ -125,6 +125,6 @@ Congratulations! You've explored context in GitHub Copilot, which is key to gene
 [devcontainer-docs]: https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containersopilot/adding-personal-custom-instructions-for-github-copilot
 [vscode-copilot-chat]: https://code.visualstudio.com/docs/copilot/copilot-chatook
 [walkthrough-codespaces]: ./3-codespaces.mdvisualstudio.com/docs/copilot/copilot-chat
-[walkthrough-next]: 6-code.mdting.md
+[walkthrough-next]: 6-code.md
 [walkthrough-previous]: 4-testing.md
 
