@@ -165,7 +165,7 @@ Congratulations! You have now defined a custom development environment including
 [codespace-prebuild]: https://docs.github.com/en/codespaces/prebuilding-your-codespaces
 [dev-containers-docs]: https://docs.github.com/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers
 [github-flow]: https://docs.github.com/en/get-started/quickstart/github-flow
-[github-flow-exercise]: ./6-github-flow.md
+[github-flow-exercise]: ./7-github-flow.md
 [github-universal-container]: https://docs.github.com/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers#using-the-default-dev-container-configuration
 [github-universal-container-definition]: https://github.com/devcontainers/images/blob/main/src/universal/.devcontainer/Dockerfile
 [IDE]: https://en.wikipedia.org/wiki/Integrated_development_environment
