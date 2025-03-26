@@ -41,7 +41,7 @@ GitHub Copilot Chat has a set of available chat participants and extensions avai
 Context is key to ensuring the code suggestions you receive from GitHub Copilot align with your expectations. When operating with limited information, Copilot makes assumptions about what you're looking for, and can sometimes guess incorrectly. By providing context, you allow Copilot to better align with your objectives. One great way to do this is by building a [copilot-instructions.md][copilot-custom-instructions] file. This markdown file is placed in your **.github** folder and becomes part of your project. You can use this file to indicate various coding standards you wish to follow, the technologies your project uses, or anything else important for Copilot Chat to understand when generating suggestions.
 
 > [!IMPORTANT]
-> The *copilot-instructions.md* file is included in **every** call to GitHub Copilot Chat, and will be part of the context sent to Copilot. Because there is always a limited set of tokens an LLM can operate on, a large set of Copilot instructions can obscure relevant information. As such, you should limit your Copilot instructions file to project-wide information, providing an overview of what you're building and how you're building it. If you need to provide more specific information for particular tasks, you can create [prompt files][copilot-custom-instructions] as needed.
+> The *copilot-instructions.md* file is included in **every** call to GitHub Copilot Chat, and will be part of the context sent to Copilot. Because there is always a limited set of tokens an LLM can operate on, a large set of Copilot instructions can obscure relevant information. As such, you should limit your Copilot instructions file to project-wide information, providing an overview of what you're building and how you're building it. If you need to provide more specific information for particular tasks, you can create [prompt files][copilot-prompt-files] as needed.
 
 Here are some guidelines to consider when creating a Copilot instructions file:
 
@@ -115,6 +115,7 @@ Congratulations! You've explored context in GitHub Copilot, which is key to gene
 [copilot-eclipse]: https://marketplace.eclipse.org/content/github-copilot
 [copilot-getting-started]: https://docs.github.com/en/copilot/getting-started-with-github-copilotlot/adding-repository-custom-instructions-for-github-copilot?tool=vscode
 [copilot-jetbrains]: https://plugins.jetbrains.com/plugin/17718-github-copilot
+[copilot-prompt-files]: https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot?tool=vscode#about-prompt-files
 [copilot-personal-instructions]: https://docs.github.com/en/copilot/customizing-copilot/adding-personal-custom-instructions-for-github-copilote=GitHub.copilot
 [copilot-signup]: https://github.com/github-copilot/signup
 [copilot-vim]: https://github.com/github/copilot.vim#getting-startedins.com/plugin/17718-github-copilot
