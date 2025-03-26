@@ -111,5 +111,5 @@ Copilot instructions improves the quality of suggestions, and ensures better ali
 [arrow-functions]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 [custom-instructions]: https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot
 [type-hints]: https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
-[walkthrough-previous]: ./3-copilot-instructions.md
+[walkthrough-previous]: ./2-explore-project.md
 [walkthrough-next]: ./4-add-feature.md
