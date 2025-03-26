@@ -120,7 +120,7 @@ Custom containers for GitHub Codespaces become part of the source code for the r
 > For purposes of this exercise we are pushing code updates directly to `main`, our default branch. Normally you would follow the [GitHub flow][github-flow], which we will do in a [later exercise][github-flow-exercise].
 
 1. Open a new terminal window in the codespace by selecting <kbd>Ctl</kbd> + <kbd>Shift</kbd> + <kbd>`</kbd> or clicking ☰ → View → Terminal.
-1. Find the issue number for defining the codespace by entering the following command:
+2. Find the issue number for defining the codespace by entering the following command:
 
     ```bash
     gh issue list
@@ -129,7 +129,7 @@ Custom containers for GitHub Codespaces become part of the source code for the r
 > [!NOTE]
 > It will likely be #1. You'll use this number later in this exercise.
 
-1. Stage all files, commit the changes with a message to resolve the issue, and push to main by entering the following command in the terminal window, replacing `<ISSUE_NUMBER>` with the number you obtained in the previous step:
+3. Stage all files, commit the changes with a message to resolve the issue, and push to main by entering the following command in the terminal window, replacing `<ISSUE_NUMBER>` with the number you obtained in the previous step:
 
     ```bash
     git add .
@@ -139,13 +139,13 @@ Custom containers for GitHub Codespaces become part of the source code for the r
 > [!NOTE]
 > If prompted, select **Allow** to enable copy/paste for the codespace.
 
-1. When the command completes, enter the following to list all open issues:
+4. When the command completes, enter the following to list all open issues:
 
     ```bash
     gh issue list
     ```
 
-1. Note the issue for defining a codespace is no longer listed; you completed it and marked it as such with your pull request!
+5. Note the issue for defining a codespace is no longer listed; you completed it and marked it as such with your pull request!
 
 
 ## Summary and next steps
