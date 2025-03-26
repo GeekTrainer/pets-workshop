@@ -27,7 +27,7 @@ Let's take a look at the tests defined for the project.
 > [!NOTE]
 > Consider using the following GitHub Copilot tips to gain an understanding of the tests:
 >
-> - `/explain` is a [slash command][copilot-slash-commands][copilot-slash-commands] to quickly ask for an explanation
+> - `/explain` is a [slash command][copilot-slash-commands] to quickly ask for an explanation
 > - Highlight specific sections of the file to focus on areas you may have questions about
 
 ## Understanding workflows
