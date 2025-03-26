@@ -124,5 +124,5 @@ Congratulations! You've explored context in GitHub Copilot, which is key to gene
 [vscode-copilot-chat]: https://code.visualstudio.com/docs/copilot/copilot-chatook
 [walkthrough-codespaces]: ./3-codespaces.mdvisualstudio.com/docs/copilot/copilot-chat
 [walkthrough-next]: 6-code.mdting.md
-[walkthrough-previous]: 4-testing.md[walkthrough-next]: 6-code.md
+[walkthrough-previous]: 4-testing.md
 
