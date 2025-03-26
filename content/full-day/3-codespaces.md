@@ -107,7 +107,8 @@ Whenever someone uses the codespace you defined they'll have an environment with
 1. Type **rebuild** and select **Codespaces: Rebuild container**.
 1. Select **Rebuild Container** on the dialog box. Your container now rebuilds.
 
-> **IMPORTANT:** Rebuilding the container can take several minutes. Obviously this isn't an ideal situation for providing fast access to your developers, even if it's faster than creating everything from scratch. Fortunately you can [prebuild your codespaces][codespace-prebuild] to ensure developers can spin one up within seconds.
+> [!IMPORTANT]
+> Rebuilding the container can take several minutes. Obviously this isn't an ideal situation for providing fast access to your developers, even if it's faster than creating everything from scratch. Fortunately you can [prebuild your codespaces][codespace-prebuild] to ensure developers can spin one up within seconds.
 >
 > You may also be prompted to reload the window as extensions install. Reload the window as prompted.
 
