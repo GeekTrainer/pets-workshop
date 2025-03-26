@@ -29,7 +29,7 @@ GitHub Copilot Chat has a set of available [chat participants][chat-participants
 
 ## Summary and next steps
 
-You've explored context in GitHub Copilot, which is key to generating quality suggestions. You saw how you can use chat participants to help guide GitHub Copilot, and how with natural language you can explore the project. Let's see how we can provide even more context to Copilot chat through the use of [Copilot instructions][copilot-instructions].
+You've explored context in GitHub Copilot, which is key to generating quality suggestions. You saw how you can use chat participants to help guide GitHub Copilot, and how with natural language you can explore the project. Let's see how we can provide even more context to Copilot chat through the use of [Copilot instructions][walkthrough-next].
 
 ## Resources
 
