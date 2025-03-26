@@ -126,7 +126,8 @@ Custom containers for GitHub Codespaces become part of the source code for the r
     gh issue list
     ```
 
-    > **NOTE:** It will likely be #1. You'll use this number later in this exercise.
+> [!NOTE]
+> It will likely be #1. You'll use this number later in this exercise.
 
 1. Stage all files, commit the changes with a message to resolve the issue, and push to main by entering the following command in the terminal window, replacing `<ISSUE_NUMBER>` with the number you obtained in the previous step:
 
@@ -135,8 +136,8 @@ Custom containers for GitHub Codespaces become part of the source code for the r
     git commit -m "Resolves #<ISSUE_NUMBER>"
     git push
     ```
-
-    > **NOTE:** If prompted, select **Allow** to enable copy/paste for the codespace.
+> [!NOTE]
+> If prompted, select **Allow** to enable copy/paste for the codespace.
 
 1. When the command completes, enter the following to list all open issues:
 
