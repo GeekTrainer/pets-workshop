@@ -1,12 +1,15 @@
 # Securing the development pipeline
 
+| [← Workshop setup][walkthrough-previous] | [Next: Project management with GitHub Issues →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
 Ensuring code security is imperative in today's environment. When we think about how we create code today, there's three main areas to focus on:
 
 - The code we write
 - The code we use through libraries and packages
 - The credentials needed to access services
 
-To help support developers and security teams, [GitHub Advanced Security](https://github.com/features/security) provides a suite of tools which cover these focus areas. Code Scanning will check the code you write, Dependabot ensures the libraries you use are secure, and Secret Scanning looks for any keys or tokens which are checked into code.
+To help support developers and security teams, [GitHub Advanced Security][advanced-security] provides a suite of tools which cover these focus areas. Code Scanning will check the code you write, Dependabot ensures the libraries you use are secure, and Secret Scanning looks for any keys or tokens which are checked into code.
 
 Let's explore each of these, and enable them on our repository. We'll see them in action when we create a pull request with new code later in the workshop.
 
@@ -16,7 +19,7 @@ Security is important in every application. By detecting potential vulnerabiliti
 
 ## Dependabot
 
-Most projects take dependencies on open source and other external libraries. While modern development would seemingly be impossible without these resources, we always need to ensure the dependencies we take are secure. [Dependabot](https://docs.github.com/en/code-security/getting-started/dependabot-quickstart-guide) will look at the dependencies your repository has and raise alerts or even create [pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) (PRs) to update your dependencies to a secure version.
+Most projects take dependencies on open source and other external libraries. While modern development would seemingly be impossible without these resources, we always need to ensure the dependencies we take are secure. [Dependabot][dependabot-quickstart] will look at the dependencies your repository has and raise alerts or even create [pull requests][about-prs] (PRs) to update your dependencies to a secure version.
 
 ### Configuring Dependabot
 
@@ -80,10 +83,22 @@ A background process starts, and will configure a workflow for analyzing your co
 
 ## Summary and next steps
 
-In this exercise, you enabled GitHub Advanced Security. You enabled Dependabot to check the libraries your project takes dependencies on, secret scanning to look for keys and tokens, and code scanning to examine your source code. These tools help ensure your application is secure. Next it's time to [file an issue](2-issues.md) to add feature requests.
+In this exercise, you enabled GitHub Advanced Security. You enabled Dependabot to check the libraries your project takes dependencies on, secret scanning to look for keys and tokens, and code scanning to examine your source code. These tools help ensure your application is secure. Next it's time to [file an issue][walkthrough-next] to add feature requests.
 
 ### Additional resources
 
-- [About GitHub Advanced Security](https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security)
-- [GitHub Skills: Secure your repository's supply chain](https://github.com/skills/secure-repository-supply-chain)
-- [GitHub Skills: Secure code game](https://github.com/skills/secure-code-game)
+- [About GitHub Advanced Security][advanced-security-docs]
+- [GitHub Skills: Secure your repository's supply chain][skills-supply-chain]
+- [GitHub Skills: Secure code game][skills-secure-code]
+
+| [← Workshop setup][walkthrough-previous] | [Next: Project management with GitHub Issues →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+[advanced-security]: https://github.com/features/security
+[advanced-security-docs]: https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security
+[about-prs]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+[dependabot-quickstart]: https://docs.github.com/en/code-security/getting-started/dependabot-quickstart-guide
+[skills-supply-chain]: https://github.com/skills/secure-repository-supply-chain
+[skills-secure-code]: https://github.com/skills/secure-code-game
+[walkthrough-previous]: 0-setup.md
+[walkthrough-next]: 2-issues.md
