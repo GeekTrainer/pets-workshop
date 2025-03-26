@@ -1,14 +1,17 @@
 # Continuous integration and testing
 
+| [← Cloud-based development with GitHub Codespaces][walkthrough-previous] | [Next: Helping GitHub Copilot understand context →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
 Chances are you've heard the abbreviation CI/CD, which stands for continuous integration and continuous delivery (or sometimes continuous deployment). CI is centered on incorporating new code into the existing codebase, and typically includes running tests and performing builds. CD focuses on the next logical step, taking the now validated code and generating the necessary outputs to be pushed to the cloud or other destinations. This is probably the most focused upon component of DevOps.
 
 CI/CD fosters a culture of rapid development, collaboration, and continuous improvement, allowing organizations to deliver software updates and new features more reliably and quickly. It ensures consistency, and allows developers to focus on writing code rather than performing manual processes.
 
-[GitHub Actions](https://github.com/features/actions) is an automation platform upon which you can build your CI/CD process. It can also be used to automate other tasks, such as resizing images and validating machine learning models.
+[GitHub Actions][github-actions] is an automation platform upon which you can build your CI/CD process. It can also be used to automate other tasks, such as resizing images and validating machine learning models.
 
 ## Scenario
 
-A set of unit tests exist for the Python server for the project. You want to ensure those tests are run whenever someone makes a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) (PR). To meet this requirement, you'll need to define a workflow for the project, and ensure there is a [trigger](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows) for pull requests to main. Fortunately, [GitHub Copilot](https://gh.io/copilot) can aid you in creating the necessary YML file!
+A set of unit tests exist for the Python server for the project. You want to ensure those tests are run whenever someone makes a [pull request][about-prs] (PR). To meet this requirement, you'll need to define a workflow for the project, and ensure there is a [trigger][workflow-triggers] for pull requests to main. Fortunately, [GitHub Copilot][copilot] can aid you in creating the necessary YML file!
 
 ## Exploring the test
 
@@ -24,7 +27,7 @@ Let's take a look at the tests defined for the project.
 > [!NOTE]
 > Consider using the following GitHub Copilot tips to gain an understanding of the tests:
 >
-> - `/explain` is a [slash command](https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/github-copilot-chat-cheat-sheet) to quickly ask for an explanation
+> - `/explain` is a [slash command][copilot-slash-commands][copilot-slash-commands] to quickly ask for an explanation
 > - Highlight specific sections of the file to focus on areas you may have questions about
 
 ## Understanding workflows
@@ -101,9 +104,10 @@ jobs:
 
 ## Push the workflow to the repository
 
-With the workflow created, let's push it to the repository. Typically you would create a PR for any new code (which this is). To streamline the process, we're going to push straight to main as we'll be exploring pull requests and the [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow) in a later exercise. You'll start by obtaining the number of the [issue you created earlier](./2-issues.md), creating a commit for the new code, then pushing it to main.
+With the workflow created, let's push it to the repository. Typically you would create a PR for any new code (which this is). To streamline the process, we're going to push straight to main as we'll be exploring pull requests and the [GitHub flow][github-flow] in a [later exercise][github-flow-exercise]. You'll start by obtaining the number of the [issue you created earlier][issues-exercise], creating a commit for the new code, then pushing it to main.
 
-> **NOTE:** All commands are entered using the terminal window in the codespace.
+> [!NOTE]
+> All commands are entered using the terminal window in the codespace.
 
 1. Use the open terminal window in your codespace, or open it (if necessary) by pressing <kbd>Ctl</kbd> + <kbd>`</kbd>.
 1. List all issues for the repository by entering the following command in the terminal window:
@@ -147,11 +151,27 @@ You've now seen a workflow, and explore the details of a run!
 
 ## Summary and next steps
 
-Congratulations! You've implemented automated testing, a standard part of continuous integration, which is critical to successful DevOps. Automating these processes ensures consistency and reduces the workload required for developers and administrators. You have created a workflow to run tests on any new code for your codebase. Let's explore [context with GitHub Copilot chat](./5-context.md).
+Congratulations! You've implemented automated testing, a standard part of continuous integration, which is critical to successful DevOps. Automating these processes ensures consistency and reduces the workload required for developers and administrators. You have created a workflow to run tests on any new code for your codebase. Let's explore [context with GitHub Copilot chat][walkthrough-next].
 
 ### Resources
+- [GitHub Actions][github-actions]
+- [GitHub Actions Marketplace][actions-marketplace]
+- [About continuous integration][about-ci]
+- [GitHub Skills: Test with Actions][skills-test-actions]
 
-- [GitHub Actions](https://github.com/features/actions)
-- [GitHub Actions Marketplace](https://github.com/marketplace?type=actions)
-- [About continuous integration](https://docs.github.com/en/actions/automating-builds-and-tests/about-continuous-integration)
-- [GitHub Skills: Test with Actions](https://github.com/skills/test-with-actions)
+| [← Cloud-based development with GitHub Codespaces][walkthrough-previous] | [Next: Helping GitHub Copilot understand context →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+[about-ci]: https://docs.github.com/en/actions/automating-builds-and-tests/about-continuous-integration
+[about-prs]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+[actions-marketplace]: https://github.com/marketplace?type=actions
+[workflow-triggers]: https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
+[copilot]: https://gh.io/copilot
+[copilot-slash-commands]: https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/github-copilot-chat-cheat-sheet
+[github-actions]: https://github.com/features/actions
+[github-flow]: https://docs.github.com/en/get-started/quickstart/github-flow
+[github-flow-exercise]: ./7-github-flow.md
+[issues-exercise]: ./2-issues.md
+[skills-test-actions]: https://github.com/skills/test-with-actions
+[walkthrough-previous]: 3-codespaces.md
+[walkthrough-next]: 5-context.md
