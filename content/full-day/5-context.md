@@ -11,7 +11,7 @@ Before adding new functionality to the website, you want to explore the existing
 
 ## Getting started with GitHub Copilot
 
-GitHub Copilot is a cloud-based service offered for both individuals and businesses. As an individual, you can [sign up for a free account][copilot-signup] of the service. After enrolling you will typically install the extension for your IDE, which is available for [Visual Studio][copilot-vs], [Visual Studio Code][copilot-vscode], [NeoVIM][copilot-vim] and the [JetBrains IDEs][copilot-jetbrains], [XCode](copilot-xcode) and [Eclipse][copilot-eclipse]. Because we'll be using the [Codespace][walkthrough-codespaces] you defined in the previous exercise, you won't need to manually install the extension - you did that when you configured the dev container!
+GitHub Copilot is a cloud-based service offered for both individuals and businesses. As an individual, you can [sign up for a free account][copilot-signup] of the service. After enrolling you will typically install the extension for your IDE, which is available for [Visual Studio][copilot-vs], [Visual Studio Code][copilot-vscode], [NeoVIM][copilot-vim], the [JetBrains IDEs][copilot-jetbrains], [XCode](copilot-xcode) and [Eclipse][copilot-eclipse]. Because we'll be using the [Codespace][walkthrough-codespaces] you defined in the previous exercise, you won't need to manually install the extension - you did that when you configured the dev container!
 
 1. If you don't already have access to GitHub Copilot, [sign up for a free trial][copilot-signup].
 2. In the [previous exercise][walkthrough-codespaces] you configured your [devcontainer][devcontainer-docs] to automatically install the extension for GitHub Copilot, so you're all set and ready to go!
