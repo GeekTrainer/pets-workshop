@@ -5,7 +5,7 @@
 
 One of the biggest challenges organizations face is onboarding new developers to projects. There are libraries to install, services to configure, version issues, obscure error messages... It can literally take days to get everything running before a developer is able to write their first line of code. [GitHub Codespaces][codespaces] is built to streamline this entire process. You can configure a container for development which your developers can access with just a couple of clicks from basically anywhere in the world. The container runs in the cloud, has everything already setup, and ready to go. Instead of days your developers can start writing code in seconds.
 
-GitHub Codespaces allows you to develop using the cloud-based container and Visual Studio Code in your browser window, meaning no local installation is required; you can do development with a tablet and a keyboard! You can also connect your local instance of [Visual Studio Code][vscode-codespaces] or [JetBrains IDE][jetbrains-codespaces]
+GitHub Codespaces allows you to develop using the cloud-based container and Visual Studio Code in your browser window, meaning no local installation is required; you can do development with a tablet and a keyboard! You can also connect your local instance of [Visual Studio Code][vscode-codespaces].
 
 Let's explore how to create and configure a codespaces for your project, and see how you can develop in your browser.
 
@@ -168,7 +168,6 @@ Congratulations! You have now defined a custom development environment including
 [github-universal-container]: https://docs.github.com/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers#using-the-default-dev-container-configuration
 [github-universal-container-definition]: https://github.com/devcontainers/images/blob/main/src/universal/.devcontainer/Dockerfile
 [IDE]: https://en.wikipedia.org/wiki/Integrated_development_environment
-[jetbrains-codespaces]: https://docs.github.com/en/codespaces/developing-in-codespaces/using-github-codespaces-in-your-jetbrains-ide
 [skills-codespaces]: https://github.com/skills/code-with-codespaces
 [vscode-codespaces]: https://docs.github.com/en/codespaces/developing-in-codespaces/using-github-codespaces-in-visual-studio-code
 [vscode-extensions]: https://code.visualstudio.com/docs/editor/extension-marketplace
