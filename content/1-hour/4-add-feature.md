@@ -64,7 +64,7 @@ You can also keep or undo all changes made.
 And
 
 1. Review the code suggestions to ensure they behave the way you expect them to, making any necessary changes. Once you're satisfied, you can select **Keep** on the files individually or in Copilot Chat to accept all changes.
-2. Open the page at [http://localhost:4321](http://localhost:4321) to see the updates!
+2. Open the page at [http://localhost:4321][tailspin-shelter-website] to see the updates!
 3. Run the Python tests by using `python -m unittest` in the terminal as you did previously.
 4. If any changes are needed, explain the required updates to GitHub Copilot and allow it to generate the new code.
 
@@ -98,5 +98,6 @@ There is no one right way to use GitHub Copilot. Continue to explore and try dif
 [copilot-ask]: https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/asking-github-copilot-questions-in-your-ide
 [copilot-cookbook]: https://docs.github.com/en/copilot/copilot-chat-cookbook
 [copilot-edits]: https://code.visualstudio.com/docs/copilot/copilot-edits
+[tailspin-shelter-website]: http://localhost:4321
 [walkthrough-previous]: ./3-copilot-instructions.md
 [walkthrough-next]: ./5-bonus.md
