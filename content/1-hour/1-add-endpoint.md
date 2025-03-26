@@ -91,9 +91,9 @@ You've added a new endpoint with the help of GitHub Copilot! You saw how Copilot
 |:-----------------------------------|------------------------------------------:|
 
 [client-code]: /client/
-[copilot-suggestions]: https://docs.github.com/en/copilot/using-github-copilot/
+[copilot-suggestions]: https://docs.github.com/en/copilot/using-github-copilot/getting-code-suggestions-in-your-ide-with-github-copilot
 [flask-routing]: https://flask.palletsprojects.com/en/stable/quickstart/#routing
-[http-methods]: https://www.w3schools.com/tags/ref_httpmethods.aspgetting-code-suggestions-in-your-ide-with-github-copilot
+[http-methods]: https://www.w3schools.com/tags/ref_httpmethods.asp
 [prompt-crafting]: https://code.visualstudio.com/docs/copilot/prompt-crafting
 [server-code]: /server/
 [vscode-copilot]: https://code.visualstudio.com/docs/copilot/ai-powered-suggestions
