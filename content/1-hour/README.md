@@ -44,11 +44,11 @@ You will also need the following available and installed locally:
 
 Ready to get started? Let's go! The workshop scenario imagines you as a developer volunteering your time for a pet adoption center. You've been asked to add a filter to the website to allow people to limit their search results by breed and adoption status. You'll work over the next 5 exercises to perform the tasks!
 
-0. [Clone the repository and start the app](./0-setup.md) for the workshop.
-1. [Add an endpoint to the server](./1-add-endpoint.md) to list all breeds.
-2. [Explore the project](./2-explore-project.md) to get a better understanding of what needs to be done.
-3. [Create custom instructions](./3-copilot-instructions.md) to ensure Copilot chat has additional context.
-4. [Add the new feature](./4-add-feature.md) to the website, and ensure it works!
+0. [Clone the repository and start the app][walkthrough-next] for the workshop.
+1. [Add an endpoint to the server][stage-1] to list all breeds.
+2. [Explore the project][stage-2] to get a better understanding of what needs to be done.
+3. [Create custom instructions][stage-3] to ensure Copilot chat has additional context.
+4. [Add the new feature][stage-4] to the website, and ensure it works!
 
 | [← Pets workshop selection][walkthrough-previous] | [Next: Workshop setup →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
@@ -59,6 +59,10 @@ Ready to get started? Let's go! The workshop scenario imagines you as a develope
 [github-account]: https://github.com/join
 [nodejs-link]: https://nodejs.org/en
 [python-link]: https://www.python.org/
+[stage-1]: ./1-add-endpoint.md
+[stage-2]: ./2-explore-project.md
+[stage-3]: ./3-copilot-instructions.md
+[stage-4]: ./4-add-feature.md
 [walkthrough-previous]: ../README.md
 [walkthrough-next]: ./0-setup.md
 [windows-subsystem-linux]: https://learn.microsoft.com/en-us/windows/wsl/about
