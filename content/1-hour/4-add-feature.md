@@ -1,5 +1,8 @@
 # Add the filter feature
 
+| [← Providing custom instructions][walkthrough-previous] | [Next: Bonus content →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
 We've explored how we can use GitHub Copilot to explore our project and to provide context to ensure the suggestions we receive are to the quality we expect. Now let's turn our attention to putting all this prep work into action by generating new code! We'll use GitHub Copilot to aid us in adding functionality to our website.
 
 ## Scenario
@@ -34,8 +37,8 @@ Adding the filters to the page will require updating a minimum of two files - th
     - A checkbox should be available to only show available dogs
     - The page should automatically refresh whenever a change is made
 
-    > [!NOTE]
-    > You should use your own phrasing when generating the prompt. As highlighted previously, part of the exercise is to become comfortable creating prompts for GitHub Copilot. One key tip is it's always good to provide more guidance to ensure you get the code you are looking for.
+> [!NOTE]
+> You should use your own phrasing when generating the prompt. As highlighted previously, part of the exercise is to become comfortable creating prompts for GitHub Copilot. One key tip is it's always good to provide more guidance to ensure you get the code you are looking for.
 
 Copilot begins generating the suggestions!
 
@@ -85,8 +88,15 @@ There is no one right way to use GitHub Copilot. Continue to explore and try dif
 
 ## Resources
 
-- [Asking GitHub Copilot questions in your IDE](https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/asking-github-copilot-questions-in-your-ide)
-- [Copilot Edits](https://code.visualstudio.com/docs/copilot/copilot-edits)
-- [Copilot Chat cookbook](https://docs.github.com/en/copilot/copilot-chat-cookbook)
+- [Asking GitHub Copilot questions in your IDE][copilot-ask]
+- [Copilot Chat cookbook][copilot-cookbook]
+- [Copilot Edits][copilot-edits]
 
-**NEXT:** If you've made it here and want to keep exploring, we've got some [bonus suggestions](./5-bonus.md) for you!
+| [← Providing custom instructions][walkthrough-previous] | [Next: Bonus content →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+[copilot-ask]: https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/asking-github-copilot-questions-in-your-ide
+[copilot-cookbook]: https://docs.github.com/en/copilot/copilot-chat-cookbook
+[copilot-edits]: https://code.visualstudio.com/docs/copilot/copilot-edits
+[walkthrough-previous]: ./3-copilot-instructions.md
+[walkthrough-next]: ./5-bonus.md
