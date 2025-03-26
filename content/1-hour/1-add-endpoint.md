@@ -65,8 +65,8 @@ Let's build our new route in our Flask backend with the help of code completion.
         return jsonify(breeds_list)
     ```
 
-    > [!IMPORTANT]
-    > Because LLMs are probabilistic, not deterministic, the exact code generated can vary. The above is a representative example. If your code is different, that's just fine as long as it works!
+> [!IMPORTANT]
+> Because LLMs are probabilistic, not deterministic, the exact code generated can vary. The above is a representative example. If your code is different, that's just fine as long as it works!
 
 8. **Save** the file.
 
@@ -74,7 +74,7 @@ Let's build our new route in our Flask backend with the help of code completion.
 
 With the code created and saved, let's quickly validate the endpoint to ensure it works.
 
-1. Navigate to [http://localhost:5100/api/breeds](http://localhost:5100/api/breeds) to validate the route. You should see JSON displayed which contains the list of breeds!
+1. Navigate to [http://localhost:5100/api/breeds][breeds-endpoint] to validate the route. You should see JSON displayed which contains the list of breeds!
 
 ## Summary and next steps
 
@@ -90,6 +90,7 @@ You've added a new endpoint with the help of GitHub Copilot! You saw how Copilot
 | [← Workshop setup][walkthrough-previous] | [Next: Helping GitHub Copilot understand context →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
+[breeds-endpoint]: http://localhost:5100/api/breeds
 [client-code]: /client/
 [copilot-suggestions]: https://docs.github.com/en/copilot/using-github-copilot/getting-code-suggestions-in-your-ide-with-github-copilot
 [flask-routing]: https://flask.palletsprojects.com/en/stable/quickstart/#routing
