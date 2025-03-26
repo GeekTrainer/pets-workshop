@@ -43,7 +43,7 @@ You have now enabled Dependabot alerts and security updates! Should an insecure 
 
 Many developers have checked in code with a token or username and passwords. Sometimes this is because the developer was trying to take a shortcut, sometimes it was because they didn't know the proper mechanism to secure the key, and sometimes it was done under the assumption they'll clean it up later but never do.
 
-Regardless of the reason, even seemingly innocuous tokens can create a security issue. We always want to take care to not publish tokens and keys, and detect any issues as quickly as possible. Secret scanning is built to do exactly this. When a token is detected in your source code, an alert will be raised. You can even enable push protection, ensuring any code with a [supported secret](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-patterns#supported-secrets) can't be pushed to your repository.
+Regardless of the reason, even seemingly innocuous tokens can create a security issue. We always want to take care to not publish tokens and keys, and detect any issues as quickly as possible. Secret scanning is built to do exactly this. When a token is detected in your source code, an alert will be raised. You can even enable push protection, ensuring any code with a [supported secret][supported-secrets] can't be pushed to your repository.
 
 ### Enabling secret scanning
 
@@ -51,7 +51,7 @@ Let's enable Secret scanning to detect any potential keys.
 
 1. On the same page (**Settings** > **Code security and analysis**), towards the very bottom, locate the **Secret scanning** section.
 1. Next to **Receive alerts on GitHub for detected secrets, keys or other tokens**, select **Enable**.
-1. Next to **Push protection**, select **Enable** to block pushes to the repository which contain a [supported secret](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-patterns#supported-secrets).
+1. Next to **Push protection**, select **Enable** to block pushes to the repository which contain a [supported secret][supported-secrets].
 
     ![Screenshot of fully configured secret scanning](./images/1-secret-scanning.png)
 
@@ -59,14 +59,14 @@ You've now enabled secret scanning and push protection. This helps you both bloc
 
 ## Code scanning
 
-There is a direct relationship between the amount of code an organization creates and potential attack vectors. We always want to check our source code for vulnerabilities. [Code scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) checks your source code for known vulnerabilities. When an issue is detected on a pull request, a new comment is added highlighting the line of source code providing contextual information for the developer. This allows for the issue to be quickly resolved.
+There is a direct relationship between the amount of code an organization creates and potential attack vectors. We always want to check our source code for vulnerabilities. [Code scanning][about-code-scanning] checks your source code for known vulnerabilities. When an issue is detected on a pull request, a new comment is added highlighting the line of source code providing contextual information for the developer. This allows for the issue to be quickly resolved.
 
 > [!NOTE]
-> Code scanning is built atop [GitHub Actions](https://github.com/features/actions), the automation platform for GitHub. We'll explore the specifics of GitHub Actions later in this workshop and create our own workflows.
+> Code scanning is built atop [GitHub Actions][github-actions], the automation platform for GitHub. We'll explore the specifics of GitHub Actions later in this workshop and create our own workflows.
 
 ### Enabling code scanning
 
-Let's enable Code scanning to detect vulnerabilities in our source code. We're going to use the default implementation, which runs whenever code is pushed to `main` or a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) is made to `main`. It will also run on a set schedule to ensure any newly discovered potential vulnerabilities are detected.
+Let's enable Code scanning to detect vulnerabilities in our source code. We're going to use the default implementation, which runs whenever code is pushed to `main` or a [pull request][about-prs] is made to `main`. It will also run on a set schedule to ensure any newly discovered potential vulnerabilities are detected.
 
 1. On the same page (**Settings** > **Code security and analysis**), towards the very bottom, locate the **Code scanning** section.
 1. Next to **CodeQL analysis**, select **Set up** > **Default**.
@@ -80,7 +80,7 @@ Let's enable Code scanning to detect vulnerabilities in our source code. We're g
 > [!IMPORTANT]
 > Your list of languages may be different
 
-A background process starts, and will configure a workflow for analyzing your code using [CodeQL and code scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning).
+A background process starts, and will configure a workflow for analyzing your code using [CodeQL and code scanning][about-code-scanning].
 
 ## Summary and next steps
 
@@ -97,8 +97,11 @@ In this exercise, you enabled GitHub Advanced Security. You enabled Dependabot t
 
 [advanced-security]: https://github.com/features/security
 [advanced-security-docs]: https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security
+[about-code-scanning]: https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning
 [about-prs]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
 [dependabot-quickstart]: https://docs.github.com/en/code-security/getting-started/dependabot-quickstart-guide
+[github-actions]: https://github.com/features/actions
+[supported-secrets]: https://docs.github.com/en/code-security/secret-scanning/secret-scanning-patterns#supported-secrets
 [skills-supply-chain]: https://github.com/skills/secure-repository-supply-chain
 [skills-secure-code]: https://github.com/skills/secure-code-game
 [walkthrough-previous]: 0-setup.md
