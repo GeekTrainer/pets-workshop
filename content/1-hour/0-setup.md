@@ -1,11 +1,14 @@
 # Workshop setup
 
-To complete this workshop you will need to create a repository with a copy of the contents of this repository. While this can be done by [forking a repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo), the goal of a fork is to eventually merge code back into the original (or upstream) source. In our case we want a separate copy as we don't intend to merge our changes. This is accomplished through the use of a [template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository). Template repositories are a great way to provide starters for your organization, ensuring consistency across projects.
+| [← Getting started with GitHub Copilot][walkthrough-previous] | [Next: Coding with GitHub Copilot →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+To complete this workshop you will need to create a repository with a copy of the contents of this repository. While this can be done by [forking a repository][fork-repo], the goal of a fork is to eventually merge code back into the original (or upstream) source. In our case we want a separate copy as we don't intend to merge our changes. This is accomplished through the use of a [template repository][template-repo]. Template repositories are a great way to provide starters for your organization, ensuring consistency across projects.
 
 The repository for this workshop is configured as a template, so we can use it to create your repository.
 
 > [!IMPORTANT]
-> Ensure you have the [requisite software](./README.md#required-local-installation) and [requisite resources](./README.md#required-resources) setup.
+> Ensure you have the [requisite software][required-software] and [requisite resources][required-resources] setup.
 
 ## Create your repository
 
@@ -51,8 +54,8 @@ With the repository created, it's now time to clone the repository locally. We'l
 
 The startup script will start two applications:
 
-- The backend Flask app on [localhost:5100](http://localhost:5100). You can see a list of dogs by opening the [dogs API](http://localhost:5100/api/dogs).
-- The frontend Astro/Svelte app on [localhost:4321](http://localhost:4321). You can see the [website](http://localhost:4321) by opening that URL.
+- The backend Flask app on [localhost:5100][flask-url]. You can see a list of dogs by opening the [dogs API][dogs-api].
+- The frontend Astro/Svelte app on [localhost:4321][astro-url]. You can see the [website][website-url] by opening that URL.
 
 ## Open your editor
 
@@ -65,6 +68,19 @@ With the code cloned locally, and the site running, let's open the codebase up i
 
 ## Summary and next steps
 
-You've now cloned the repository you'll use for this workshop and have your IDE setup! Next let's [add a new endpoint to the server](./1-add-endpoint.md)!
+You've now cloned the repository you'll use for this workshop and have your IDE setup! Next let's [add a new endpoint to the server][walkthrough-next]!
 
-**NEXT:** [Exercise 1: Add an endpoint](./1-add-endpoint.md)
+
+| [← Getting started with GitHub Copilot][walkthrough-previous] | [Next: Coding with GitHub Copilot →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+[astro-url]: http://localhost:4321
+[dogs-api]: http://localhost:5100/api/dogs
+[flask-url]: http://localhost:5100
+[fork-repo]: https://docs.github.com/en/get-started/quickstart/fork-a-repo
+[required-resources]: ./README.md#required-resources
+[required-software]: ./README.md#required-local-installation
+[template-repo]: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository
+[walkthrough-previous]: README.md
+[walkthrough-next]: ./1-add-endpoint.md
+[website-url]: http://localhost:4321

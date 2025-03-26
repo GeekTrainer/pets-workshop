@@ -1,6 +1,9 @@
 # Getting started with GitHub Copilot
 
-Built to be your AI pair programmer, [GitHub Copilot](https://github.com/features/copilot) helps you generate code and focus on what's important. Through the use of code completion you can create code from comments, and functions from just a signature. With Copilot chat you can ask questions about your codebase, create new files and update existing ones, and even perform operations which update files across your entire codebase.
+| [← Pets workshop selection][walkthrough-previous] | [Next: Workshop setup →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+Built to be your AI pair programmer, [GitHub Copilot][copilot] helps you generate code and focus on what's important. Through the use of code completion you can create code from comments, and functions from just a signature. With Copilot chat you can ask questions about your codebase, create new files and update existing ones, and even perform operations which update files across your entire codebase.
 
 As with any tool, there are a set of skills which need to be acquired, which is the purpose of this (roughly) one hour workshop. You'll explore the most common workloads available to you by exploring and updating an existing application to add functionality.
 
@@ -15,8 +18,8 @@ The application for the workshop uses is built primarily with Python (Flask and 
 
 To complete this workshop, you will need the following:
 
-- A [GitHub account](https://github.com/join).
-- Access to [GitHub Copilot](https://github.com/features/copilot) (which is available for free for individuals!)
+- A [GitHub account][github-account].
+- Access to [GitHub Copilot][copilot] (which is available for free for individuals!)
 
 ## Required local installation
 
@@ -24,27 +27,43 @@ You will also need the following available and installed locally:
 
 ### Code editor
 
-- [Visual Studio Code](https://code.visualstudio.com/).
-- [Copilot extension installed in your IDE](https://docs.github.com/en/copilot/managing-copilot/configure-personal-settings/installing-the-github-copilot-extension-in-your-environment).
+- [Visual Studio Code][vscode-link].
+- [Copilot extension installed in your IDE][copilot-extension].
 
 ### Local services
 
-- A recent [Node.js runtime](https://nodejs.org/en).
-- A recent version of [Python](https://www.python.org/).
-- The [git CLI](https://git-scm.com/).
+- A recent [Node.js runtime][nodejs-link].
+- A recent version of [Python][python-link].
+- The [git CLI][git-link].
 - A shell capable of running BASH commands.
 
-    > [!NOTE]
-    > Linux and macOS are able to run BASH commands without additional configuration. For Windows, you will need either [Windows Subsystem for Linux (WS)](https://learn.microsoft.com/en-us/windows/wsl/about) or the BASH shell available via [git](https://git-scm.com/)
+> [!NOTE]
+> Linux and macOS are able to run BASH commands without additional configuration. For Windows, you will need either [Windows Subsystem for Linux (WS)][windows-subsystem-linux] or the BASH shell available via [git][git-link].
 
 ## Getting started
 
 Ready to get started? Let's go! The workshop scenario imagines you as a developer volunteering your time for a pet adoption center. You've been asked to add a filter to the website to allow people to limit their search results by breed and adoption status. You'll work over the next 5 exercises to perform the tasks!
 
-0. [Clone the repository and start the app](./0-setup.md) for the workshop.
-1. [Add an endpoint to the server](./1-add-endpoint.md) to list all breeds.
-2. [Explore the project](./2-explore-project.md) to get a better understanding of what needs to be done.
-3. [Create custom instructions](./3-copilot-instructions.md) to ensure Copilot chat has additional context.
-4. [Add the new feature](./4-add-feature.md) to the website, and ensure it works!
+0. [Clone the repository and start the app][walkthrough-next] for the workshop.
+1. [Add an endpoint to the server][stage-1] to list all breeds.
+2. [Explore the project][stage-2] to get a better understanding of what needs to be done.
+3. [Create custom instructions][stage-3] to ensure Copilot chat has additional context.
+4. [Add the new feature][stage-4] to the website, and ensure it works!
 
-**NEXT:** [Clone the repo and start the app](./0-setup.md)
+| [← Pets workshop selection][walkthrough-previous] | [Next: Workshop setup →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+[copilot]: https://github.com/features/copilot
+[copilot-extension]: https://docs.github.com/en/copilot/managing-copilot/configure-personal-settings/installing-the-github-copilot-extension-in-your-environment
+[git-link]: https://git-scm.com/
+[github-account]: https://github.com/join
+[nodejs-link]: https://nodejs.org/en
+[python-link]: https://www.python.org/
+[stage-1]: ./1-add-endpoint.md
+[stage-2]: ./2-explore-project.md
+[stage-3]: ./3-copilot-instructions.md
+[stage-4]: ./4-add-feature.md
+[walkthrough-previous]: ../README.md
+[walkthrough-next]: ./0-setup.md
+[windows-subsystem-linux]: https://learn.microsoft.com/en-us/windows/wsl/about
+[vscode-link]: https://code.visualstudio.com/

@@ -1,5 +1,8 @@
 # Deploying the project to the cloud
 
+| [← GitHub flow][walkthrough-previous] | [Next: Pets workshop selection →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
 The CD portion of CI/CD is continuous delivery or continuous deployment. In a nutshell, it's about taking the product you're building and putting it somewhere to be accessed by the people who need it. There's numerous ways to do this, and the process can become rather involved. We're going to focus on taking our application and deploying it to Azure.
 
 > [!NOTE]
@@ -24,13 +27,13 @@ To streamline the process, we're going to work directly with the **main** branch
 
 ## Identity management
 
-Whenever you're interacting with an external service, you of course need credentials to perform any actions. This holds true when you're creating any form of automated tasks, such as a workflow in GitHub. There are several ways to manage identities, including access tokens, shared passwords, and [Open ID Connect (OIDC)](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect), with the latter being the newest and preferred mechanism. The advantage to OIDC is it uses short-lived tokens and provides granular control over the operations which can be performed.
+Whenever you're interacting with an external service, you of course need credentials to perform any actions. This holds true when you're creating any form of automated tasks, such as a workflow in GitHub. There are several ways to manage identities, including access tokens, shared passwords, and [Open ID Connect (OIDC)][oidc-docs], with the latter being the newest and preferred mechanism. The advantage to OIDC is it uses short-lived tokens and provides granular control over the operations which can be performed.
 
 Creating and setting up the credentials is typically a task performed by administrators. However, there are tools which can manage this for you, one of which we'll be taking advantage of!
 
 ## Asking Azure how to deploy to Azure
 
-We previously talked about [extensions for GitHub Copilot chat](./5-context.md#chat-participants-and-extensions), which allow you to interact with external services. These external services could provide access to information about your DevOps flow, database, and other resources. One such extension is the [Azure extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azure-github-copilot), which as the name implies allows you to interact with Azure. You can use the extension to get advice on how to deploy your application, check the status of services, and perform other operations. We'll use this extension to ask how to deploy our application.
+We previously talked about [extensions for GitHub Copilot chat][extensions-copilot-chat], which allow you to interact with external services. These external services could provide access to information about your DevOps flow, database, and other resources. One such extension is the [Azure extension][azure-copilot-extension], which as the name implies allows you to interact with Azure. You can use the extension to get advice on how to deploy your application, check the status of services, and perform other operations. We'll use this extension to ask how to deploy our application.
 
 As we've done with other tasks, we don't have a specific prompt to use when talking with Azure, as part of the experience is to learn how best to interact with GitHub Copilot. The requirements for the deployment are:
 
@@ -40,8 +43,8 @@ As we've done with other tasks, we don't have a specific prompt to use when talk
 1. Open GitHub Copilot Chat.
 2. Activate the Azure extension by typing `@azure`, selecting <kbd>Tab</kbd> then asking the extension how to perform the task you wish to perform (see the requirements above).
 
-  > [!NOTE]
-  > Since this is your first time using the extension, you will be prompted to signin to Azure. Follow the prompts as they appear.
+> [!NOTE]
+> Since this is your first time using the extension, you will be prompted to signin to Azure. Follow the prompts as they appear.
 
 3. You should receive a response which highlights the `azd` command, which can be used to both initialize a cloud environment and create the workflow.
 
@@ -49,11 +52,11 @@ As we've done with other tasks, we don't have a specific prompt to use when talk
 
 The response from GitHub Copilot will likely contain instructions to use the following commands:
 
-- `azd init --from-code` to create the Azure configuration files using [bicep](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep).
+- `azd init --from-code` to create the Azure configuration files using [bicep][bicep-docs].
 - `azd auth login` to authenticate to Azure.
 - `azd pipeline config` to create the GitHub Workflow.
 
-[azd](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/overview?tabs=windows) is a commandline utility to help streamline the deployment process to Azure. We'll use it to:
+[azd][azd-docs] is a commandline utility to help streamline the deployment process to Azure. We'll use it to:
 
 - generate the bicep file.
 - create the workflow file.
@@ -101,8 +104,8 @@ Bicep is a domain specific language (DSL) for defining Azure resources. It's dyn
     }
     ```
 
-    > [!NOTE]
-    > While the syntax resembles JSON, it's not JSON. As a result, resist the urge to add commas to separate the values!
+> [!NOTE]
+> While the syntax resembles JSON, it's not JSON. As a result, resist the urge to add commas to separate the values!
 
 ## Create the workflow
 
@@ -190,6 +193,18 @@ Work with the workshop leaders as needed to ask questions and get guidance as yo
 
 ## Resources
 
-- [What is the Azure Developer CLI?](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/overview?tabs=linux)
-- [About security hardening with OpenID Connect](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect)
-- [Deploying with GitHub Actions](https://docs.github.com/en/actions/use-cases-and-examples/deploying/deploying-with-github-actions)
+- [About security hardening with OpenID Connect][oidc-docs]
+- [Deploying with GitHub Actions][actions-deploy]
+- [What is the Azure Developer CLI?][azd-docs]
+
+| [← GitHub flow][walkthrough-previous] | [Next: Pets workshop selection →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+[actions-deploy]: https://docs.github.com/en/actions/use-cases-and-examples/deploying/deploying-with-github-actions
+[azd-docs]: https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/overview?tabs=linux
+[azure-copilot-extension]: https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azure-github-copilot
+[bicep-docs]: https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep
+[extensions-copilot-chat]: ./5-context.md
+[oidc-docs]: https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect
+[walkthrough-previous]: 7-github-flow.md
+[walkthrough-next]: ../README.md

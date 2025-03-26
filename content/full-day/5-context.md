@@ -1,17 +1,20 @@
 # Helping GitHub Copilot understand context
 
+| [← Implement testing][walkthrough-previous] | [Next: Coding with GitHub Copilot →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
 The key to success when coding (and much of life) is context. Before we add code to a codebase, we want to understand the rules and structures already in place. When working with an AI coding assistant such as GitHub Copilot the same concept applies - the quality of suggestion is directly proportional to the context Copilot has. Let's use this opportunity to both explore the project we've been given and how to interact with Copilot to ensure it has the context it needs to do its best work.
 
 ## Scenario
 
-Before adding new functionality to the website, you want to explore the existing structure to determine where the updates need to be made. You also want to provide Copilot some context in the form of [custom instructions](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot?tool=vscode) so it has a better idea of how best to generate code.
+Before adding new functionality to the website, you want to explore the existing structure to determine where the updates need to be made. You also want to provide Copilot some context in the form of [custom instructions][copilot-custom-instructions] so it has a better idea of how best to generate code.
 
 ## Getting started with GitHub Copilot
 
-GitHub Copilot is a cloud-based service offered for both individuals and businesses. As an individual, you can [sign up for a free account](https://github.com/github-copilot/signup) of the service. After enrolling you will typically install the extension for your IDE, which is available for [Visual Studio](https://marketplace.visualstudio.com/items?itemName=GitHub.copilotvs), [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot), [NeoVIM](https://github.com/github/copilot.vim#getting-started) and the [JetBrains IDEs](https://plugins.jetbrains.com/plugin/17718-github-copilot). Because we'll be using the [codespace](./3-codespaces.md) you defined in the previous exercise, you won't need to manually install the extension - you did that when you configured the dev container!
+GitHub Copilot is a cloud-based service offered for both individuals and businesses. As an individual, you can [sign up for a free account][copilot-signup] of the service. After enrolling you will typically install the extension for your IDE, which is available for [Visual Studio][copilot-vs], [Visual Studio Code][copilot-vscode], [NeoVIM][copilot-vim], the [JetBrains IDEs][copilot-jetbrains], [XCode](copilot-xcode) and [Eclipse][copilot-eclipse]. Because we'll be using the [Codespace][walkthrough-codespaces] you defined in the previous exercise, you won't need to manually install the extension - you did that when you configured the dev container!
 
-1. If you don't already have access to GitHub Copilot, [sign up for a free trial](https://github.com/github-copilot/signup).
-2. In the [previous exercise](./3-codespaces.md) you configured your [devcontainer](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers) to automatically install the extension for GitHub Copilot, so you're all set and ready to go!
+1. If you don't already have access to GitHub Copilot, [sign up for a free trial][copilot-signup].
+2. In the [previous exercise][walkthrough-codespaces] you configured your [devcontainer][devcontainer-docs] to automatically install the extension for GitHub Copilot, so you're all set and ready to go!
 
 ## Chat participants and extensions
 
@@ -35,10 +38,10 @@ GitHub Copilot Chat has a set of available chat participants and extensions avai
 
 ## Providing custom instructions
 
-Context is key to ensuring the code suggestions you receive from GitHub Copilot align with your expectations. When operating with limited information, Copilot makes assumptions about what you're looking for, and can sometimes guess incorrectly. By providing context, you allow Copilot to better align with your objectives. One great way to do this is by building a [copilot-instructions.md](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot?tool=vscode) file. This markdown file is placed in your **.github** folder and becomes part of your project. You can use this file to indicate various coding standards you wish to follow, the technologies your project uses, or anything else important for Copilot Chat to understand when generating suggestions.
+Context is key to ensuring the code suggestions you receive from GitHub Copilot align with your expectations. When operating with limited information, Copilot makes assumptions about what you're looking for, and can sometimes guess incorrectly. By providing context, you allow Copilot to better align with your objectives. One great way to do this is by building a [copilot-instructions.md][copilot-custom-instructions] file. This markdown file is placed in your **.github** folder and becomes part of your project. You can use this file to indicate various coding standards you wish to follow, the technologies your project uses, or anything else important for Copilot Chat to understand when generating suggestions.
 
 > [!IMPORTANT]
-> The *copilot-instructions.md* file is included in **every** call to GitHub Copilot Chat, and will be part of the context sent to Copilot. Because there is always a limited set of tokens an LLM can operate on, a large set of Copilot instructions can obscure relevant information. As such, you should limit your Copilot instructions file to project-wide information, providing an overview of what you're building and how you're building it. If you need to provide more specific information for particular tasks, you can create [prompt files](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot?tool=vscode#about-prompt-files) as needed.
+> The *copilot-instructions.md* file is included in **every** call to GitHub Copilot Chat, and will be part of the context sent to Copilot. Because there is always a limited set of tokens an LLM can operate on, a large set of Copilot instructions can obscure relevant information. As such, you should limit your Copilot instructions file to project-wide information, providing an overview of what you're building and how you're building it. If you need to provide more specific information for particular tasks, you can create [prompt files][copilot-prompt-files] as needed.
 
 Here are some guidelines to consider when creating a Copilot instructions file:
 
@@ -94,12 +97,34 @@ Whenever you make a call to Copilot chat, the response will always include the c
 
 ## Summary and next steps
 
-Congratulations! You've explored context in GitHub Copilot, which is key to generating quality suggestions. You saw how you can use chat participants to help guide GitHub Copilot, and create a Copilot instructions file to provide an overview of what you're building and how you're building it. With this in place, it's time to turn our attention to [adding new functionality to our website](./6-code.md)!
+Congratulations! You've explored context in GitHub Copilot, which is key to generating quality suggestions. You saw how you can use chat participants to help guide GitHub Copilot, and create a Copilot instructions file to provide an overview of what you're building and how you're building it. With this in place, it's time to turn our attention to [adding new functionality to our website][walkthrough-next]!
 
 ## Resources
 
-- [Getting started with GitHub Copilot](https://docs.github.com/en/copilot/getting-started-with-github-copilot)
-- [Adding repository custom instructions for GitHub Copilot](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot)
-- [Adding personal custom instructions for GitHub Copilot](https://docs.github.com/en/copilot/customizing-copilot/adding-personal-custom-instructions-for-github-copilot)
-- [Copilot Chat cookbook](https://docs.github.com/en/copilot/copilot-chat-cookbook)
-- [Use Copilot Chat in VS Code](https://code.visualstudio.com/docs/copilot/copilot-chat)
+- [Getting started with GitHub Copilot][copilot-getting-started]
+- [Adding repository custom instructions for GitHub Copilot][copilot-custom-instructions]
+- [Adding personal custom instructions for GitHub Copilot][copilot-personal-instructions]
+- [Copilot Chat cookbook][copilot-chat-cookbook]
+- [Use Copilot Chat in VS Code][vscode-copilot-chat]
+
+| [← Implement testing][walkthrough-previous] | [Next: Coding with GitHub Copilot →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+[copilot-chat-cookbook]: https://docs.github.com/en/copilot/copilot-chat-cookbook
+[copilot-custom-instructions]: https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot
+[copilot-eclipse]: https://marketplace.eclipse.org/content/github-copilot
+[copilot-getting-started]: https://docs.github.com/en/copilot/getting-started-with-github-copilot
+[copilot-jetbrains]: https://plugins.jetbrains.com/plugin/17718-github-copilot
+[copilot-prompt-files]: https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot?tool=vscode#about-prompt-files
+[copilot-personal-instructions]: https://docs.github.com/en/copilot/customizing-copilot/adding-personal-custom-instructions-for-github-copilot
+[copilot-signup]: https://github.com/github-copilot/signup
+[copilot-vim]: https://github.com/github/copilot.vim#getting-startedins.com/plugin/17718-github-copilot
+[copilot-vs]: https://marketplace.visualstudio.com/items?itemName=GitHub.copilotvs
+[copilot-vscode]: https://marketplace.visualstudio.com/items?itemName=GitHub.copilot
+[copilot-xcode]: https://github.com/github/CopilotForXcode
+[devcontainer-docs]: https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containersopilot/adding-personal-custom-instructions-for-github-copilot
+[vscode-copilot-chat]: https://code.visualstudio.com/docs/copilot/copilot-chat
+[walkthrough-codespaces]: ./3-codespaces.mdvisualstudio.com/docs/copilot/copilot-chat
+[walkthrough-next]: 6-code.md
+[walkthrough-previous]: 4-testing.md
+

@@ -1,8 +1,11 @@
 # Project management with GitHub Issues
 
+| [← Securing the development pipeline][walkthrough-previous] | [Next: Cloud-based development with GitHub Codespaces →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
 "URL or it didn't happen" is a common mantra at GitHub, which is used to highlight the importance of documenting the development process. Feature requests should have a history; who made the request, what was the rationale, who was involved in the process, what decisions were made, why were they made, was the feature implemented, how was it implemented... All of this information helps provide context to both drive future decisions and avoid repeating old mistakes.
 
-GitHub provides various features to enable collaboration and project management, including [GitHub Discussions](https://github.com/features/discussions), [wikis](https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis), [pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) and [GitHub Issues](https://github.com/features/issues). Each of these can help your organization drive the creation process. We're going to focus on GitHub Issues, which is the foundation of project management on GitHub.
+GitHub provides various features to enable collaboration and project management, including [GitHub Discussions][discussions], [wikis][wikis], [pull requests][about-prs] and [GitHub Issues][issues]. Each of these can help your organization drive the creation process. We're going to focus on GitHub Issues, which is the foundation of project management on GitHub.
 
 At their core, issues document some form of an action. They can be a request for a feature, a bug report, or another operation taken by the team. There's no prescribed methodology for using GitHub Issues, allowing your team to determine the best way to manage and drive your projects. A common flow teams will implement on issues is:
 
@@ -33,16 +36,28 @@ Our project needs two main updates. We want to make the updates to support devel
     | Implement testing       | Create a workflow to automate testing for continuous integration               |
     | Add filters to dog list | Add the code to allow users to filter for dogs by breed and availability       |
 
-    > **TIP:** You can also save an issue by pressing <kbd>Ctl</kbd> - <kbd>Enter</kbd> (or <kbd>Cmd</kbd> - <kbd>Return</kbd> on a Mac) in the title or description fields.
+> [!TIP]
+> You can also save an issue by pressing <kbd>Ctl</kbd> - <kbd>Enter</kbd> (or <kbd>Cmd</kbd> - <kbd>Return</kbd> on a Mac) in the title or description fields.
 
 You've now defined all the issues for the workshop! You'll use these issues to help guide your progress through the workshop.
 
 ## Summary and next steps
-
-GitHub Issues are the core to project management on GitHub. Their flexibility allows your organization to determine the best course of action to support your development lifecycle's methodology. With your issues created, it's time to turn your attention to the first big change to the project, [defining a codespace](3-codespaces.md).
+GitHub Issues are the core to project management on GitHub. Their flexibility allows your organization to determine the best course of action to support your development lifecycle's methodology. With your issues created, it's time to turn your attention to the first big change to the project, [defining a codespace][walkthrough-next].
 
 ## Resources
+- [GitHub Issues][issues-docs]
+- [Communicate using markdown][skills-markdown]
+- [GitHub Projects][projects-docs]
 
-- [GitHub Issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues)
-- [Communicate using markdown](https://github.com/skills/communicate-using-markdown)
-- [GitHub Projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/quickstart-for-projects)
+| [← Securing the development pipeline][walkthrough-previous] | [Next: Cloud-based development with GitHub Codespaces →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+[discussions]: https://github.com/features/discussions
+[wikis]: https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis
+[about-prs]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+[issues]: https://github.com/features/issues
+[issues-docs]: https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues
+[projects-docs]: https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/quickstart-for-projects
+[skills-markdown]: https://github.com/skills/communicate-using-markdown
+[walkthrough-next]: 3-codespaces.md
+[walkthrough-previous]: 1-code-scanning.md

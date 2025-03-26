@@ -1,5 +1,8 @@
 # Providing custom instructions
 
+| [← Coding with GitHub Copilot][walkthrough-previous] | [Next: Add the filter feature →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
 There are always key pieces of information anyone generating code for your codebase needs to know - the technologies in use, coding standards to follow, project structure, etc. Since context is so important, as we've discussed, we likely want to ensure Copilot always has this information as well. Fortunately, we can provide this overview through the use of Copilot instructions.
 
 ## Scenario
@@ -21,8 +24,8 @@ Here are some guidelines to consider when creating a Copilot instructions file:
     - languages, frameworks and libraries in use.
     - required assets to be generated (such as unit tests) and where they should be placed.
     - any language specific rules such as:
-        - utilize [type hints](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) in Python.
-        - use [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) rather than the `function` keyword in TypeScript.
+        - utilize [type hints][type-hints] in Python.
+        - use [arrow functions][arrow-functions] rather than the `function` keyword in TypeScript.
 - If you notice GitHub Copilot consistently provides an unexpected suggestion (e.g. using class components for React), add those notes to the instructions file.
 
 ## Create a Copilot instructions file
@@ -40,8 +43,8 @@ Let's create a Copilot instructions file. We'll start by asking Copilot to gener
 
 5. Note the function signature is similar to `def validate_dog_age(age)` without type hints.
 
-    > [!NOTE]
-    > Because LLMs are probabilistic rather than deterministic, the exact code will vary.
+> [!NOTE]
+> Because LLMs are probabilistic rather than deterministic, the exact code will vary.
 
 6. Create a new file in the **.github** folder called **copilot-instructions.md**.
 7. Add the markdown to the file necessary which provides information about the project structure and requirements:
@@ -77,8 +80,8 @@ Whenever you make a call to Copilot chat, the references dialog indicates all fi
     Create a Python function to validate dog age. Ensure age is between 0 and 20. Throw an error if it is outside this range.
     ```
 
-    > [!TIP]
-    > You can use up arrow to resend previous prompts to Copilot chat.
+> [!TIP]
+> You can use up arrow to resend previous prompts to Copilot chat.
 
 4. Note the references now includes the instructions file and provides information gathered from it.
 
@@ -90,15 +93,23 @@ Whenever you make a call to Copilot chat, the references dialog indicates all fi
     def validate_dog_age(age: int):
     ```
 
-    > [!NOTE]
-    > The exact code generated will vary, but the new Python suggestion should now utilize type hints.
+> [!NOTE]
+> The exact code generated will vary, but the new Python suggestion should now utilize type hints.
 
 ## Summary and next steps
 
-Copilot instructions improves the quality of suggestions, and ensures better alignment with the desired practices you have in place. With the groundwork in place, let's [add new functionality to our website](./4-add-feature.md)!
+Copilot instructions improves the quality of suggestions, and ensures better alignment with the desired practices you have in place. With the groundwork in place, let's [add new functionality to our website][walkthrough-next]!
 
 ## Resources
 
-- [Adding repository custom instructions for GitHub Copilot](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot)
+- [Adding repository custom instructions for GitHub Copilot][custom-instructions]
 
-**NEXT:** [Add a new feature to your website](./4-add-feature.md)
+
+| [← Coding with GitHub Copilot][walkthrough-previous] | [Next: Add the filter feature →][walkthrough-next] |
+|:-----------------------------------|------------------------------------------:|
+
+[arrow-functions]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+[custom-instructions]: https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot
+[type-hints]: https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
+[walkthrough-previous]: ./2-explore-project.md
+[walkthrough-next]: ./4-add-feature.md
