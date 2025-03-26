@@ -205,6 +205,6 @@ Work with the workshop leaders as needed to ask questions and get guidance as yo
 [azure-copilot-extension]: https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azure-github-copilot
 [bicep-docs]: https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep
 [extensions-copilot-chat]: ./5-context.md
-[oidc-docs]: https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connects
+[oidc-docs]: https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect
 [walkthrough-previous]: 7-github-flow.md
 [walkthrough-next]: ../README.md
