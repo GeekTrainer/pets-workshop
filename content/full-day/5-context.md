@@ -111,6 +111,7 @@ Congratulations! You've explored context in GitHub Copilot, which is key to gene
 |:-----------------------------------|------------------------------------------:|
 
 [copilot-chat-cookbook]: https://docs.github.com/en/copilot/copilot-chat-cookbook
+[copilot-custom-instructions]: https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot
 [copilot-eclipse]: https://marketplace.eclipse.org/content/github-copilot
 [copilot-getting-started]: https://docs.github.com/en/copilot/getting-started-with-github-copilotlot/adding-repository-custom-instructions-for-github-copilot?tool=vscode
 [copilot-jetbrains]: https://plugins.jetbrains.com/plugin/17718-github-copilot
