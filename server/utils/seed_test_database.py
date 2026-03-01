@@ -14,9 +14,8 @@ from flask import Flask
 from models import init_db, db, Breed, Dog
 from models.dog import AdoptionStatus
 
-# Default test database path (in server/ directory)
-server_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-db_path = os.environ.get('DATABASE_PATH', os.path.join(server_dir, 'e2e_test_dogshelter.db'))
+# Server directory (parent of utils/)
+_server_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Test breeds
 TEST_BREEDS = [
@@ -56,6 +55,8 @@ TEST_DOGS = [
 
 def seed_test_database():
     """Create a fresh test database with deterministic data."""
+    db_path = os.environ.get('DATABASE_PATH', os.path.join(_server_dir, 'e2e_test_dogshelter.db'))
+
     # Remove existing test database to start fresh
     if os.path.exists(db_path):
         os.remove(db_path)
