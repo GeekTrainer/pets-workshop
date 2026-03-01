@@ -15,16 +15,14 @@
   },
   "dependencies": {
     "@astrojs/node": "^9.5.2",
-    "@esbuild/linux-arm64": "^0.27.3",
     "@tailwindcss/vite": "^4.1.12",
     "astro": "^5.15.1",
-    "esbuild": "^0.24.2",
-    "esbuild-wasm": "^0.27.3",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.1",
     "@types/node": "^24.3.1",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.17",
+    "tsx": "^4.21.0"
   }
 }

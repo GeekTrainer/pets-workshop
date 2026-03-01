@@ -1,56 +1,47 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('API Integration', () => {
-  test('should fetch dogs from API', async ({ page }) => {
-    // Mock successful API response
-    await page.route('/api/dogs', route => {
-      route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify([
-          { id: 1, name: 'Buddy', breed: 'Golden Retriever' },
-          { id: 2, name: 'Luna', breed: 'Husky' },
-          { id: 3, name: 'Max', breed: 'Labrador' }
-        ])
-      });
-    });
-
+  test('should render dogs from the mock API on the homepage', async ({ page }) => {
     await page.goto('/');
-    
-    // Check that mocked dogs are displayed
-    await expect(page.getByText('Buddy')).toBeVisible();
-    await expect(page.getByText('Golden Retriever')).toBeVisible();
-    await expect(page.getByText('Luna')).toBeVisible();
-    await expect(page.getByText('Husky')).toBeVisible();
-    await expect(page.getByText('Max')).toBeVisible();
-    await expect(page.getByText('Labrador')).toBeVisible();
+
+    const dogCards = page.getByTestId('dog-card');
+    await expect(dogCards).toHaveCount(3);
+
+    await expect(page.getByTestId('dog-name').nth(0)).toHaveText('Buddy');
+    await expect(page.getByTestId('dog-breed').nth(0)).toHaveText('Golden Retriever');
+
+    await expect(page.getByTestId('dog-name').nth(1)).toHaveText('Luna');
+    await expect(page.getByTestId('dog-breed').nth(1)).toHaveText('Husky');
+
+    await expect(page.getByTestId('dog-name').nth(2)).toHaveText('Max');
+    await expect(page.getByTestId('dog-breed').nth(2)).toHaveText('German Shepherd');
   });
 
-  test('should handle empty dog list', async ({ page }) => {
-    // Mock empty API response
-    await page.route('/api/dogs', route => {
-      route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify([])
-      });
-    });
+  test('should render dog details from the mock API', async ({ page }) => {
+    await page.goto('/dog/1');
 
-    await page.goto('/');
-    
-    // Check that empty state message is displayed
-    await expect(page.getByText('No dogs available at the moment')).toBeVisible();
+    await expect(page.getByTestId('dog-details')).toBeVisible();
+    await expect(page.getByTestId('dog-name')).toHaveText('Buddy');
+    await expect(page.getByTestId('dog-breed')).toContainText('Golden Retriever');
+    await expect(page.getByTestId('dog-age')).toContainText('3');
+    await expect(page.getByTestId('dog-gender')).toContainText('Male');
+    await expect(page.getByTestId('dog-status')).toHaveText('Available');
   });
 
-  test('should handle network errors', async ({ page }) => {
-    // Mock network error
-    await page.route('/api/dogs', route => {
-      route.abort('failed');
-    });
+  test('should return 404 details for non-existent dog', async ({ page }) => {
+    await page.goto('/dog/99999');
 
+    await expect(page.getByTestId('error-message')).toBeVisible();
+    await expect(page.getByTestId('error-message')).toContainText('not found');
+  });
+
+  test('should link from dog card to detail page', async ({ page }) => {
     await page.goto('/');
-    
-    // Check that error message is displayed
-    await expect(page.getByText(/Error:/)).toBeVisible({ timeout: 10000 });
+
+    const firstCard = page.getByTestId('dog-card').first();
+    await firstCard.click();
+
+    await expect(page).toHaveURL(/\/dog\/1$/);
+    await expect(page.getByTestId('dog-details')).toBeVisible();
   });
 });
