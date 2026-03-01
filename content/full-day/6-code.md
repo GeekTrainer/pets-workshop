@@ -72,17 +72,17 @@ With the route created, we want to now add the tests to ensure the code is corre
 
 ## Add the filters
 
-Adding the filters to the page will require updating a minimum of three files - the Flask backend, the unit tests for our Flask backend, and the Svelte frontend. Fortunately, Copilot Edits can update multiple files! Let's get our page updated with the help of Copilot Edits.
+Adding the filters to the page will require updating a minimum of three files - the Flask backend, the unit tests for our Flask backend, and the Astro frontend. Fortunately, Copilot Edits can update multiple files! Let's get our page updated with the help of Copilot Edits.
 
 1. Open the following files in your IDE (which we'll point Copilot chat to for context):
    - **server/app.py**
    - **server/test_app.py**
-   - **client/src/components/DogList.svelte** 
+   - **client/src/components/DogList.astro** 
 2. Open GitHub Copilot Chat.
 3. Switch to edit mode by selecting **Edit** in the chat mode dropdown at the bottom of Chat view (should be currently **Ask**)
 4. If available, select **Claude 3.7 Sonnet** for the model.
 5. Select **Add Context...** in the chat window.
-6. Select **server/app.py**, **client/src/components/DogList.svelte** and **server/test_app.py** files (you need to select **Add context** for each file)
+6. Select **server/app.py**, **client/src/components/DogList.astro** and **server/test_app.py** files (you need to select **Add context** for each file)
 > [!TIP]
 > If you type the file names after clicking **Add context**, they will show up in the filter. You can also drag the files or right click file in explorer and select `Copilot -> Add File to Chat`)
 7. Ask Copilot to perform the operation you want, to update the page to add the filters. It should meet the following requirements:

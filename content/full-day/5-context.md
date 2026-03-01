@@ -80,7 +80,7 @@ This is an application to allow people to look for dogs to adopt. It is built in
 
 ## Frontend
 
-- Built using Astro and Svelte
+- Built using Astro
 - Pages should be in dark mode with a modern look and feel
 ```
 

@@ -49,7 +49,7 @@ cd ../client || {
 npm install
 npm run dev -- --no-clearScreen &
 
-# Store the SvelteKit server process ID
+# Store the Astro server process ID
 CLIENT_PID=$!
 
 # Sleep for 3 seconds
