@@ -11,7 +11,7 @@ test.describe('Tailspin Shelter Homepage', () => {
     await expect(page.getByText('Find your perfect companion from our wonderful selection')).toBeVisible();
   });
 
-  test('should display dog list with mock data', async ({ page }) => {
+  test('should display dog list', async ({ page }) => {
     await page.goto('/');
 
     await expect(page.getByRole('heading', { name: 'Available Dogs' })).toBeVisible();
@@ -23,7 +23,7 @@ test.describe('Tailspin Shelter Homepage', () => {
     await expect(dogCards).toHaveCount(3);
   });
 
-  test('should display dog names and breeds from mock API', async ({ page }) => {
+  test('should display dog names and breeds', async ({ page }) => {
     await page.goto('/');
 
     await expect(page.getByTestId('dog-name').nth(0)).toHaveText('Buddy');

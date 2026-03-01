@@ -42,3 +42,6 @@ htmlcov/
 # playwright
 client/test-results/
 client/playwright-report/
+
+# e2e test database
+server/e2e_test_dogshelter.db

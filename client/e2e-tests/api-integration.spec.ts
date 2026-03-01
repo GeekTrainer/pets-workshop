@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('API Integration', () => {
-  test('should render dogs from the mock API on the homepage', async ({ page }) => {
+  test('should render dogs from the API on the homepage', async ({ page }) => {
     await page.goto('/');
 
     const dogCards = page.getByTestId('dog-card');
@@ -17,7 +17,7 @@ test.describe('API Integration', () => {
     await expect(page.getByTestId('dog-breed').nth(2)).toHaveText('German Shepherd');
   });
 
-  test('should render dog details from the mock API', async ({ page }) => {
+  test('should render dog details from the API', async ({ page }) => {
     await page.goto('/dog/1');
 
     await expect(page.getByTestId('dog-details')).toBeVisible();

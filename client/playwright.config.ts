@@ -1,7 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-// Port configuration for mock API and Astro dev server
-const mockApiPort = 5199;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const serverDir = path.resolve(__dirname, '..', 'server');
+const testDbPath = path.join(serverDir, 'e2e_test_dogshelter.db');
+const flaskPort = 5100;
 const astroDevPort = 4321;
 
 export default defineConfig({
@@ -23,13 +27,13 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'npx tsx e2e-tests/mock-api.ts',
-      url: `http://localhost:${mockApiPort}/api/dogs`,
+      command: `cd ${serverDir} && python3 utils/seed_test_database.py && DATABASE_PATH=${testDbPath} python3 app.py`,
+      url: `http://localhost:${flaskPort}/api/dogs`,
       reuseExistingServer: !process.env.CI,
-      timeout: 10_000,
+      timeout: 30_000,
     },
     {
-      command: `API_SERVER_URL=http://localhost:${mockApiPort} npm run dev -- --no-clearScreen`,
+      command: `API_SERVER_URL=http://localhost:${flaskPort} npm run dev -- --no-clearScreen`,
       url: `http://localhost:${astroDevPort}`,
       reuseExistingServer: !process.env.CI,
       timeout: 30_000,
