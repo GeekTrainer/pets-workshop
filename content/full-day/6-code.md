@@ -37,7 +37,7 @@ Let's build our new route in our Flask backend with the help of code completion.
 
 1. Return to your codespace, or reopen it by navigating to your repository and selecting **Code** > **Codespaces** and the name of your codespace.
 2. Open **server/app.py**.
-3. Locate the section of code at the very bottom which launches the server, and put your cursor just above it. This should be line 70, and the code will be:
+3. Locate the section of code at the very bottom which launches the server, and put your cursor just above it. This should be line 71, and the code will be:
 
     ```python
     if __name__ == '__main__':

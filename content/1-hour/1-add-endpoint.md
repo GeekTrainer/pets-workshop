@@ -34,7 +34,7 @@ Let's build our new route in our Flask backend with the help of code completion.
 
 1. Return to your IDE with the project open.
 2. Open **server/app.py**.
-3. Locate the comment which reads `## HERE`, which should be at line 68.
+3. Locate the comment which reads `## HERE`, which should be at line 69.
 4. Delete the comment to ensure there isn't any confusion for Copilot, and leave your cursor there.
 5. Begin adding the code to create the route to return all breeds from an endpoint of **api/breeds** by typing the following:
 
