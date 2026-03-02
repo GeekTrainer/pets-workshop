@@ -1,0 +1,19 @@
+FROM docker/sandbox-templates:copilot
+
+USER root
+
+# Python dependencies for Flask API server
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3-flask \
+    python3-sqlalchemy \
+    python3-flask-sqlalchemy \
+    && rm -rf /var/lib/apt/lists/*
+
+# Playwright browsers and OS dependencies
+RUN mkdir -p /usr/local/share/npm-global/lib && npx playwright install --with-deps chromium
+
+USER agent
+
+# Pre-install Node.js dependencies on native ext4
+COPY --chown=agent:agent app/client/package.json app/client/package-lock.json /home/agent/project-deps/
+RUN cd /home/agent/project-deps && npm ci
