@@ -73,7 +73,6 @@ Before rebuilding the container, let's add **GitHub.copilot** to the list of ext
                 "ms-azuretools.vscode-azure-github-copilot",
 				"alexcvzz.vscode-sqlite",
 				"astro-build.astro-vscode",
-				"svelte.svelte-vscode",
 				"ms-python.python",
 				"ms-python.vscode-pylance"
 			]

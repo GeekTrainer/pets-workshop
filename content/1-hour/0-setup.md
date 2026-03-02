@@ -69,7 +69,7 @@ With the repository created, it's now time to clone the repository locally. We'l
 The startup script will start two applications:
 
 - The backend Flask app on [localhost:5100][flask-url]. You can see a list of dogs by opening the [dogs API][dogs-api].
-- The frontend Astro/Svelte app on [localhost:4321][astro-url]. You can see the [website][website-url] by opening that URL.
+- The frontend Astro app on [localhost:4321][astro-url]. You can see the [website][website-url] by opening that URL.
 
 ## Open your editor
 

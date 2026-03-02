@@ -3,56 +3,36 @@ import { test, expect } from '@playwright/test';
 test.describe('Tailspin Shelter Homepage', () => {
   test('should load homepage and display title', async ({ page }) => {
     await page.goto('/');
-    
-    // Check that the page title is correct
+
     await expect(page).toHaveTitle(/Tailspin Shelter - Find Your Forever Friend/);
-    
-    // Check that the main heading is visible
+
     await expect(page.getByRole('heading', { name: 'Welcome to Tailspin Shelter' })).toBeVisible();
-    
-    // Check that the description is visible
+
     await expect(page.getByText('Find your perfect companion from our wonderful selection')).toBeVisible();
   });
 
-  test('should display dog list section', async ({ page }) => {
+  test('should display dog list', async ({ page }) => {
     await page.goto('/');
-    
-    // Check that the "Available Dogs" heading is visible
+
     await expect(page.getByRole('heading', { name: 'Available Dogs' })).toBeVisible();
-    
-    // Wait for dogs to load (either loading state, error, or actual dogs)
-    await page.waitForSelector('.grid', { timeout: 10000 });
+
+    const dogList = page.getByTestId('dog-list');
+    await expect(dogList).toBeVisible();
+
+    const dogCards = page.getByTestId('dog-card');
+    await expect(dogCards).toHaveCount(3);
   });
 
-  test('should show loading state initially', async ({ page }) => {
+  test('should display dog names and breeds', async ({ page }) => {
     await page.goto('/');
-    
-    // Check that loading animation is shown initially
-    // Look for the loading skeleton cards
-    const loadingElements = page.locator('.animate-pulse').first();
-    
-    // Either loading should be visible initially, or dogs should load quickly
-    try {
-      await expect(loadingElements).toBeVisible({ timeout: 2000 });
-    } catch {
-      // If loading finishes too quickly, that's fine - check for dog content instead
-      await expect(page.locator('.grid')).toBeVisible();
-    }
-  });
 
-  test('should handle API errors gracefully', async ({ page }) => {
-    // Intercept the API call and make it fail
-    await page.route('/api/dogs', route => {
-      route.fulfill({
-        status: 500,
-        contentType: 'application/json',
-        body: JSON.stringify({ error: 'Internal Server Error' })
-      });
-    });
+    await expect(page.getByTestId('dog-name').nth(0)).toHaveText('Buddy');
+    await expect(page.getByTestId('dog-breed').nth(0)).toHaveText('Golden Retriever');
 
-    await page.goto('/');
-    
-    // Check that error message is displayed
-    await expect(page.getByText(/Failed to fetch data/)).toBeVisible({ timeout: 10000 });
+    await expect(page.getByTestId('dog-name').nth(1)).toHaveText('Luna');
+    await expect(page.getByTestId('dog-breed').nth(1)).toHaveText('Husky');
+
+    await expect(page.getByTestId('dog-name').nth(2)).toHaveText('Max');
+    await expect(page.getByTestId('dog-breed').nth(2)).toHaveText('German Shepherd');
   });
 });

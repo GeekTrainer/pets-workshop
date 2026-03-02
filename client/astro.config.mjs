@@ -1,4 +1,5 @@
 // @ts-check
+process.env.ASTRO_TELEMETRY_DISABLED = '1';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import node from '@astrojs/node';

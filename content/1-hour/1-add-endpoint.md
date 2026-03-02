@@ -10,7 +10,7 @@ With code completions, GitHub Copilot provides suggestions in your code editor w
 
 It's standard to work in phases when adding functionality to an application. Given that we know we want to allow users to filter the list of dogs based on breed, we'll need to add an endpoint to provide a list of all breeds. Later we'll add the rest of the functionality, but let's focus on this part for now.
 
-The application uses a Flask app with SQLAlchemy as the backend API (in the [/server][server-code] folder), and an Astro app with Svelte as the frontend (in the [/client][client-code] folder). You will explore more of the project later; this exercise will focus solely on the Flask application.
+The application uses a Flask app with SQLAlchemy as the backend API (in the [/server][server-code] folder), and an Astro app as the frontend (in the [/client][client-code] folder). You will explore more of the project later; this exercise will focus solely on the Flask application.
 
 > [!NOTE]
 > As you begin making changes to the application, there is always a chance a breaking change could be created. If the page stops working, check the terminal window you used previously to start the application for any error messages. You can stop the app by using <kbd>Ctl</kbd>+<kbd>C</kbd>, and restart it by running the script appropriate for your operating system: `./scripts/start-app.sh` (macOS / Linux) or `./scripts/start-app.ps1` (Windows PowerShell).
