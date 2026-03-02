@@ -66,11 +66,11 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'server/**'
+      - 'app/server/**'
   pull_request:
     branches: [ main ]
     paths:
-      - 'server/**'
+      - 'app/server/**'
 
 jobs:
   server-test:
@@ -87,11 +87,11 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f server/requirements.txt ]; then pip install -r server/requirements.txt; fi
+        if [ -f app/server/requirements.txt ]; then pip install -r app/server/requirements.txt; fi
         pip install pytest
         
     - name: Run tests
-      working-directory: ./server
+      working-directory: ./app/server
       run: |
         python -m pytest test_app.py -v
 ```

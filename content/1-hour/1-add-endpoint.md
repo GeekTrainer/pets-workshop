@@ -33,7 +33,7 @@ Let's build our new route in our Flask backend with the help of code completion.
 > For this exercise, **DO NOT** copy and paste the code snippet provided, but rather type it manually. This will allow you to experience code completion as you would if you were coding back at your desk. You'll likely see you only have to type a few characters before GitHub Copilot begins suggesting the rest.
 
 1. Return to your IDE with the project open.
-2. Open **server/app.py**.
+2. Open **app/server/app.py**.
 3. Locate the comment which reads `## HERE`, which should be at line 69.
 4. Delete the comment to ensure there isn't any confusion for Copilot, and leave your cursor there.
 5. Begin adding the code to create the route to return all breeds from an endpoint of **api/breeds** by typing the following:
@@ -94,13 +94,13 @@ You've added a new endpoint with the help of GitHub Copilot! You saw how Copilot
 |:-----------------------------------|------------------------------------------:|
 
 [breeds-endpoint]: http://localhost:5100/api/breeds
-[client-code]: /client/
+[client-code]: /app/client/
 [copilot-suggestions]: https://docs.github.com/en/copilot/using-github-copilot/getting-code-suggestions-in-your-ide-with-github-copilot
 [flask-routing]: https://flask.palletsprojects.com/en/stable/quickstart/#routing
 [http-methods]: https://www.w3schools.com/tags/ref_httpmethods.asp
 [prompt-crafting]: https://code.visualstudio.com/docs/copilot/prompt-crafting
 [inline-chat]: https://code.visualstudio.com/docs/copilot/chat/inline-chat
-[server-code]: /server/
+[server-code]: /app/server/
 [vscode-copilot]: https://code.visualstudio.com/docs/copilot/ai-powered-suggestions
 [walkthrough-previous]: ./0-setup.md
 [walkthrough-next]: ./2-explore-project.md

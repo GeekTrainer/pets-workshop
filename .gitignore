@@ -40,8 +40,8 @@ flask_session/
 htmlcov/
 
 # playwright
-client/test-results/
-client/playwright-report/
+app/client/test-results/
+app/client/playwright-report/
 
 # e2e test database
-server/e2e_test_dogshelter.db
+app/server/e2e_test_dogshelter.db
