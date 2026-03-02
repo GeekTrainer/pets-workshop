@@ -43,7 +43,7 @@ Let's create a composite action that sets up Python, installs dependencies, and 
       python-version:
         description: 'Python version to use'
         required: false
-        default: '3.12'
+        default: '3.14'
       database-path:
         description: 'Path to the test database file'
         required: false
@@ -105,7 +105,7 @@ Now let's update the CI workflow to use the custom action instead of individual 
 
     ```yaml
     - name: Run tests
-      run: python -m pytest test_app.py -v
+      run: python -m unittest test_app -v
       working-directory: ./server
       env:
         DATABASE_PATH: ${{ steps.seed.outputs.database-file }}
@@ -158,5 +158,5 @@ Next, we'll take reusability to the next level by exploring [reusable workflows]
 [creating-composite-action]: https://docs.github.com/en/actions/sharing-automations/creating-actions/creating-a-composite-action
 [metadata-syntax]: https://docs.github.com/en/actions/sharing-automations/creating-actions/metadata-syntax-for-github-actions
 [skills-reusable-workflows]: https://github.com/skills/reusable-workflows
-[walkthrough-previous]: 3-deploy-azure.md
-[walkthrough-next]: 5-reusable-workflows.md
+[walkthrough-previous]: 5-deploy-azure.md
+[walkthrough-next]: 7-reusable-workflows.md

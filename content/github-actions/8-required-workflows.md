@@ -158,5 +158,5 @@ If you want to keep exploring, here are some suggested next steps:
 [required-workflows]: https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/required-workflows
 [skills-deploy-azure]: https://github.com/skills/deploy-to-azure
 [workflow-dispatch]: https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_dispatch
-[walkthrough-previous]: 5-reusable-workflows.md
+[walkthrough-previous]: 7-reusable-workflows.md
 [walkthrough-next]: README.md

@@ -1,13 +1,17 @@
 # Matrix Strategies & Parallel Testing
 
-| [← Marketplace actions and caching][walkthrough-previous] | [Next: Deploying to Azure with azd →][walkthrough-next] |
+| [← Caching][walkthrough-previous] | [Next: Deploying to Azure with azd →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
 Matrix strategies let you run a job across multiple configurations in parallel — different language versions, operating systems, or test targets. This is powerful for ensuring compatibility and catching environment-specific bugs early in the development cycle.
 
 ## Scenario
 
-The shelter wants to ensure their Python API works across Python 3.10, 3.11, and 3.12. They also want to run Playwright end-to-end tests across multiple browsers. Rather than creating separate jobs for each combination, matrix strategies handle this elegantly with minimal YAML.
+While the goal is to deploy the project to Azure, in the future you may look to host the app on other platforms. As part of the testing, you want to ensure the Python code will run correctly on different versions of the language runtime. This will avoid future surprises.
+
+## Matrixes in GitHub Actions
+
+A [matrix][matrix-docs] allows you to create an array for a workflow to iterate through. This can be various configurations, operating systems, or anything else where you need to have a part of a workflow run multiple times. You define the values for the matrix in an array, then utilize the `matrix` keyword to retrieve the current value. GitHub Actions will handle the looping automatically for you!
 
 ## Add a matrix to the test job
 
@@ -23,7 +27,7 @@ Let's update the CI workflow to test the API across multiple Python versions.
       runs-on: ubuntu-latest
       strategy:
         matrix:
-          python-version: ['3.10', '3.11', '3.12']
+          python-version: ['3.12', '3.13', '3.14']
 
       steps:
         - uses: actions/checkout@v4
@@ -38,16 +42,15 @@ Let's update the CI workflow to test the API across multiple Python versions.
           run: |
             python -m pip install --upgrade pip
             pip install -r server/requirements.txt
-            pip install pytest
 
         - name: Run tests
           working-directory: ./server
           run: |
-            python -m pytest test_app.py -v
+            python -m unittest test_app -v
     ```
 
 > [!IMPORTANT]
-> Make sure to quote `'3.10'` in the matrix array. Without quotes, YAML interprets `3.10` as the floating-point number `3.1`, which will cause the setup step to fail.
+> Make sure to quote version numbers like `'3.12'` in the matrix array. Without quotes, YAML may interpret them as floating-point numbers — for example, `3.10` becomes `3.1`, which would cause the setup step to fail.
 
 5. Stage, commit, and push your changes:
 
@@ -72,7 +75,7 @@ Update the strategy block to disable fail-fast:
 strategy:
   fail-fast: false
   matrix:
-    python-version: ['3.10', '3.11', '3.12']
+    python-version: ['3.12', '3.13', '3.14']
 ```
 
 > [!TIP]
@@ -91,76 +94,38 @@ Here's an example that adds an extra combination with an additional environment 
 strategy:
   fail-fast: false
   matrix:
-    python-version: ['3.10', '3.11', '3.12']
+    python-version: ['3.12', '3.13', '3.14']
     os: [ubuntu-latest, ubuntu-22.04]
     exclude:
-      - python-version: '3.10'
+      - python-version: '3.14'
         os: ubuntu-22.04
     include:
-      - python-version: '3.12'
+      - python-version: '3.14'
         os: ubuntu-latest
         experimental: true
 ```
 
 In this example:
 
-- The `exclude` block skips Python 3.10 on `ubuntu-22.04`.
-- The `include` block adds an `experimental` flag to the Python 3.12 / `ubuntu-latest` combination, which you could reference with `${{ matrix.experimental }}` in your steps.
+- The `exclude` block skips Python 3.12 on `ubuntu-22.04`.
+- The `include` block adds an `experimental` flag to the Python 3.14 / `ubuntu-latest` combination, which you could reference with `${{ matrix.experimental }}` in your steps.
 
 > [!NOTE]
 > You don't need to add this to your workflow right now. This is provided as a reference for more advanced matrix configurations.
 
-## Bonus — Browser matrix for e2e tests
-
-The project has Playwright configured for end-to-end testing of the client application. You can apply the same matrix strategy to run tests across multiple browsers:
-
-```yaml
-test-e2e:
-  runs-on: ubuntu-latest
-  strategy:
-    fail-fast: false
-    matrix:
-      browser: [chromium, firefox, webkit]
-
-  steps:
-    - uses: actions/checkout@v4
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: client/package-lock.json
-
-    - name: Install dependencies
-      working-directory: ./client
-      run: npm ci
-
-    - name: Install Playwright browsers
-      working-directory: ./client
-      run: npx playwright install --with-deps ${{ matrix.browser }}
-
-    - name: Run Playwright tests
-      working-directory: ./client
-      run: npx playwright test --project=${{ matrix.browser }}
-```
-
-> [!TIP]
-> Installing only the browser you need for each matrix job (using `${{ matrix.browser }}`) speeds up the workflow compared to installing all browsers in every job.
-
 ## Summary and next steps
 
-Matrix strategies let you test across multiple configurations — Python versions, operating systems, browsers — with minimal YAML duplication. Combined with `fail-fast`, `max-parallel`, `include`, and `exclude`, you have fine-grained control over parallel testing. Next we'll [deploy to Azure using azd][walkthrough-next].
+Matrix strategies let you test across multiple configurations — language versions, operating systems, and more — with minimal YAML duplication. Combined with `fail-fast`, `max-parallel`, `include`, and `exclude`, you have fine-grained control over parallel testing. Next we'll [deploy to Azure using azd][walkthrough-next].
 
 ### Resources
 
 - [Using a matrix for your jobs][matrix-docs]
 - [Workflow syntax for `jobs.<job_id>.strategy`][strategy-syntax]
 
-| [← Marketplace actions and caching][walkthrough-previous] | [Next: Deploying to Azure with azd →][walkthrough-next] |
+| [← Caching][walkthrough-previous] | [Next: Deploying to Azure with azd →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
 [matrix-docs]: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
 [strategy-syntax]: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstrategy
-[walkthrough-previous]: 1-marketplace-and-caching.md
-[walkthrough-next]: 3-deploy-azure.md
+[walkthrough-previous]: 3-caching.md
+[walkthrough-next]: 5-deploy-azure.md

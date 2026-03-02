@@ -151,8 +151,8 @@ Now update your `ci.yml` to call the reusable workflow instead of defining test 
         language: python
         language-version: '3.12'
         working-directory: server
-        install-command: pip install -r requirements.txt && pip install pytest
-        test-command: python -m pytest test_app.py -v
+        install-command: pip install -r requirements.txt
+        test-command: python -m unittest test_app -v
     ```
 
 2. Add a call for the client build as well:
@@ -317,5 +317,5 @@ Next, we'll ensure quality gates are enforced with [branch protection, required 
 [sharing-workflows]: https://docs.github.com/en/actions/sharing-automations/sharing-workflows-secrets-and-runners-with-your-organization
 [skills-reusable-workflows]: https://github.com/skills/reusable-workflows
 [workflow-call-event]: https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_call
-[walkthrough-previous]: 4-custom-actions.md
-[walkthrough-next]: 6-required-workflows.md
+[walkthrough-previous]: 6-custom-actions.md
+[walkthrough-next]: 8-required-workflows.md
