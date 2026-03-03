@@ -14,26 +14,38 @@ Let's create the repository you'll use for your workshop.
 1. Navigate to [the repository root][repo-root]
 2. Select **Use this template** > **Create a new repository**
 
-    ![Screenshot of Use this template dropdown](../images/setup-use-template.png)
+    ![Screenshot of Use this template dropdown](../shared-images/setup-use-template.png)
 
 3. Under **Owner**, select the name of your GitHub handle, or the owner specified by your workshop leader.
 4. Under **Repository**, set the name to **pets-workshop**, or the name specified by your workshop leader.
 5. Ensure **Public** is selected for the visibility, or the value indicated by your workshop leader.
 6. Select **Create repository from template**.
 
-    ![Screenshot of configured template creation dialog](../images/setup-configure-repo.png)
+    ![Screenshot of configured template creation dialog](../shared-images/setup-configure-repo.png)
 
 In a few moments a new repository will be created from the template for this workshop!
 
+## Open your codespace
+
+Now let's open a codespace so you have a development environment ready to go.
+
+1. Navigate to the main page of your newly created repository.
+2. Select **Code** > **Codespaces** > **Create codespace on main**.
+
+    In a few moments a codespace will open in your browser with a full VS Code editor. This is where you'll create and edit files throughout the workshop.
+
+> [!TIP]
+> If your codespace ever disconnects or you close the tab, you can reopen it by navigating to your repository and selecting **Code** > **Codespaces** and the name of your codespace.
+
 ## Summary and next steps
 
-You've now created the repository you'll use for this workshop! Next let's [create your first workflow][walkthrough-next].
+You've created the repository and opened a codespace — you're ready to start building! Next let's [create your first workflow][walkthrough-next].
 
 | [← GitHub Actions: From CI to CD][walkthrough-previous] | [Next: Introduction & Your First Workflow →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
-[fork-repo]: https://docs.github.com/en/get-started/quickstart/fork-a-repo
-[template-repo]: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository
+[fork-repo]: https://docs.github.com/get-started/quickstart/fork-a-repo
+[template-repo]: https://docs.github.com/repositories/creating-and-managing-repositories/creating-a-template-repository
 [repo-root]: /
 [walkthrough-previous]: README.md
 [walkthrough-next]: 1-introduction.md

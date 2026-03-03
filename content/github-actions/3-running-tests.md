@@ -1,9 +1,9 @@
 # Running Tests
 
-| [← Introduction & Your First Workflow][walkthrough-previous] | [Next: Caching →][walkthrough-next] |
+| [← Securing the Development Pipeline][walkthrough-previous] | [Next: Caching →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
-Now that you know the basics of GitHub Actions — creating a workflow, triggering it, and reading logs — it's time to put that knowledge to work. In this exercise you'll build a **continuous integration (CI)** pipeline that automatically runs the shelter's tests.
+Now that you know the basics of GitHub Actions and have seen how GitHub uses it for code scanning, it's time to build your own workflow. In this exercise you'll create a **continuous integration (CI)** pipeline that automatically runs the shelter's tests.
 
 ## Scenario
 
@@ -11,21 +11,21 @@ The shelter's app is growing, and the team wants to make sure new changes don't 
 
 ## Background
 
-As you saw in the [previous lesson][walkthrough-previous], the `on` declaration specifies when a workflow will run. For true automation, you'll use `on` to indicate the [triggers][workflow-triggers] for the workflow to run automatically. In our scenario, this will be whenever a PR is made to the `main` branch, or when code is pushed or merged into it.
+As you saw in the [introduction][introduction], the `on` declaration specifies when a workflow will run. For true automation, you'll use `on` to indicate the [triggers][workflow-triggers] for the workflow to run automatically. In our scenario, this will be whenever a PR is made to the `main` branch, or when code is pushed or merged into it.
 
-Most workflows have a relatively common set of tasks. You typically need to install libraries, perform builds, and run various commands. Rather than having to script everything out by hand, there's a collection of available actions in a marketplace - the aptly named [Actions Marketplace](https://github.com/marketplace?type=actions). There you can find pluggable, reusable actions, ready to be added to any workflow.
+Most workflows have a relatively common set of tasks. You typically need to install libraries, perform builds, and run various commands. Rather than having to script everything out by hand, there's a collection of available actions in a marketplace - the aptly named [Actions Marketplace][actions-marketplace]. There you can find pluggable, reusable actions, ready to be added to any workflow.
 
 ## Using the Actions Marketplace
 
-The [Actions Marketplace](https://github.com/marketplace?type=actions) contains tens of thousands of community created actions. These include those from OSS contributors of all sizes, and vendors to allow for quick integration of their products.
+The [Actions Marketplace][actions-marketplace] contains tens of thousands of community created actions. These include those from OSS contributors of all sizes, and vendors to allow for quick integration of their products.
 
 For most actions, you can just add the name of the action, typically `vendor/action-name`, the necessary configuration, and it's now part of your workflow!
 
 ### Security and the Actions Marketplace
 
-The marketplace offers various protections to ensure you're using the right action at the right time. For starters, creators can be [verified](https://docs.github.com/en/actions/how-tos/create-and-publish-actions/publish-in-github-marketplace#about-badges-in-github-marketplace) by GitHub, giving you the confidence the organization who says they built an action is the one who actually built it.
+The marketplace offers various protections to ensure you're using the right action at the right time. For starters, creators can be [verified][marketplace-badges] by GitHub, giving you the confidence the organization who says they built an action is the one who actually built it.
 
-In addition, you can [pin to a specific version, SHA or branch](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/find-and-customize-actions#using-release-management-for-your-custom-actions). This both increases security, knowing the code you expect to run is what runs, and consistency as it'll always be the same code over and over. 
+In addition, you can [pin to a specific version, SHA or branch][action-versioning]. This both increases security, knowing the code you expect to run is what runs, and consistency as it'll always be the same code over and over.
 
 ## Create the CI workflow
 
@@ -40,11 +40,11 @@ To run the unit tests, you'll need to do the following in the workflow:
 
 Let's build that out!
 
-1. Create a new file named `.github/workflows/ci.yml`.
+1. In your codespace, create a new file named `.github/workflows/run-tests.yml`.
 2. Add the following content:
 
     ```yaml
-    name: CI
+    name: Run Tests
 
     on:
       push:
@@ -101,22 +101,22 @@ The **`permissions`** block controls what this token can do. For our CI workflow
 
 A bit later you'll use a more standard branching approach for changes. But for our purposes right now, let's push straight to `main`. What you'll notice is the workflow will automatically run, since the workflow will now exist on `main`!
 
-1. Stage, commit, and push:
+1. Open the terminal in your codespace by pressing <kbd>Ctl</kbd>+<kbd>`</kbd>, then stage, commit, and push:
 
     ```bash
-    git add .github/workflows/ci.yml
+    git add .github/workflows/run-tests.yml
     git commit -m "Add CI workflow with unit tests"
     git push
     ```
 
-2. Navigate to the **Actions** tab — the **CI** workflow should already be running (triggered by the push).
+2. Navigate to the **Actions** tab — the **Run Tests** workflow should already be running (triggered by the push).
 3. Select the **test-api** job and explore the logs. Notice the flow of checkout, Python setup, and dependency installation.
 
 ## Add e2e tests in parallel
 
 The unit tests cover the API, but the shelter also has Playwright e2e tests that verify the full application works end-to-end in a real browser. Let's add a second job that runs alongside the unit tests.
 
-1. Open `.github/workflows/ci.yml` and add the following job to the bottom of the file:
+1. Return to your codespace and open `.github/workflows/run-tests.yml`. Add the following job to the bottom of the file:
 
     ```yaml
       test-e2e:
@@ -158,10 +158,10 @@ The unit tests cover the API, but the shelter also has Playwright e2e tests that
 > [!NOTE]
 > Because we haven't added a `needs` key, `test-api` and `test-e2e` will run **in parallel**. Each job gets its own runner, so they don't interfere with each other and the total CI time is closer to the duration of the slower job rather than the sum of both. The `test-e2e` job needs both Python and Node.js because the Playwright tests launch the full stack — the Flask API and the Astro frontend — before running browser tests against them.
 
-1. Stage, commit, and push:
+1. In the terminal, stage, commit, and push:
 
     ```bash
-    git add .github/workflows/ci.yml
+    git add .github/workflows/run-tests.yml
     git commit -m "Add e2e tests running in parallel"
     git push
     ```
@@ -183,16 +183,20 @@ Now, let's work to [improve the performance of our CI job][walkthrough-next] by 
 - [Automatic token authentication][automatic-token-auth]
 - [Assigning permissions to jobs][permissions-docs]
 
-| [← Introduction & Your First Workflow][walkthrough-previous] | [Next: Caching →][walkthrough-next] |
+| [← Securing the Development Pipeline][walkthrough-previous] | [Next: Caching →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
-[automatic-token-auth]: https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication
-[github-actions-docs]: https://docs.github.com/en/actions
-[jobs-docs]: https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/using-jobs-in-a-workflow
-[permissions-docs]: https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/assigning-permissions-to-jobs
+[action-versioning]: https://docs.github.com/actions/how-tos/write-workflows/choose-what-workflows-do/find-and-customize-actions#using-release-management-for-your-custom-actions
+[actions-marketplace]: https://github.com/marketplace?type=actions
+[automatic-token-auth]: https://docs.github.com/actions/security-for-github-actions/security-guides/automatic-token-authentication
+[github-actions-docs]: https://docs.github.com/actions
+[introduction]: 1-introduction.md
+[jobs-docs]: https://docs.github.com/actions/writing-workflows/choosing-what-your-workflow-does/using-jobs-in-a-workflow
+[marketplace-badges]: https://docs.github.com/actions/how-tos/create-and-publish-actions/publish-in-github-marketplace#about-badges-in-github-marketplace
+[permissions-docs]: https://docs.github.com/actions/writing-workflows/choosing-what-your-workflow-does/assigning-permissions-to-jobs
 [playwright]: https://playwright.dev/
-[principle-least-privilege]: https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
-[workflow-syntax]: https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions
-[workflow-triggers]: https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
-[walkthrough-previous]: 1-introduction.md
-[walkthrough-next]: 3-caching.md
+[principle-least-privilege]: https://docs.github.com/actions/security-for-github-actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
+[workflow-syntax]: https://docs.github.com/actions/writing-workflows/workflow-syntax-for-github-actions
+[workflow-triggers]: https://docs.github.com/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
+[walkthrough-previous]: 2-code-scanning.md
+[walkthrough-next]: 4-caching.md

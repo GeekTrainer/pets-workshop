@@ -9,7 +9,7 @@ Matrix strategies let you run a job across multiple configurations in parallel �
 
 While the goal is to deploy the project to Azure, in the future you may look to host the app on other platforms. As part of the testing, you want to ensure the Python code will run correctly on different versions of the language runtime. This will avoid future surprises.
 
-## Matrixes in GitHub Actions
+## Background
 
 A [matrix][matrix-docs] allows you to create an array for a workflow to iterate through. This can be various configurations, operating systems, or anything else where you need to have a part of a workflow run multiple times. You define the values for the matrix in an array, then utilize the `matrix` keyword to retrieve the current value. GitHub Actions will handle the looping automatically for you!
 
@@ -17,7 +17,7 @@ A [matrix][matrix-docs] allows you to create an array for a workflow to iterate 
 
 Let's update the CI workflow to test the API across multiple Python versions.
 
-1. Open **.github/workflows/ci.yml** in your codespace.
+1. Open `.github/workflows/run-tests.yml` in your codespace.
 2. Locate the `test-api` job.
 3. Add a `strategy` block with a `matrix` definition, and update the `python-version` input to reference the matrix value.
 4. Replace the existing `test-api` job with the following:
@@ -52,15 +52,15 @@ Let's update the CI workflow to test the API across multiple Python versions.
 > [!IMPORTANT]
 > Make sure to quote version numbers like `'3.12'` in the matrix array. Without quotes, YAML may interpret them as floating-point numbers — for example, `3.10` becomes `3.1`, which would cause the setup step to fail.
 
-5. Stage, commit, and push your changes:
+5. In the terminal (<kbd>Ctl</kbd>+<kbd>`</kbd> to toggle), stage, commit, and push your changes:
 
     ```bash
-    git add .github/workflows/ci.yml
+    git add .github/workflows/run-tests.yml
     git commit -m "Add Python version matrix to test-api job"
     git push
     ```
 
-6. Navigate to the **Actions** tab in your repository. You should see three parallel jobs running — one for each Python version.
+6. Navigate to the **Actions** tab on GitHub. You should see three parallel jobs running — one for each Python version.
 
 ## Understanding matrix behavior
 
@@ -125,7 +125,7 @@ Matrix strategies let you test across multiple configurations — language versi
 | [← Caching][walkthrough-previous] | [Next: Deploying to Azure with azd →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
-[matrix-docs]: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
-[strategy-syntax]: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstrategy
-[walkthrough-previous]: 3-caching.md
-[walkthrough-next]: 5-deploy-azure.md
+[matrix-docs]: https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
+[strategy-syntax]: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstrategy
+[walkthrough-previous]: 4-caching.md
+[walkthrough-next]: 6-deploy-azure.md

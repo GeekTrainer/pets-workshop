@@ -58,7 +58,7 @@ Let's set up the Azure Developer CLI and scaffold the infrastructure for our pro
     ```
 
 4. Follow the prompts, accepting the defaults provided by the tool. When asked for a namespace, choose something unique (this will be used to name your Azure resources).
-5. Explore the generated **infra/** directory. You'll see Bicep files (`.bicep`) that define the Azure resources for your application:
+5. Explore the generated `infra/` directory. You'll see Bicep files (`.bicep`) that define the Azure resources for your application:
 
     ```bash
     ls infra/
@@ -71,7 +71,7 @@ Let's set up the Azure Developer CLI and scaffold the infrastructure for our pro
 
 The generated Bicep files define the Azure Container Apps that will host the client and server. We need to add an environment variable so the client knows where to find the API server.
 
-1. Open **infra/resources.bicep** in your codespace.
+1. Open `infra/resources.bicep` in your codespace.
 2. Find the section (around line 130) that reads:
 
     ```bicep
@@ -107,12 +107,12 @@ Let's create a workflow that:
 2. Add the following content:
 
     ```yaml
-    name: CD
+    name: Deploy App
 
     on:
       workflow_dispatch:
       workflow_run:
-        workflows: ["CI"]
+        workflows: ["Run Tests"]
         branches: [main]
         types: [completed]
 
@@ -184,7 +184,7 @@ Let's walk through the key parts:
 
 - **`permissions: id-token: write`** — In the [Running Tests][running-tests] module you set `contents: read`. Here, `id-token: write` is added because the workflow needs to request OIDC tokens from Azure. This is how passwordless authentication works — no stored credentials, just short-lived tokens.
 - **`vars.*`** — Variables like `${{ vars.AZURE_CLIENT_ID }}` reference **repository variables** that `azd pipeline config` will create for you in the next step.
-- **`workflow_run`** triggers this workflow whenever the **CI** workflow completes on `main`. The `if` condition ensures it only proceeds when CI **succeeded** — or when triggered manually via `workflow_dispatch`.
+- **`workflow_run`** triggers this workflow whenever the **Run Tests** workflow completes on `main`. The `if` condition ensures it only proceeds when tests **succeeded** — or when triggered manually via `workflow_dispatch`.
 - **`environment: staging`** and **`environment: production`** link each job to the GitHub Environments you created earlier. The production environment will trigger the approval gate you configured.
 - **`needs: deploy-staging`** on the production job creates the sequential flow: staging must succeed before production is offered for review.
 - **`concurrency`** groups prevent conflicting deployments to the same environment. Note `cancel-in-progress: false` on production to avoid accidentally cancelling an active deployment.
@@ -221,8 +221,8 @@ Now let's authenticate with Azure and let `azd` configure the pipeline credentia
 
 When you said **yes** to `azd pipeline config`'s commit prompt, it pushed your changes — including the workflow file. Let's verify everything is working.
 
-1. Navigate to the **Actions** tab. The push will trigger the **CI** workflow first.
-2. Once CI completes successfully, the **CD** workflow will start automatically.
+1. Navigate to the **Actions** tab. The push will trigger the **Run Tests** workflow first.
+2. Once tests complete successfully, the **Deploy App** workflow will start automatically.
 3. Observe the pipeline stages:
     - **deploy-staging** proceeds automatically
     - After staging completes, **deploy-production** shows a **Waiting for review** badge
@@ -258,12 +258,12 @@ Next we'll [create custom actions][walkthrough-next] to reduce duplication and m
 | [← Matrix Strategies & Parallel Testing][walkthrough-previous] | [Next: Creating custom actions →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
-[actions-deploy]: https://docs.github.com/en/actions/use-cases-and-examples/deploying/deploying-with-github-actions
-[azd-docs]: https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/overview
-[azd-pipeline-definition]: https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/pipeline-create-definition
-[environments-docs]: https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/using-environments-for-deployment
-[oidc-docs]: https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect
-[running-tests]: 2-running-tests.md
-[workflow-run-docs]: https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_run
-[walkthrough-previous]: 4-matrix-strategies.md
-[walkthrough-next]: 6-custom-actions.md
+[actions-deploy]: https://docs.github.com/actions/use-cases-and-examples/deploying/deploying-with-github-actions
+[azd-docs]: https://learn.microsoft.com/azure/developer/azure-developer-cli/overview
+[azd-pipeline-definition]: https://learn.microsoft.com/azure/developer/azure-developer-cli/pipeline-create-definition
+[environments-docs]: https://docs.github.com/actions/managing-workflow-runs-and-deployments/managing-deployments/using-environments-for-deployment
+[oidc-docs]: https://docs.github.com/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect
+[running-tests]: 3-running-tests.md
+[workflow-run-docs]: https://docs.github.com/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_run
+[walkthrough-previous]: 5-matrix-strategies.md
+[walkthrough-next]: 7-custom-actions.md

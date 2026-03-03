@@ -9,6 +9,45 @@ Building a CI/CD pipeline is only half the battle — you also need to enforce i
 
 The shelter's CI/CD pipeline is comprehensive, but nothing currently prevents someone from merging code without passing CI. The organization also wants to ensure all repositories run security scanning. Let's lock things down with branch protection and explore how required workflows enforce standards at scale.
 
+## Background
+
+GitHub provides two mechanisms for enforcing rules on branches: **branch protection rules** and **repository rulesets**. Both can prevent code from being merged without meeting criteria you define, but they work differently.
+
+### Branch protection rules
+
+[Branch protection rules][about-protected-branches] are the original way to protect important branches. You configure them per-branch (e.g. `main`) to enforce requirements like:
+
+- **Required status checks** — CI must pass before merging.
+- **Required pull request reviews** — a minimum number of approvals before merging.
+- **Restrict who can push** — limit direct pushes to specific people or teams.
+
+Branch protection rules are available on all GitHub plans (including Free for public repos) and are configured at **Settings > Branches** in each repository.
+
+### Repository rulesets
+
+[Rulesets][about-rulesets] are the newer, more flexible approach. They offer several advantages over branch protection rules:
+
+| | Branch Protection Rules | Repository Rulesets |
+|---|---|---|
+| **Layering** | One rule per branch pattern | Multiple rulesets can apply to the same branch; the most restrictive rule wins |
+| **Status management** | Delete to disable | Toggle between **Active** and **Disabled** without losing configuration |
+| **Visibility** | Only admins can view | Anyone with read access can see active rulesets |
+| **Scope** | Repository-level only | Repository-level or organization-wide (GitHub Enterprise) |
+| **Bypass permissions** | Limited | Granular bypass for specific roles, teams, or GitHub Apps |
+| **Required workflows** | Not supported | Can require specific workflows to pass before merging |
+
+Rulesets and branch protection rules can coexist — when both apply to the same branch, their rules are aggregated and the most restrictive version of each rule applies.
+
+### Required workflows
+
+One of the most powerful ruleset features is the ability to **require specific workflows to pass before merging**. This is particularly useful at the organization level:
+
+1. An organization creates a reusable workflow (e.g. `security-scan.yml`) in a central repository.
+2. An organization-wide ruleset requires that workflow for all (or a subset of) repositories.
+3. Every PR across those repositories now runs the required workflow automatically — individual repository owners can't skip it.
+
+Common use cases include security scanning, license compliance, and code quality checks. Required workflows via rulesets replaced the earlier "Actions Required Workflows" feature, which was deprecated in October 2023.
+
 ## Configure branch protection
 
 Branch protection rules prevent code from being merged into important branches without meeting specific criteria.
@@ -30,7 +69,7 @@ Branch protection rules prevent code from being merged into important branches w
 
 Let's verify that branch protection is working as expected.
 
-1. Create a new branch and make a small change (for example, update a comment in `server/app.py`):
+1. Return to your codespace and open the terminal (<kbd>Ctl</kbd>+<kbd>`</kbd> to toggle). Create a new branch and make a small change (for example, update a comment in `server/app.py`):
 
     ```bash
     git checkout -b test-protection
@@ -48,64 +87,12 @@ Let's verify that branch protection is working as expected.
 > [!IMPORTANT]
 > Branch protection ensures that your CI pipeline isn't just a suggestion — it's a requirement. Code cannot reach `main` without passing the checks you've defined.
 
-## Required workflows and rulesets
+## Required workflows in practice
 
-While branch protection works at the repository level, organizations often need to enforce workflows across *all* repositories. This is where **repository rulesets** come in.
-
-- At the organization level, admins can create **rulesets** that mandate specific workflows for all (or a subset of) repositories.
-- These required workflows run automatically on any pull request or push event, regardless of what each repository has configured.
-- Common use cases include security scanning, license compliance, and code quality checks.
-- This combines powerfully with reusable workflows: the organization creates a reusable workflow in a central repository, then requires it via a ruleset.
-
-For example, an organization might:
-1. Create a `security-scan.yml` reusable workflow in a `.github` repository.
-2. Create a ruleset that requires this workflow for all repositories.
-3. Every PR across the organization now runs the security scan automatically.
+As covered in the background section, organization-wide rulesets can mandate that specific workflows run across all repositories. This pairs naturally with the reusable workflows you built in the [previous exercise](8-reusable-workflows.md) — an organization could create a reusable security-scanning workflow in a central `.github` repository, then enforce it via a ruleset so every PR across the organization runs it automatically.
 
 > [!NOTE]
-> Required workflows via rulesets is an organization-level feature. If you're working in a personal repository, you can still use branch protection rules (as configured above) for similar enforcement at the repository level.
-
-## Adding manual triggers
-
-Sometimes you need to trigger a deployment on demand — for example, to perform a rollback or deploy a hotfix. The `workflow_dispatch` event adds a manual trigger to any workflow.
-
-1. Add `workflow_dispatch` to your deployment workflow with an input for the target environment:
-
-    ```yaml
-    on:
-      workflow_dispatch:
-        inputs:
-          environment:
-            description: 'Target environment'
-            required: true
-            type: choice
-            options:
-              - staging
-              - production
-    ```
-
-2. Reference the input in your job:
-
-    ```yaml
-    jobs:
-      deploy:
-        runs-on: ubuntu-latest
-        environment: ${{ inputs.environment }}
-        steps:
-          - name: Deploy
-            run: echo "Deploying to ${{ inputs.environment }}"
-    ```
-
-3. To trigger the workflow manually:
-    - Navigate to the **Actions** tab in your repository.
-    - Select the workflow from the left sidebar.
-    - Select **Run workflow**.
-    - Choose the target environment from the dropdown and select **Run workflow**.
-
-4. Commit and push the updated workflow file. The **Run workflow** button will appear on the workflow's page once the change reaches the default branch.
-
-> [!TIP]
-> Manual triggers with `workflow_dispatch` are useful for rollbacks, on-demand deployments, and one-off maintenance tasks. You can define multiple inputs with different types including `string`, `boolean`, `choice`, and `environment`.
+> Organization-wide rulesets with required workflows require a GitHub Enterprise plan. For personal repositories or Free/Team organizations, repository-level branch protection (as configured above) provides similar enforcement.
 
 ## Advanced features to explore
 
@@ -122,8 +109,8 @@ Congratulations! You've built a complete CI/CD pipeline for the pet shelter appl
 
 - **Continuous integration**: Tests run on every push and pull request across multiple Python versions, catching bugs before they reach `main`.
 - **Continuous deployment**: Automated deployment to Azure via `azd`, with staging and production environments.
-- **Custom actions**: Encapsulated the database seeding process into a reusable composite action, eliminating duplication.
-- **Reusable workflows**: Extracted common test and deployment patterns into callable workflow templates.
+- **Custom actions**: Encapsulated Python setup and database seeding into a reusable composite action, eliminating duplication across jobs.
+- **Reusable workflows**: Extracted the deployment pattern into a callable workflow template used by both staging and production.
 - **Branch protection**: Enforced quality gates so code can't be merged without passing CI checks.
 - **Manual triggers**: Added on-demand deployment capability for rollbacks and hotfixes.
 
@@ -150,13 +137,13 @@ If you want to keep exploring, here are some suggested next steps:
 | [← Reusable Workflows][walkthrough-previous] | [Next: GitHub Actions section overview →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
-[about-protected-branches]: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
-[about-rulesets]: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
+[about-protected-branches]: https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
+[about-rulesets]: https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
 [actions-marketplace]: https://github.com/marketplace?type=actions
-[environments-docs]: https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment
+[environments-docs]: https://docs.github.com/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment
 [github-security]: https://github.com/features/security
-[required-workflows]: https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/required-workflows
+[required-workflows]: https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets
 [skills-deploy-azure]: https://github.com/skills/deploy-to-azure
-[workflow-dispatch]: https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_dispatch
-[walkthrough-previous]: 7-reusable-workflows.md
+[workflow-dispatch]: https://docs.github.com/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_dispatch
+[walkthrough-previous]: 8-reusable-workflows.md
 [walkthrough-next]: README.md

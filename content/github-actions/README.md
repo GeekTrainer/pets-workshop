@@ -24,13 +24,14 @@ To complete this workshop, you will need the following:
 
 0. [Workshop Setup][setup] — Create your repository from the template
 1. [Introduction & Your First Workflow][introduction] — Create your first workflow and explore the Actions UI
-2. [Running Tests][ci] — Automate unit and e2e testing with parallel jobs
-3. [Caching][marketplace] — Speed up workflows by caching dependencies
-4. [Matrix strategies & parallel testing][matrix] — Test across multiple configurations simultaneously
-5. [Deploying to Azure with azd][deployment] — Set up continuous deployment to Azure
-6. [Creating custom actions][custom-actions] — Build your own reusable action
-7. [Reusable workflows][reusable-workflows] — Share workflow logic across repositories
-8. [Required workflows, protection & wrap-up][protection] — Enforce standards and protect your branches
+2. [Securing the Development Pipeline][code-scanning] — Enable code scanning, Dependabot, and secret scanning
+3. [Running Tests][ci] — Automate unit and e2e testing with parallel jobs
+4. [Caching][marketplace] — Speed up workflows by caching dependencies
+5. [Matrix strategies & parallel testing][matrix] — Test across multiple configurations simultaneously
+6. [Deploying to Azure with azd][deployment] — Set up continuous deployment to Azure
+7. [Creating custom actions][custom-actions] — Build your own reusable action
+8. [Reusable workflows][reusable-workflows] — Share workflow logic across repositories
+9. [Required workflows, protection & wrap-up][protection] — Enforce standards and protect your branches
 
 ## Resources
 
@@ -45,22 +46,23 @@ To complete this workshop, you will need the following:
 [actions-marketplace]: https://github.com/marketplace?type=actions
 [astro]: https://astro.build/
 [azure-free]: https://azure.microsoft.com/free/
-[azd-docs]: https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/overview
-[ci]: ./2-running-tests.md
-[custom-actions]: ./6-custom-actions.md
-[deployment]: ./5-deploy-azure.md
+[azd-docs]: https://learn.microsoft.com/azure/developer/azure-developer-cli/overview
+[ci]: ./3-running-tests.md
+[code-scanning]: ./2-code-scanning.md
+[custom-actions]: ./7-custom-actions.md
+[deployment]: ./6-deploy-azure.md
 [flask]: https://flask.palletsprojects.com/
 [github-actions]: https://github.com/features/actions
-[github-actions-docs]: https://docs.github.com/en/actions
+[github-actions-docs]: https://docs.github.com/actions
 [github-copilot]: https://github.com/features/copilot
 [github-signup]: https://github.com/join
 [introduction]: ./1-introduction.md
-[marketplace]: ./3-caching.md
-[matrix]: ./4-matrix-strategies.md
-[protection]: ./8-required-workflows.md
+[marketplace]: ./4-caching.md
+[matrix]: ./5-matrix-strategies.md
+[protection]: ./9-required-workflows.md
 [repo-root]: /
-[reusable-workflows]: ./7-reusable-workflows.md
+[reusable-workflows]: ./8-reusable-workflows.md
 [setup]: ./0-setup.md
 [walkthrough-next]: ./0-setup.md
 [walkthrough-previous]: ../README.md
-[workflow-syntax]: https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions
+[workflow-syntax]: https://docs.github.com/actions/writing-workflows/workflow-syntax-for-github-actions

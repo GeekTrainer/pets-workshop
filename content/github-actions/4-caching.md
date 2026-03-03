@@ -13,13 +13,15 @@ The CI workflow from the previous exercise works, but both jobs reinstall every 
 
 ## Background
 
-[Caching][caching-docs] allows you install and cache dependencies like libraries. Each cache has a key. When the workflow runs, it will look for an existing cache based on the specified key name. If one doesn't exist it'll recreate it at runtime. And if it does - it'll use that cache rather than performing the reinstall!
+[Caching][caching-docs] stores downloaded dependencies between workflow runs so they don't need to be fetched from the internet every time. Each cache is identified by a key — typically derived from the package manager and lock file. When a workflow runs, it checks for an existing cache matching that key. On a hit, the cached files are restored and the install step completes in seconds. On a miss, the dependencies are downloaded normally and then saved for next time.
+
+Many popular setup actions — like `actions/setup-python` and `actions/setup-node` — have caching built right in, so you can enable it with a single line. GitHub provides 10 GB of cache storage per repository, with least-recently-used entries evicted when the limit is reached.
 
 ## Add caching to the unit test job
 
 Many popular setup actions have caching built right in. Let's start with the `test-api` job, which uses Python. Libraries are installed for Python using `pip`, which will become the key name. This instructs the workflow to cache any libraries installed using `pip`.
 
-1. Open `.github/workflows/ci.yml`.
+1. In your codespace, open `.github/workflows/run-tests.yml`.
 2. Update the **Set up Python** step in the `test-api` job to enable pip caching:
 
     ```yaml
@@ -69,17 +71,17 @@ The e2e job has two dependencies to cache — Python packages and the Node modul
 
 Now let's push the changes and see the impact of caching.
 
-1. Stage, commit, and push your changes:
+1. In the terminal (<kbd>Ctl</kbd>+<kbd>`</kbd> to toggle), stage, commit, and push your changes:
 
     ```bash
-    git add .github/workflows/ci.yml
+    git add .github/workflows/run-tests.yml
     git commit -m "Add caching to CI workflow"
     git push
     ```
 
-2. Navigate to the **Actions** tab and observe the workflow run.
+2. Navigate to the **Actions** tab on GitHub and observe the workflow run.
 3. Once it completes, check the logs for the setup steps. You should see output indicating a **cache miss** — this is expected on the first run since there's nothing cached yet.
-4. To see caching in action, trigger a second run. You can push a small change (such as adding a comment to `ci.yml`) or use the GitHub UI:
+4. To see caching in action, trigger a second run. You can push a small change (such as adding a comment to `run-tests.yml`) or use the GitHub UI:
    - Update the `on` section to add `workflow_dispatch:` so you can trigger runs manually
    - Push that change, then use the **Run workflow** button on the **Actions** tab
 
@@ -106,10 +108,10 @@ Next, we'll explore [matrix strategies][walkthrough-next] to test across multipl
 |:-----------------------------------|------------------------------------------:|
 
 [actions-marketplace]: https://github.com/marketplace?type=actions
-[caching-docs]: https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/caching-dependencies-to-speed-up-workflows
+[caching-docs]: https://docs.github.com/actions/writing-workflows/choosing-what-your-workflow-does/caching-dependencies-to-speed-up-workflows
 [marketplace]: https://github.com/marketplace
 [playwright-ci]: https://playwright.dev/docs/ci
 [setup-node]: https://github.com/actions/setup-node
 [setup-python-action]: https://github.com/actions/setup-python
-[walkthrough-previous]: 2-running-tests.md
-[walkthrough-next]: 4-matrix-strategies.md
+[walkthrough-previous]: 3-running-tests.md
+[walkthrough-next]: 5-matrix-strategies.md
