@@ -1,19 +1,26 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IMAGE_NAME="pets-workshop-sandbox"
-DOCKERFILE=".dev/Dockerfile.sandbox"
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+CONFIG_FILE="$SCRIPT_DIR/sandbox.json"
+DOCKERFILE="$SCRIPT_DIR/Dockerfile.sandbox"
 
 cd "$REPO_ROOT"
 
-# Files that should trigger a rebuild when changed
-WATCH_FILES=(
-  "$DOCKERFILE"
-  "app/client/package.json"
-  "app/client/package-lock.json"
-  "app/server/requirements.txt"
-)
+if [ ! -f "$CONFIG_FILE" ]; then
+  echo "Error: sandbox.json not found in $SCRIPT_DIR" >&2
+  exit 1
+fi
+
+# Read config from sandbox.json
+IMAGE_NAME=$(python3 -c "import json; print(json.load(open('$CONFIG_FILE'))['image_name'])")
+mapfile -t WATCH_FILES < <(python3 -c "
+import json
+for f in json.load(open('$CONFIG_FILE')).get('watch_files', []):
+    print(f)
+")
+WATCH_FILES+=("$DOCKERFILE")
 
 needs_build() {
   # Build if image doesn't exist
