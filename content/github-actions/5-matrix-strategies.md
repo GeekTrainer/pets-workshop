@@ -107,7 +107,7 @@ strategy:
 
 In this example:
 
-- The `exclude` block skips Python 3.12 on `ubuntu-22.04`.
+- The `exclude` block skips Python 3.14 on `ubuntu-22.04`.
 - The `include` block adds an `experimental` flag to the Python 3.14 / `ubuntu-latest` combination, which you could reference with `${{ matrix.experimental }}` in your steps.
 
 > [!NOTE]
