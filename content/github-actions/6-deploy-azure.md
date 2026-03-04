@@ -51,7 +51,7 @@ Let's set up the Azure Developer CLI and scaffold the infrastructure for our pro
     azd init --from-code
     ```
 
-5. Follow the prompts, accepting the defaults provided by the tool.
+5. `azd` will scan your project and detect the client and server services. When prompted, select **Confirm and continue initializing my app** to accept the detected services and generate the project configuration.
 6. By default, `azd` generates infrastructure in memory at deploy time. To customize the infrastructure, persist it to disk by running:
 
     ```bash
