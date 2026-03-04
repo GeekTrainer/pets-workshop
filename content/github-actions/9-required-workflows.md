@@ -7,7 +7,7 @@ Building a CI/CD pipeline is only half the battle — you also need to enforce i
 
 ## Scenario
 
-The shelter's CI/CD pipeline is comprehensive, but nothing currently prevents someone from merging code without passing CI. The organization also wants to ensure all repositories run security scanning. Let's lock things down with branch protection and explore how required workflows enforce standards at scale.
+The shelter's CI/CD pipeline is comprehensive, but nothing currently prevents someone from merging code without passing CI — meaning untested code could reach `main` and trigger a deployment. The organization also wants to ensure all repositories run security scanning. Let's lock things down with branch protection and explore how required workflows enforce standards at scale.
 
 ## Background
 
@@ -108,11 +108,11 @@ Here are some additional GitHub Actions features you can explore on your own:
 Congratulations! You've built a complete CI/CD pipeline for the pet shelter application. Let's review what you've accomplished:
 
 - **Continuous integration**: Tests run on every push and pull request across multiple Python versions, catching bugs before they reach `main`.
-- **Continuous deployment**: Automated deployment to Azure via `azd`, with staging and production environments.
+- **Continuous deployment**: Automated deployment to Azure via `azd`, triggered after CI passes on `main`.
 - **Custom actions**: Encapsulated Python setup and database seeding into a reusable composite action, eliminating duplication across jobs.
-- **Reusable workflows**: Extracted the deployment pattern into a callable workflow template used by both staging and production.
-- **Branch protection**: Enforced quality gates so code can't be merged without passing CI checks.
-- **Manual triggers**: Added on-demand deployment capability for rollbacks and hotfixes.
+- **Reusable workflows**: Extracted the deployment pattern into a callable workflow template, shared by both the automated CD pipeline and a manual deploy workflow for rollbacks.
+- **Manual deployment**: Added on-demand deployment capability for rollbacks and hotfixes, using `workflow_dispatch` with a git ref input.
+- **Branch protection**: Enforced quality gates so code can't be merged without passing CI checks — the production safeguard that ensures only validated code gets deployed.
 
 This pipeline follows the same patterns used by teams across GitHub. As the shelter's application grows, this foundation will scale with it.
 
@@ -121,7 +121,7 @@ This pipeline follows the same patterns used by teams across GitHub. As the shel
 If you want to keep exploring, here are some suggested next steps:
 
 - Add a code scanning workflow using [GitHub Advanced Security][github-security].
-- Implement environment-based deployment approvals using [GitHub Environments][environments-docs].
+- Explore [GitHub Environments][environments-docs] with deployment protection rules for staged deployments (e.g., staging → production with manual approval).
 - Explore the [GitHub Actions Marketplace][actions-marketplace] for community-built actions.
 - Take the [GitHub Skills: Deploy to Azure][skills-deploy-azure] course for a deeper dive into Azure deployment.
 

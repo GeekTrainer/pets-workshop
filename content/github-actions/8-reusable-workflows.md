@@ -5,11 +5,11 @@
 
 Reusable workflows let you define an entire workflow that other workflows can call, like a function. This is different from custom actions — actions encapsulate individual *steps*, while reusable workflows encapsulate entire *jobs*. They're triggered with the `workflow_call` event and can accept inputs, secrets, and produce outputs.
 
-In this exercise you'll extract the deployment pattern into a reusable workflow, then call it from your CD pipeline for both staging and production.
+In this exercise you'll extract the deployment pattern into a reusable workflow, then call it from both your CD pipeline and a new manual deployment workflow for rollbacks and hotfixes.
 
 ## Scenario
 
-The shelter's CD pipeline has two deploy jobs — staging and production — that run the exact same steps: checkout, install azd, authenticate with Azure, and deploy. The only differences are the environment name and the azd environment. Rather than maintaining duplicate job definitions, let's extract the shared pattern into a reusable workflow that both can call.
+The shelter's deploy workflow is working — code that passes CI on `main` gets deployed automatically. But what happens when something goes wrong in production and you need to quickly roll back to a known-good version? Or deploy a hotfix from a specific commit? Right now, the only option is to push to `main` and wait for CI. Let's create a manual deployment workflow that lets the team deploy any git ref on demand, and extract the shared deploy logic into a reusable workflow so both pipelines stay in sync.
 
 ## Background
 
@@ -42,10 +42,10 @@ Reusable workflows often need access to secrets and variables — for example, d
 Using `secrets: inherit` to forward every secret available in the calling workflow to the reusable workflow.
 
     ```yaml
-    deploy-staging:
+    deploy:
       uses: ./.github/workflows/reusable-deploy.yml
       with:
-        environment-name: staging
+        deploy-ref: main
       secrets: inherit
     ```
 
@@ -57,8 +57,8 @@ For a more controlled approach, you can identify which specific secrets to pass 
 on:
   workflow_call:
     inputs:
-      environment-name:
-        required: true
+      deploy-ref:
+        required: false
         type: string
     secrets:
       AZURE_CLIENT_ID:
@@ -72,10 +72,10 @@ on:
 Then caller then passes each secret explicitly:
 
 ```yaml
-deploy-staging:
+deploy:
   uses: ./.github/workflows/reusable-deploy.yml
   with:
-    environment-name: staging
+    deploy-ref: main
   secrets:
     AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
     AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
@@ -87,11 +87,11 @@ deploy-staging:
 
 ## Create a reusable deployment workflow
 
-Let's extract the shared deploy steps into a reusable workflow.
+Let's extract the shared deploy steps into a reusable workflow. The workflow will accept an optional `deploy-ref` input so callers can deploy any git ref — the current commit, a previous release tag, or a specific commit SHA.
 
 1. In your codespace, create a new file at `.github/workflows/reusable-deploy.yml`.
 
-2. Define the `workflow_call` trigger with inputs for the environment:
+2. Define the `workflow_call` trigger with an input for the git ref to deploy:
 
     ```yaml
     name: Reusable Deploy Workflow
@@ -99,14 +99,11 @@ Let's extract the shared deploy steps into a reusable workflow.
     on:
       workflow_call:
         inputs:
-          environment-name:
-            description: 'Deployment environment (staging or production)'
-            required: true
+          deploy-ref:
+            description: 'Git ref to deploy (commit SHA, tag, or branch). Defaults to the caller workflow ref.'
+            required: false
             type: string
-          azd-env-name:
-            description: 'Azure Developer CLI environment name'
-            required: true
-            type: string
+            default: ''
     ```
 
 3. Add a single job that checks out the code, authenticates with Azure, and deploys:
@@ -115,75 +112,119 @@ Let's extract the shared deploy steps into a reusable workflow.
     jobs:
       deploy:
         runs-on: ubuntu-latest
-        environment: ${{ inputs.environment-name }}
+        concurrency:
+          group: deploy-production
+          cancel-in-progress: false
         steps:
           - name: Checkout code
             uses: actions/checkout@v4
+            with:
+              ref: ${{ inputs.deploy-ref || github.sha }}
 
           - name: Install azd
             uses: Azure/setup-azd@v2
 
           - name: Log in with Azure (Federated Credentials)
             run: |
-              azd auth login `
-                --client-id "${{ vars.AZURE_CLIENT_ID }}" `
-                --federated-credential-provider "github" `
+              azd auth login \
+                --client-id "${{ vars.AZURE_CLIENT_ID }}" \
+                --federated-credential-provider "github" \
                 --tenant-id "${{ vars.AZURE_TENANT_ID }}"
-            shell: pwsh
 
           - name: Deploy application
-            run: azd up --environment ${{ inputs.azd-env-name }} --no-prompt
+            run: azd up --no-prompt
             env:
               AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-              AZURE_ENV_NAME: ${{ inputs.azd-env-name }}
+              AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
               AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
     ```
 
 > [!NOTE]
 > Reusable workflows have a few important limitations: they can be nested up to 4 levels deep, and the workflow file must be located in the `.github/workflows` directory. You also cannot call a reusable workflow from within a reusable workflow's `steps` — they are called at the job level.
 
-## Call the reusable workflow
+## Update the CD workflow
 
-Now update your `azure-dev.yml` to call the reusable workflow instead of duplicating the deploy steps in each job.
+Now update your `azure-dev.yml` to call the reusable workflow instead of defining the deploy steps inline.
 
-1. Replace the `deploy-staging` and `deploy-production` jobs with calls to the reusable workflow:
+1. Replace the contents of `.github/workflows/azure-dev.yml` with:
 
     ```yaml
-    deploy-staging:
-      if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
-      uses: ./.github/workflows/reusable-deploy.yml
-      with:
-        environment-name: staging
-        azd-env-name: pet-shelter-staging
-      secrets: inherit
+    name: Deploy App
 
-    deploy-production:
-      needs: [deploy-staging]
-      uses: ./.github/workflows/reusable-deploy.yml
-      with:
-        environment-name: production
-        azd-env-name: pet-shelter-production
-      secrets: inherit
+    on:
+      workflow_dispatch:
+      workflow_run:
+        workflows: ["Run Tests"]
+        branches: [main]
+        types: [completed]
+
+    permissions:
+      id-token: write
+      contents: read
+
+    jobs:
+      deploy:
+        if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+        uses: ./.github/workflows/reusable-deploy.yml
+        secrets: inherit
     ```
 
-2. In the terminal (<kbd>Ctl</kbd>+<kbd>`</kbd> to toggle), commit and push your changes:
+    Notice how the entire job definition is replaced by a single `uses:` reference. The reusable workflow handles checkout, authentication, and deployment — the caller just decides *when* to deploy.
+
+## Create a manual deploy workflow
+
+Now let's add the second caller — a manual deploy workflow for rollbacks and hotfixes. This is where the reusable workflow really earns its keep: same deploy logic, different trigger.
+
+1. Create a new file at `.github/workflows/manual-deploy.yml`.
+2. Add the following content:
+
+    ```yaml
+    name: Manual Deploy
+
+    on:
+      workflow_dispatch:
+        inputs:
+          deploy-ref:
+            description: 'Git ref to deploy (commit SHA, tag, or branch)'
+            required: true
+            default: 'main'
+
+    permissions:
+      id-token: write
+      contents: read
+
+    jobs:
+      deploy:
+        uses: ./.github/workflows/reusable-deploy.yml
+        with:
+          deploy-ref: ${{ inputs.deploy-ref }}
+        secrets: inherit
+    ```
+
+3. This workflow:
+    - Is only triggered **manually** via `workflow_dispatch` — it appears as a "Run workflow" button in the Actions tab
+    - Prompts for a **git ref** — a commit SHA, tag, or branch name to deploy
+    - Passes that ref to the reusable workflow's `deploy-ref` input
+    - Uses the same deploy logic as the automated pipeline
+
+4. In the terminal (<kbd>Ctl</kbd>+<kbd>`</kbd> to toggle), commit and push your changes:
 
     ```bash
-    git add .github/workflows/reusable-deploy.yml .github/workflows/azure-dev.yml
-    git commit -m "Extract reusable deploy workflow"
+    git add .github/workflows/reusable-deploy.yml .github/workflows/azure-dev.yml .github/workflows/manual-deploy.yml
+    git commit -m "Extract reusable deploy workflow and add manual deploy"
     git push
     ```
 
-3. Navigate to the **Actions** tab on GitHub and verify that both deploy jobs run successfully. Notice how each appears as a separate job in the workflow visualization, even though they share the same underlying workflow definition.
+5. Navigate to the **Actions** tab on GitHub and verify that the deploy workflow runs successfully. You should also see **Manual Deploy** in the workflow list — try clicking **Run workflow** to test deploying a specific ref.
 
 > [!TIP]
 > When viewing a workflow run that calls reusable workflows, GitHub shows each caller job separately. Select a job to see the steps from the reusable workflow running inside it.
 
-This pattern keeps your deployment logic in one place. When you need to update the deployment process, you change it once in the reusable workflow and every caller benefits.
+This pattern keeps your deployment logic in one place. When you need to update the deployment process — like adding health checks or notifications — you change it once in the reusable workflow and every caller benefits.
 
 ## Summary and next steps
 
-Reusable workflows reduce duplication at the workflow level. You've extracted the shared deployment pattern into a template that both staging and production call with a single `uses` reference. This keeps your CD pipeline maintainable as it grows — any change to the deploy process only needs to happen in one place.
+Reusable workflows reduce duplication at the workflow level. You've extracted the shared deployment pattern into a template that both the automated CD pipeline and the manual deploy workflow call with a single `uses` reference. This keeps your deployment process maintainable as it grows — any change happens in one place.
 
 Next, we'll ensure quality gates are enforced with [branch protection, required workflows, and more][walkthrough-next].
 

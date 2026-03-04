@@ -7,7 +7,7 @@ With CI in place, it's time for CD — continuous deployment or continuous deliv
 
 ## Scenario
 
-With the prototype built, the shelter is ready to share their application with the world! They want to ensure last minute testing is done on the application before it's deployed to production.
+With the prototype built, the shelter is ready to share their application with the world! They want to deploy automatically whenever code is pushed to `main` — but only after CI passes.
 
 ## Background
 
@@ -19,26 +19,12 @@ Secrets are exactly that - secret. These are passwords and other values you don'
 
 Variables, on the other hand, are designed to be public values. They're settings like URLs or names, or other values that aren't sensitive. Variables can be both read and written. Use variables whenever you need the ability to configure a value outside a workflow.
 
-### Environments
+### Protecting production
 
-There's many approaches to deployment of an application. A classic is a **staging** > **production** setup, where **staging** is as close to mimicking the real world as possible, and **production** is, well, the actual application. By using this strategy it allows for any last checks to be performed before opening the doors to the public.
+There are several strategies for ensuring only validated code reaches production. In a later exercise we'll configure **branch rulesets** to require CI checks and pull request reviews before code can be merged to `main`. Since our deploy workflow only triggers on pushes to `main`, this creates a natural gate: code must pass CI and be reviewed before it can be deployed.
 
-Typically each environment will have its own configuration - its own server, URLs, databases, etc. Deploying to each will typically require different configurations. Actions supports this through the use of environments. With an environment you can create a set of secrets or variables for each environment, ensuring the right ones are used at the right time.
-
-Environments can have deployment rules, which allow you to control when a workflow is allowed to use a particular environment. Sticking with the staging/production approach, you'll typically have a broader set of team members who have permissions to deploy to staging, but limit those who can deploy to production. In our scenario, we're going to allow anyone to deploy to staging, but you'll be the only one who's allowed to deploy to production.
-
-## Create your environments
-
-1. Navigate to your repository on GitHub.
-2. Select **Settings** > **Environments**.
-3. Select **New environment**, name it `staging`, and select **Configure environment**. No additional rules are needed for now — select **Save protection rules**.
-4. Return to **Settings** > **Environments** and select **New environment** again.
-5. Name it `production` and select **Configure environment**.
-6. Under **Deployment protection rules**, check **Required reviewers**.
-7. Add yourself as a required reviewer and select **Save protection rules**.
-
-> [!NOTE]
-> In the next steps, `azd` will automatically configure OIDC credentials and store them as secrets in your repository. You don't need to manually create any Azure credentials.
+> [!TIP]
+> GitHub also supports **environments** with deployment protection rules (like manual approval gates). Environments are a powerful option when you need separate staging and production deployments — but for this workshop, branch rulesets give us the same safety with less setup. See the [environments documentation][environments-docs] to explore that approach on your own.
 
 ## Install and initialize azd
 
@@ -51,14 +37,28 @@ Let's set up the Azure Developer CLI and scaffold the infrastructure for our pro
     curl -fsSL https://aka.ms/install-azd.sh | bash
     ```
 
-3. Initialize the project by running:
+3. Log in to Azure:
+
+    ```bash
+    azd auth login
+    ```
+
+    Follow the device code flow — open the URL shown, enter the code, and sign in with your Azure account.
+
+4. Initialize the project by running:
 
     ```bash
     azd init --from-code
     ```
 
-4. Follow the prompts, accepting the defaults provided by the tool. When asked for a namespace, choose something unique (this will be used to name your Azure resources).
-5. Explore the generated `infra/` directory. You'll see Bicep files (`.bicep`) that define the Azure resources for your application:
+5. Follow the prompts, accepting the defaults provided by the tool.
+6. By default, `azd` generates infrastructure in memory at deploy time. To customize the infrastructure, persist it to disk by running:
+
+    ```bash
+    azd infra gen
+    ```
+
+7. Explore the generated `infra/` directory. You'll see Bicep files (`.bicep`) that define the Azure resources for your application:
 
     ```bash
     ls infra/
@@ -95,12 +95,11 @@ The generated Bicep files define the Azure Container Apps that will host the cli
 
 ## Create the CD workflow
 
-By default, `azd pipeline config` generates a simple workflow that deploys on every push to `main`. That works for getting started, but we want staged deployments with approval gates. The good news: if you create the workflow file *first*, `azd` will detect it and configure credentials around your custom workflow instead of generating the default.
+By default, `azd pipeline config` generates a simple workflow that deploys on every push to `main`. That works for getting started, but we want a workflow that only deploys **after CI passes**. If you create the workflow file *first*, `azd` will detect it and configure credentials around your custom workflow instead of generating the default.
 
 Let's create a workflow that:
 - Only deploys **after CI passes** — using [`workflow_run`][workflow-run-docs]
-- Deploys to **staging** first, automatically
-- Requires **manual approval** before deploying to **production**
+- Can also be **triggered manually** via `workflow_dispatch`
 - Prevents **conflicting deployments** with concurrency controls
 
 1. Create a new file at `.github/workflows/azure-dev.yml`.
@@ -121,40 +120,11 @@ Let's create a workflow that:
       contents: read
 
     jobs:
-      deploy-staging:
+      deploy:
         runs-on: ubuntu-latest
         if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
-        environment: staging
         concurrency:
-          group: deploy-${{ github.ref }}-staging
-          cancel-in-progress: true
-
-        steps:
-          - uses: actions/checkout@v4
-
-          - name: Install azd
-            uses: Azure/setup-azd@v2
-
-          - name: Log in with Azure (Federated Credentials)
-            run: |
-              azd auth login \
-                --client-id "${{ vars.AZURE_CLIENT_ID }}" \
-                --federated-credential-provider "github" \
-                --tenant-id "${{ vars.AZURE_TENANT_ID }}"
-
-          - name: Provision and deploy to staging
-            run: azd up --environment staging --no-prompt
-            env:
-              AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-              AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
-              AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
-
-      deploy-production:
-        runs-on: ubuntu-latest
-        needs: deploy-staging
-        environment: production
-        concurrency:
-          group: deploy-${{ github.ref }}-production
+          group: deploy-production
           cancel-in-progress: false
 
         steps:
@@ -170,8 +140,8 @@ Let's create a workflow that:
                 --federated-credential-provider "github" \
                 --tenant-id "${{ vars.AZURE_TENANT_ID }}"
 
-          - name: Provision and deploy to production
-            run: azd up --environment production --no-prompt
+          - name: Provision and deploy
+            run: azd up --no-prompt
             env:
               AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
               AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
@@ -185,23 +155,14 @@ Let's walk through the key parts:
 - **`permissions: id-token: write`** — In the [Running Tests][running-tests] module you set `contents: read`. Here, `id-token: write` is added because the workflow needs to request OIDC tokens from Azure. This is how passwordless authentication works — no stored credentials, just short-lived tokens.
 - **`vars.*`** — Variables like `${{ vars.AZURE_CLIENT_ID }}` reference **repository variables** that `azd pipeline config` will create for you in the next step.
 - **`workflow_run`** triggers this workflow whenever the **Run Tests** workflow completes on `main`. The `if` condition ensures it only proceeds when tests **succeeded** — or when triggered manually via `workflow_dispatch`.
-- **`environment: staging`** and **`environment: production`** link each job to the GitHub Environments you created earlier. The production environment will trigger the approval gate you configured.
-- **`needs: deploy-staging`** on the production job creates the sequential flow: staging must succeed before production is offered for review.
-- **`concurrency`** groups prevent conflicting deployments to the same environment. Note `cancel-in-progress: false` on production to avoid accidentally cancelling an active deployment.
-- **`azd up`** provisions infrastructure and deploys your application in one command, targeted at a specific environment.
+- **`concurrency`** prevents conflicting deployments. Note `cancel-in-progress: false` to avoid accidentally cancelling an active deployment.
+- **`azd up`** provisions infrastructure and deploys your application in one command.
 
 ## Set up Azure authentication
 
-Now let's authenticate with Azure and let `azd` configure the pipeline credentials. Because the workflow file already exists, `azd` will configure OIDC and variables around it rather than generating a new one.
+Now let's let `azd` configure the pipeline credentials. Because the workflow file already exists, `azd` will configure OIDC and variables around it rather than generating a new one.
 
-1. Authenticate with Azure:
-
-    ```bash
-    azd auth login
-    ```
-
-2. Follow the prompts to complete the authentication (a browser window will open for you to sign in).
-3. Configure the deployment pipeline:
+1. Configure the deployment pipeline:
 
     ```bash
     azd pipeline config
@@ -212,7 +173,7 @@ Now let's authenticate with Azure and let `azd` configure the pipeline credentia
     - Store the necessary secrets and variables in your repository automatically
     - Detect your existing workflow file and configure it
 
-4. When prompted to commit and push your local changes, say **yes**.
+2. When prompted to commit and push your local changes, say **yes**.
 
 > [!TIP]
 > After `azd pipeline config` completes, navigate to **Settings** > **Secrets and variables** > **Actions** > **Variables** tab to see the repository variables it created (like `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, etc.). These are the `vars.*` values your workflow references.
@@ -222,27 +183,24 @@ Now let's authenticate with Azure and let `azd` configure the pipeline credentia
 When you said **yes** to `azd pipeline config`'s commit prompt, it pushed your changes — including the workflow file. Let's verify everything is working.
 
 1. Navigate to the **Actions** tab. The push will trigger the **Run Tests** workflow first.
-2. Once tests complete successfully, the **Deploy App** workflow will start automatically.
-3. Observe the pipeline stages:
-    - **deploy-staging** proceeds automatically
-    - After staging completes, **deploy-production** shows a **Waiting for review** badge
-4. Select **Review deployments** on the production job.
-5. Check the **production** environment and select **Approve and deploy**.
-6. Once the production deployment completes, expand the deploy step logs to find the application URLs.
-7. Open the client URL in your browser — you should see the pet shelter application live!
+2. Once tests complete successfully, the **Deploy App** workflow will start automatically (via the `workflow_run` trigger).
+3. Watch the deploy job run — it will provision Azure resources and deploy both the client and server applications.
+4. Once the deployment completes, expand the **Provision and deploy** step logs to find the application URLs.
+5. Open the client URL in your browser — you should see the pet shelter application live!
 
 > [!TIP]
 > You can also find your deployment URLs by running `azd show` in the terminal.
 
 ## Summary and next steps
 
-Congratulations! You've deployed the pet shelter application to Azure with a proper CI/CD pipeline:
+Congratulations! You've deployed the pet shelter application to Azure with a CI/CD pipeline:
 
 - **CI-gated deployment** — CD only runs after CI passes, using `workflow_run`
-- **Staged environments** — staging deploys automatically, production requires approval
 - **OIDC authentication** — passwordless, short-lived tokens instead of stored credentials
 - **Concurrency controls** — preventing conflicting deployments
 - **azd integration** — `azd pipeline config` configured credentials around your custom workflow
+
+In a later exercise, we'll add **branch rulesets** to ensure code must pass CI and be reviewed before it can reach `main` — creating a natural production gate.
 
 Next we'll [create custom actions][walkthrough-next] to reduce duplication and make our workflows more maintainable.
 
