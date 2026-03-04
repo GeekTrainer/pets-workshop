@@ -13,28 +13,6 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
-    concurrency:
-      group: deploy-production
-      cancel-in-progress: false
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install azd
-        uses: Azure/setup-azd@v2
-
-      - name: Log in with Azure (Federated Credentials)
-        run: |
-          azd auth login \
-            --client-id "${{ vars.AZURE_CLIENT_ID }}" \
-            --federated-credential-provider "github" \
-            --tenant-id "${{ vars.AZURE_TENANT_ID }}"
-
-      - name: Provision and deploy
-        run: azd up --no-prompt
-        env:
-          AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-          AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
-          AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+    uses: ./.github/workflows/reusable-deploy.yml
+    secrets: inherit

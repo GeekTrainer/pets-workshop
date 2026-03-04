@@ -203,11 +203,15 @@ When you said **yes** to `azd pipeline config`'s commit prompt, it pushed your c
 1. Navigate to the **Actions** tab. The push will trigger the **Run Tests** workflow first.
 2. Once tests complete successfully, the **Deploy App** workflow will start automatically (via the `workflow_run` trigger).
 3. Watch the deploy job run — it will provision Azure resources and deploy both the client and server applications.
-4. Once the deployment completes, expand the **Provision and deploy** step logs to find the application URLs.
-5. Open the client URL in your browser — you should see the pet shelter application live!
+4. Once the deployment completes return to your codespace.
+5. Run the following in the terminal to list the details of your new Azure environment:
 
-> [!TIP]
-> You can also find your deployment URLs by running `azd show` in the terminal.
+    ```bash
+    azd show
+    ```
+
+6. Look for the **client** service endpoint in the output.
+7. Open the client URL in your browser — you should see the pet shelter application live!
 
 ## Summary and next steps
 

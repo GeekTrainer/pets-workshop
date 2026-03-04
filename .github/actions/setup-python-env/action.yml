@@ -1,0 +1,41 @@
+name: 'Setup Python Environment'
+description: 'Sets up Python, installs dependencies, and seeds the test database'
+
+inputs:
+  python-version:
+    description: 'Python version to use'
+    required: false
+    default: '3.14'
+  database-path:
+    description: 'Path to the test database file'
+    required: false
+    default: './test_dogshelter.db'
+
+outputs:
+  database-file:
+    description: 'Path to the seeded database file'
+    value: ${{ steps.seed.outputs.database-file }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install dependencies
+      run: pip install -r server/requirements.txt
+      shell: bash
+
+    - name: Seed the database
+      id: seed
+      run: python server/utils/seed_test_database.py
+      shell: bash
+      env:
+        DATABASE_PATH: ${{ inputs.database-path }}
+
+    - name: Set output
+      run: echo "database-file=${{ inputs.database-path }}" >> $GITHUB_OUTPUT
+      shell: bash
+      id: set-output
