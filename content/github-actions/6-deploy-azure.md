@@ -67,12 +67,20 @@ Let's set up the Azure Developer CLI and scaffold the infrastructure for our pro
 > [!TIP]
 > Bicep is Azure's domain-specific language for defining infrastructure as code. If you have GitHub Copilot, try asking it to explain the generated Bicep files!
 
+The generated `infra/` directory contains several Bicep files that work together:
+
+- **`main.bicep`** — The entry point. It defines the deployment's parameters (like location and environment name) and orchestrates the other files.
+- **`main.parameters.json`** — Default parameter values passed to `main.bicep` at deployment time.
+- **`resources.bicep`** — The core of the infrastructure. It defines the Azure Container Apps environment and the individual container apps for the client and server, including their Docker images, environment variables, ingress settings, and scaling rules.
+- **`modules/`** — Helper modules referenced by the main files (e.g., for fetching container image metadata).
+- **`abbreviations.json`** — A lookup table `azd` uses to generate consistent, short resource names following Azure naming conventions.
+
 ## Configure the infrastructure
 
 The generated Bicep files define the Azure Container Apps that will host the client and server. We need to add an environment variable so the client knows where to find the API server.
 
 1. Open `infra/resources.bicep` in your codespace.
-2. Find the section (around line 130) that reads:
+2. Find the section (around line 109) that reads:
 
     ```bicep
     {
@@ -168,12 +176,22 @@ Now let's let `azd` configure the pipeline credentials. Because the workflow fil
     azd pipeline config
     ```
 
-    This command will:
+2. Follow the prompts — here's what to expect:
+
+    | Prompt | What to select |
+    |--------|---------------|
+    | **Select a provider** | Choose **GitHub** |
+    | **Enter a unique environment name** | Enter a short name (e.g., `<HANDLE>-pets-workshop`) — this names your Azure resource group |
+    | **Select an Azure subscription** | Choose the subscription you want to deploy to |
+    | **Select an Azure location** | Pick a region close to you (e.g., `eastus2`) |
+    | **Select how to authenticate the pipeline to Azure** | Choose **Federated Service Principal (SP + OIDC)** |
+
+    After you answer these, `azd` will:
     - Create OIDC credentials in Azure for passwordless authentication
     - Store the necessary secrets and variables in your repository automatically
     - Detect your existing workflow file and configure it
 
-2. When prompted to commit and push your local changes, say **yes**.
+3. When prompted to commit and push your local changes, say **yes**.
 
 > [!TIP]
 > After `azd pipeline config` completes, navigate to **Settings** > **Secrets and variables** > **Actions** > **Variables** tab to see the repository variables it created (like `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, etc.). These are the `vars.*` values your workflow references.
