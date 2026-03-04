@@ -117,7 +117,7 @@ In this example:
 
 Matrix strategies let you test across multiple configurations — language versions, operating systems, and more — with minimal YAML duplication. Combined with `fail-fast`, `max-parallel`, `include`, and `exclude`, you have fine-grained control over parallel testing. Next we'll [deploy to Azure using azd][walkthrough-next].
 
-### Resources
+## Resources
 
 - [Using a matrix for your jobs][matrix-docs]
 - [Workflow syntax for `jobs.<job_id>.strategy`][strategy-syntax]

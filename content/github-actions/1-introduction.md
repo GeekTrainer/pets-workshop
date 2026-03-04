@@ -106,7 +106,7 @@ Congratulations! You've created and run your first GitHub Actions workflow. You'
 
 Next, we'll put this knowledge to work by [securing the development pipeline][walkthrough-next] with code scanning, Dependabot, and secret scanning.
 
-### Resources
+## Resources
 
 - [GitHub Actions documentation][github-actions-docs]
 - [Workflow syntax for GitHub Actions][workflow-syntax]

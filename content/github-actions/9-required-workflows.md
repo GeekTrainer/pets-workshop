@@ -28,15 +28,45 @@ Rulesets are available on all GitHub plans for public repositories, and on GitHu
 
 One of the most powerful ruleset features is the ability to **require specific workflows to pass before merging**. This is particularly useful at the organization level:
 
-1. An organization creates a reusable workflow (e.g. `security-scan.yml`) in a central repository.
-2. An organization-wide ruleset requires that workflow for all (or a subset of) repositories.
-3. Every PR across those repositories now runs the required workflow automatically — individual repository owners can't skip it.
+- An organization creates a reusable workflow (e.g. `security-scan.yml`) in a central repository.
+- An organization-wide ruleset requires that workflow for all (or a subset of) repositories.
+- Every PR across those repositories now runs the required workflow automatically — individual repository owners can't skip it.
 
 Common use cases include security scanning, license compliance, and code quality checks.
 
+## Add a summary job to the CI workflow
+
+Right now we have two sets of tests - end to end tests with Playwright, and unit tests with Python. The latter is actually setup using a matrix, where we run the tests against different versions of Python. As time goes on, the list of tests may grow and change. We want to ensure we can easily indicate that **all** tests have passed in one, centralized report. This will allow us to then use this as our flag when creating a gate, to ensure our CI has completed successfully before allowing a merge into `main`. We'll do this by adding a new job to the end of our tests workflow, which will check if all jobs in the workflow have succeeded.
+
+1. Open `.github/workflows/run-tests.yml` and add the following job at the end of the `jobs:` section (after the `test-e2e` job):
+
+    ```yaml
+      tests-passed:
+        if: always()
+        needs: [test-api, test-e2e]
+        runs-on: ubuntu-latest
+        steps:
+          - name: Check results
+            run: |
+              if [[ "${{ needs.test-api.result }}" != "success" || "${{ needs.test-e2e.result }}" != "success" ]]; then
+                echo "One or more jobs failed"
+                exit 1
+              fi
+    ```
+
+2. Commit and push the change:
+
+    ```bash
+    git add .github/workflows/run-tests.yml
+    git commit -m "Add tests-passed summary job"
+    git push
+    ```
+
+The `if: always()` ensures this job runs even when upstream jobs fail, so it can correctly report failure. The `needs` key creates a dependency on both test jobs, and the step checks their results.
+
 ## Create a ruleset for `main`
 
-Let's create a ruleset that requires CI to pass and pull requests to be reviewed before merging to `main`.
+Let's create a ruleset that requires our tests to pass, and pull requests to be reviewed, before merging to `main`.
 
 1. Navigate to your repository on GitHub.
 2. Select **Settings**, then in the left sidebar under **Code and automation**, expand **Rules** and select **Rulesets**.
@@ -53,9 +83,6 @@ Let's create a ruleset that requires CI to pass and pull requests to be reviewed
     | **Block force pushes** | *(enabled by default)* |
 
 8. Select **Create** to save the ruleset.
-
-> [!TIP]
-> The `tests-passed` check is a **summary job** in the CI workflow that aggregates results from all matrix and test jobs into a single status check. This is a best practice — matrix jobs report with dynamic names like `test-api (3.12)`, which change if you modify the matrix. A summary job provides one stable check name for rulesets to reference.
 
 > [!TIP]
 > If your status checks don't appear when searching, make sure the CI workflow has run at least once on the repository. GitHub only shows status checks that have been reported previously.

@@ -41,7 +41,7 @@ Many popular setup actions have caching built right in. Let's start with the `te
 
 The e2e job has two dependencies to cache — Python packages and the Node modules. We can follow the same path here! To make sure our packages are updated when versions change, we're going to set the `package-lock.json` file as a dependency. When the workflow runs, it will look to see if that file has changed; if it has it'll perform a reinstall. If not, it'll use the cache!
 
-4. Update the **Set up Python** step in the `test-e2e` job the same way:
+1. Update the **Set up Python** step in the `test-e2e` job the same way:
 
     ```yaml
           - name: Set up Python
@@ -51,7 +51,7 @@ The e2e job has two dependencies to cache — Python packages and the Node modul
               cache: 'pip'
     ```
 
-5. Update the **Set up Node.js** step in the `test-e2e` job to enable npm caching:
+2. Update the **Set up Node.js** step in the `test-e2e` job to enable npm caching:
 
     ```yaml
           - name: Set up Node.js
@@ -62,7 +62,7 @@ The e2e job has two dependencies to cache — Python packages and the Node modul
               cache-dependency-path: 'client/package-lock.json'
     ```
 
-6. Save the file.
+3. Save the file.
 
 > [!NOTE]
 > You might wonder about caching Playwright browsers too. Playwright's [official CI guidance][playwright-ci] recommends running `npx playwright install --with-deps` on every run rather than caching browsers, since browser binaries are tightly coupled to the Playwright version and caching them can lead to subtle version mismatches.
@@ -96,7 +96,7 @@ The Actions Marketplace provides thousands of pre-built actions so you don't hav
 
 Next, we'll explore [matrix strategies][walkthrough-next] to test across multiple configurations simultaneously.
 
-### Resources
+## Resources
 
 - [GitHub Actions Marketplace][actions-marketplace]
 - [Caching dependencies to speed up workflows][caching-docs]

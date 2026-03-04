@@ -51,7 +51,7 @@ Using `secrets: inherit` to forward every secret available in the calling workfl
 
 ### Define specific secrets
 
-For a more controlled approach, you can identify which specific secrets to pass n the reusable workflow's `on.workflow_call.secrets` section:
+For a more controlled approach, you can identify which specific secrets to pass in the reusable workflow's `on.workflow_call.secrets` section:
 
 ```yaml
 on:
@@ -201,13 +201,9 @@ Now let's add the second caller — a manual deploy workflow for rollbacks and h
         secrets: inherit
     ```
 
-3. This workflow:
-    - Is only triggered **manually** via `workflow_dispatch` — it appears as a "Run workflow" button in the Actions tab
-    - Prompts for a **git ref** — a commit SHA, tag, or branch name to deploy
-    - Passes that ref to the reusable workflow's `deploy-ref` input
-    - Uses the same deploy logic as the automated pipeline
+    This workflow is only triggered **manually** via `workflow_dispatch` — it appears as a "Run workflow" button in the Actions tab. It prompts for a **git ref** (a commit SHA, tag, or branch name to deploy), passes that ref to the reusable workflow's `deploy-ref` input, and uses the same deploy logic as the automated pipeline.
 
-4. In the terminal (<kbd>Ctl</kbd>+<kbd>`</kbd> to toggle), commit and push your changes:
+3. In the terminal (<kbd>Ctl</kbd>+<kbd>`</kbd> to toggle), commit and push your changes:
 
     ```bash
     git add .github/workflows/reusable-deploy.yml .github/workflows/azure-dev.yml .github/workflows/manual-deploy.yml
@@ -215,7 +211,7 @@ Now let's add the second caller — a manual deploy workflow for rollbacks and h
     git push
     ```
 
-5. Navigate to the **Actions** tab on GitHub and verify that the deploy workflow runs successfully. You should also see **Manual Deploy** in the workflow list — try clicking **Run workflow** to test deploying a specific ref.
+4. Navigate to the **Actions** tab on GitHub and verify that the deploy workflow runs successfully. You should also see **Manual Deploy** in the workflow list — try clicking **Run workflow** to test deploying a specific ref.
 
 > [!TIP]
 > When viewing a workflow run that calls reusable workflows, GitHub shows each caller job separately. Select a job to see the steps from the reusable workflow running inside it.

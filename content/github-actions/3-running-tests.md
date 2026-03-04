@@ -174,7 +174,7 @@ You've built a CI pipeline with two jobs running in parallel — unit tests for 
 
 Now, let's work to [improve the performance of our CI job][walkthrough-next] by reusing steps and caching dependencies.
 
-### Resources
+## Resources
 
 - [GitHub Actions documentation][github-actions-docs]
 - [Workflow syntax for GitHub Actions][workflow-syntax]

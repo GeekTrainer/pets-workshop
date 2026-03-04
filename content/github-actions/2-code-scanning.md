@@ -95,7 +95,7 @@ You've enabled GitHub Advanced Security for your repository:
 
 These tools run automatically in the background, catching security issues before they reach production. Now that you've seen how GitHub uses Actions internally for security automation, it's time to build your own CI workflow. Next, we'll [automate testing][walkthrough-next] for the shelter's application.
 
-### Resources
+## Resources
 
 - [About GitHub Advanced Security][advanced-security-docs]
 - [About code scanning with CodeQL][about-code-scanning]

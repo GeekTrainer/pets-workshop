@@ -226,7 +226,7 @@ In a later exercise, we'll add **branch rulesets** to ensure code must pass CI a
 
 Next we'll [create custom actions][walkthrough-next] to reduce duplication and make our workflows more maintainable.
 
-### Resources
+## Resources
 
 - [What is the Azure Developer CLI?][azd-docs]
 - [Create a custom pipeline definition][azd-pipeline-definition]

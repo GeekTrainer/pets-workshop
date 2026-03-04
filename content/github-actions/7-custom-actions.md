@@ -30,14 +30,14 @@ Inputs and outputs let the action communicate with the calling workflow, making 
 Let's create a composite action that sets up Python, installs dependencies, and seeds the test database.
 
 1. In your codespace, open a terminal window by selecting <kbd>Ctl</kbd>+<kbd>\`</kbd>.
-1. Create the directory for the action by executing the following command in the terminal:
+2. Create the directory for the action by executing the following command in the terminal:
 
     ```bash
     mkdir -p .github/actions/setup-python-env
     ```
 
-2. In the newly created `setup-python-env` folder, create a new file named `action.yml` to store your composite action.
-3. Add the following YAML to the file to define your composite action:
+3. In the newly created `setup-python-env` folder, create a new file named `action.yml` to store your composite action.
+4. Add the following YAML to the file to define your composite action:
 
     ```yaml
     name: 'Setup Python Environment'
@@ -86,10 +86,10 @@ Let's create a composite action that sets up Python, installs dependencies, and 
 > [!NOTE]
 > Composite action steps must include `shell: bash` for every `run` step — this is required even though it seems redundant. Without it, the workflow will fail with a validation error.
 
-3. Review the key parts of the action:
-    - **Inputs** provide sensible defaults so callers only need to override what's different.
-    - **Outputs** reference the `set-output` step's output, making the database path available to the calling workflow.
-    - Each `run` step explicitly declares `shell: bash` as required by composite actions.
+Review the key parts of the action:
+- **Inputs** provide sensible defaults so callers only need to override what's different.
+- **Outputs** reference the `set-output` step's output, making the database path available to the calling workflow.
+- Each `run` step explicitly declares `shell: bash` as required by composite actions.
 
 ## Use the action in the CI workflow
 
@@ -142,7 +142,7 @@ Now let's update the CI workflow to use the custom action instead of the individ
               DATABASE_PATH: ${{ steps.seed.outputs.database-file }}
     ```
 
-5. Here's the complete updated `run-tests.yml` — use this to verify your work:
+5. Here's the complete updated `run-tests.yml` for reference:
 
     ```yaml
     name: Run Tests
