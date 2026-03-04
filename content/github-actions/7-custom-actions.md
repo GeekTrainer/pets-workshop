@@ -56,7 +56,7 @@ Let's create a composite action that sets up Python, installs dependencies, and 
     outputs:
       database-file:
         description: 'Path to the seeded database file'
-        value: ${{ steps.seed.outputs.database-file }}
+        value: ${{ steps.set-output.outputs.database-file }}
 
     runs:
       using: 'composite'
@@ -88,7 +88,7 @@ Let's create a composite action that sets up Python, installs dependencies, and 
 
 3. Review the key parts of the action:
     - **Inputs** provide sensible defaults so callers only need to override what's different.
-    - **Outputs** reference the `seed` step's output, making the database path available to the calling workflow.
+    - **Outputs** reference the `set-output` step's output, making the database path available to the calling workflow.
     - Each `run` step explicitly declares `shell: bash` as required by composite actions.
 
 ## Use the action in the CI workflow

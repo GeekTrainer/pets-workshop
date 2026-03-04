@@ -1,42 +1,28 @@
-# Required Workflows, Protection & Wrap-Up
+# Rulesets, Required Workflows & Wrap-Up
 
 | [← Reusable Workflows][walkthrough-previous] | [Next: GitHub Actions section overview →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
-Building a CI/CD pipeline is only half the battle — you also need to enforce it. Branch protection rules ensure that code can't be merged without passing checks. Required workflows go further, allowing organizations to mandate specific workflows across all repositories. In this final exercise, you'll configure branch protection, explore required workflows and rulesets, and add manual deployment triggers.
+Building a CI/CD pipeline is only half the battle — you also need to enforce it. Repository rulesets ensure that code can't be merged without passing checks and getting reviewed. Required workflows go further, allowing organizations to mandate specific workflows across all repositories. In this final exercise, you'll configure a ruleset on `main`, explore required workflows, and wrap up the workshop.
 
 ## Scenario
 
-The shelter's CI/CD pipeline is comprehensive, but nothing currently prevents someone from merging code without passing CI — meaning untested code could reach `main` and trigger a deployment. The organization also wants to ensure all repositories run security scanning. Let's lock things down with branch protection and explore how required workflows enforce standards at scale.
+The shelter's CI/CD pipeline is comprehensive, but nothing currently prevents someone from merging code without passing CI — meaning untested code could reach `main` and trigger a deployment. The organization also wants to ensure all repositories run security scanning. Let's lock things down with rulesets and explore how required workflows enforce standards at scale.
 
 ## Background
 
-GitHub provides two mechanisms for enforcing rules on branches: **branch protection rules** and **repository rulesets**. Both can prevent code from being merged without meeting criteria you define, but they work differently.
-
-### Branch protection rules
-
-[Branch protection rules][about-protected-branches] are the original way to protect important branches. You configure them per-branch (e.g. `main`) to enforce requirements like:
-
-- **Required status checks** — CI must pass before merging.
-- **Required pull request reviews** — a minimum number of approvals before merging.
-- **Restrict who can push** — limit direct pushes to specific people or teams.
-
-Branch protection rules are available on all GitHub plans (including Free for public repos) and are configured at **Settings > Branches** in each repository.
-
 ### Repository rulesets
 
-[Rulesets][about-rulesets] are the newer, more flexible approach. They offer several advantages over branch protection rules:
+[Rulesets][about-rulesets] are GitHub's recommended approach for enforcing rules on branches and tags. They offer flexibility and visibility that legacy branch protection rules don't:
 
-| | Branch Protection Rules | Repository Rulesets |
-|---|---|---|
-| **Layering** | One rule per branch pattern | Multiple rulesets can apply to the same branch; the most restrictive rule wins |
-| **Status management** | Delete to disable | Toggle between **Active** and **Disabled** without losing configuration |
-| **Visibility** | Only admins can view | Anyone with read access can see active rulesets |
-| **Scope** | Repository-level only | Repository-level or organization-wide (GitHub Enterprise) |
-| **Bypass permissions** | Limited | Granular bypass for specific roles, teams, or GitHub Apps |
-| **Required workflows** | Not supported | Can require specific workflows to pass before merging |
+- **Layering** — Multiple rulesets can apply to the same branch; the most restrictive rule wins.
+- **Status management** — Toggle between **Active** and **Disabled** without losing configuration.
+- **Visibility** — Anyone with read access can see active rulesets (not just admins).
+- **Bypass permissions** — Granular bypass for specific roles, teams, or GitHub Apps.
+- **Scope** — Repository-level or organization-wide (on GitHub Enterprise).
+- **Required workflows** — Rulesets can require specific workflows to pass before merging.
 
-Rulesets and branch protection rules can coexist — when both apply to the same branch, their rules are aggregated and the most restrictive version of each rule applies.
+Rulesets are available on all GitHub plans for public repositories, and on GitHub Pro, Team, and Enterprise plans for private repositories.
 
 ### Required workflows
 
@@ -46,53 +32,65 @@ One of the most powerful ruleset features is the ability to **require specific w
 2. An organization-wide ruleset requires that workflow for all (or a subset of) repositories.
 3. Every PR across those repositories now runs the required workflow automatically — individual repository owners can't skip it.
 
-Common use cases include security scanning, license compliance, and code quality checks. Required workflows via rulesets replaced the earlier "Actions Required Workflows" feature, which was deprecated in October 2023.
+Common use cases include security scanning, license compliance, and code quality checks.
 
-## Configure branch protection
+## Create a ruleset for `main`
 
-Branch protection rules prevent code from being merged into important branches without meeting specific criteria.
+Let's create a ruleset that requires CI to pass and pull requests to be reviewed before merging to `main`.
 
 1. Navigate to your repository on GitHub.
-2. Select **Settings** > **Branches** (under **Code and automation** in the sidebar).
-3. Select **Add branch protection rule** (or **Add rule** if using rulesets).
-4. Under **Branch name pattern**, enter `main`.
-5. Enable **Require status checks to pass before merging**.
-    - Select **Require branches to be up to date before merging**.
-    - In the search box, search for and select your CI workflow status check names (for example, `test-api` and `build-client`).
-6. Optionally enable **Require a pull request before merging** to ensure peer review.
-7. Select **Create** (or **Save changes**) to apply the rule.
+2. Select **Settings**, then in the left sidebar under **Code and automation**, expand **Rules** and select **Rulesets**.
+3. Select **New ruleset** > **New branch ruleset**.
+4. Under **Ruleset name**, enter `main-gate`.
+5. Set the **Enforcement status** to **Active**.
+6. Under **Target branches**, select **Add target** > **Include default branch**. This targets `main`.
+7. Under **Branch rules**, enable the following rules:
+
+    | Rule | Configuration |
+    |------|--------------|
+    | **Require a pull request before merging** | Set **Required approvals** to `1` |
+    | **Require status checks to pass** | Check **Require branches to be up to date before merging**, then add `tests-passed` as a required check |
+    | **Block force pushes** | *(enabled by default)* |
+
+8. Select **Create** to save the ruleset.
 
 > [!TIP]
-> If your status checks don't appear in the search, make sure the CI workflow has run at least once on the repository. GitHub only shows status checks that have been reported previously.
+> The `tests-passed` check is a **summary job** in the CI workflow that aggregates results from all matrix and test jobs into a single status check. This is a best practice — matrix jobs report with dynamic names like `test-api (3.12)`, which change if you modify the matrix. A summary job provides one stable check name for rulesets to reference.
 
-## Test the protection
-
-Let's verify that branch protection is working as expected.
-
-1. Return to your codespace and open the terminal (<kbd>Ctl</kbd>+<kbd>`</kbd> to toggle). Create a new branch and make a small change (for example, update a comment in `server/app.py`):
-
-    ```bash
-    git checkout -b test-protection
-    echo "# test change" >> server/app.py
-    git add server/app.py
-    git commit -m "Test branch protection"
-    git push -u origin test-protection
-    ```
-
-2. Navigate to your repository on GitHub and create a pull request from `test-protection` to `main`.
-3. Observe that the **Merge pull request** button is disabled and a message indicates that required status checks must pass.
-4. Watch the CI workflow run. Once all required checks pass, the merge button becomes enabled.
-5. You can merge or close the pull request — the important thing is that the protection is working!
-
-> [!IMPORTANT]
-> Branch protection ensures that your CI pipeline isn't just a suggestion — it's a requirement. Code cannot reach `main` without passing the checks you've defined.
-
-## Required workflows in practice
-
-As covered in the background section, organization-wide rulesets can mandate that specific workflows run across all repositories. This pairs naturally with the reusable workflows you built in the [previous exercise](8-reusable-workflows.md) — an organization could create a reusable security-scanning workflow in a central `.github` repository, then enforce it via a ruleset so every PR across the organization runs it automatically.
+> [!TIP]
+> If your status checks don't appear when searching, make sure the CI workflow has run at least once on the repository. GitHub only shows status checks that have been reported previously.
 
 > [!NOTE]
-> Organization-wide rulesets with required workflows require a GitHub Enterprise plan. For personal repositories or Free/Team organizations, repository-level branch protection (as configured above) provides similar enforcement.
+> You can start a ruleset in **Disabled** mode to test it before enforcing. This lets you preview which PRs would be blocked without actually blocking anyone.
+
+## Test the ruleset
+
+Let's verify the ruleset is working.
+
+1. Return to your codespace and open the terminal (<kbd>Ctl</kbd>+<kbd>`</kbd> to toggle). Create a new branch and make a small change:
+
+    ```bash
+    git checkout -b test-ruleset
+    echo "# test change" >> server/app.py
+    git add server/app.py
+    git commit -m "Test ruleset enforcement"
+    git push -u origin test-ruleset
+    ```
+
+2. Navigate to your repository on GitHub and create a pull request from `test-ruleset` to `main`.
+3. Observe that the **Merge pull request** button is disabled — the required status checks must pass and the PR needs an approving review.
+4. Watch the CI workflow run. Even after all checks pass, the merge button remains disabled until the review requirement is satisfied.
+5. You can close the pull request — the important thing is that the ruleset is enforced!
+
+> [!IMPORTANT]
+> Rulesets ensure your CI pipeline isn't just a suggestion — it's a requirement. Code cannot reach `main` without passing the checks and reviews you've defined. Since your deploy workflow only triggers on pushes to `main`, this means only validated, reviewed code gets deployed.
+
+## Organizational required workflows
+
+Organization-wide rulesets can mandate that specific workflows run across all repositories. This pairs naturally with the reusable workflows you built in the [previous exercise](8-reusable-workflows.md) — an organization could create a reusable security-scanning workflow in a central `.github` repository, then enforce it via a ruleset so every PR across the organization runs it automatically.
+
+> [!NOTE]
+> Organization-wide rulesets are available on GitHub Team and GitHub Enterprise plans. For personal repositories on the Free plan, repository-level rulesets (as configured above) provide similar enforcement at the repo level.
 
 ## Advanced features to explore
 
@@ -101,6 +99,7 @@ Here are some additional GitHub Actions features you can explore on your own:
 - **Service containers**: Spin up databases, caches, or other services alongside your test jobs. Define them under `services` in a job, and GitHub Actions handles the lifecycle for you.
 - **Job summaries**: Write Markdown to the `$GITHUB_STEP_SUMMARY` environment file to create rich, formatted output that appears on the workflow run summary page.
 - **Self-hosted runners**: Run workflows on your own infrastructure for specialized hardware needs, compliance requirements, or to stay within your network. Useful when you need GPUs, specific OS versions, or access to internal resources.
+- **Larger runners**: GitHub-hosted runners with more CPU and memory (up to 96-core x64 and 64-core ARM), available on Team and Enterprise plans. Swap `runs-on: ubuntu-latest` for a larger runner label when your builds or tests need more compute. See the [larger runners documentation][larger-runners].
 - **`repository_dispatch`**: Trigger workflows from external events via the GitHub API. This is useful for integrating GitHub Actions with external systems like monitoring tools, chatbots, or other CI/CD platforms.
 
 ## Wrap-up and congratulations
@@ -112,7 +111,7 @@ Congratulations! You've built a complete CI/CD pipeline for the pet shelter appl
 - **Custom actions**: Encapsulated Python setup and database seeding into a reusable composite action, eliminating duplication across jobs.
 - **Reusable workflows**: Extracted the deployment pattern into a callable workflow template, shared by both the automated CD pipeline and a manual deploy workflow for rollbacks.
 - **Manual deployment**: Added on-demand deployment capability for rollbacks and hotfixes, using `workflow_dispatch` with a git ref input.
-- **Branch protection**: Enforced quality gates so code can't be merged without passing CI checks — the production safeguard that ensures only validated code gets deployed.
+- **Rulesets**: Enforced quality gates so code can't be merged without passing CI checks and peer review — the production safeguard that ensures only validated code gets deployed.
 
 This pipeline follows the same patterns used by teams across GitHub. As the shelter's application grows, this foundation will scale with it.
 
@@ -127,9 +126,9 @@ If you want to keep exploring, here are some suggested next steps:
 
 ## Resources
 
-- [About protected branches][about-protected-branches]
 - [About rulesets][about-rulesets]
-- [Required workflows][required-workflows]
+- [Creating rulesets for a repository][creating-rulesets]
+- [Available rules for rulesets][available-rules]
 - [The `workflow_dispatch` event][workflow-dispatch]
 - [GitHub Skills: Deploy to Azure][skills-deploy-azure]
 - [GitHub Actions Marketplace][actions-marketplace]
@@ -137,12 +136,13 @@ If you want to keep exploring, here are some suggested next steps:
 | [← Reusable Workflows][walkthrough-previous] | [Next: GitHub Actions section overview →][walkthrough-next] |
 |:-----------------------------------|------------------------------------------:|
 
-[about-protected-branches]: https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
 [about-rulesets]: https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
 [actions-marketplace]: https://github.com/marketplace?type=actions
+[available-rules]: https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets
+[creating-rulesets]: https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository
 [environments-docs]: https://docs.github.com/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment
 [github-security]: https://github.com/features/security
-[required-workflows]: https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets
+[larger-runners]: https://docs.github.com/actions/using-github-hosted-runners/using-larger-runners
 [skills-deploy-azure]: https://github.com/skills/deploy-to-azure
 [workflow-dispatch]: https://docs.github.com/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_dispatch
 [walkthrough-previous]: 8-reusable-workflows.md
