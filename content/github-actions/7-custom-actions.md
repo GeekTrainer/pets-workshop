@@ -9,7 +9,7 @@ In this exercise you'll create a composite action that sets up the Python enviro
 
 ## Scenario
 
-The pet shelter's test workflows need to seed the database before running tests. This involves setting up Python, installing dependencies, and running `seed_test_database.py`. Rather than duplicating these steps in every workflow, we'll create a custom composite action that any workflow can reference in a single step.
+The pet shelter's test workflows need to seed the database before running tests. This involves setting up Python, installing dependencies, and running `seed_database.py`. Rather than duplicating these steps in every workflow, we'll create a custom composite action that any workflow can reference in a single step.
 
 ## Background
 
@@ -72,7 +72,7 @@ Let's create a composite action that sets up Python, installs dependencies, and 
 
         - name: Seed the database
           id: seed
-          run: python server/utils/seed_test_database.py
+          run: python server/utils/seed_database.py
           shell: bash
           env:
             DATABASE_PATH: ${{ inputs.database-path }}

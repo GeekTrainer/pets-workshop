@@ -25,7 +25,7 @@ jobs:
         uses: ./.github/actions/setup-python-env
         with:
           python-version: ${{ matrix.python-version }}
-          database-path: ${{ vars.TEST_DATABASE_PATH }}
+          database-path: ${{ vars.TEST_DATABASE_PATH || './test_dogshelter.db' }}
 
       - name: Run tests
         run: python -m unittest test_app -v
@@ -43,7 +43,7 @@ jobs:
         id: seed
         uses: ./.github/actions/setup-python-env
         with:
-          database-path: ${{ vars.TEST_DATABASE_PATH }}
+          database-path: ${{ vars.TEST_DATABASE_PATH || './test_dogshelter.db' }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

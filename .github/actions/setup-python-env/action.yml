@@ -30,7 +30,7 @@ runs:
 
     - name: Seed the database
       id: seed
-      run: python server/utils/seed_test_database.py
+      run: python server/utils/seed_database.py
       shell: bash
       env:
         DATABASE_PATH: ${{ inputs.database-path }}
